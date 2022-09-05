@@ -23,13 +23,24 @@ import {
     XIcon,
 } from '@heroicons/vue/outline'
 import { SearchIcon } from '@heroicons/vue/solid'
-
-
-
-const sidebarOpen = ref(false)
 export default {
     components: {
-        Tabs
+        Tabs,
+        CalendarIcon,
+        ChartBarIcon,
+        FolderIcon,
+        HomeIcon,
+        InboxIcon,
+        Dialog,
+        DialogPanel,
+        Menu,
+        MenuButton,
+        MenuItem,
+        MenuItems,
+        TransitionChild,
+        TransitionRoot,
+        MenuAlt2Icon,
+        XIcon,
     },
     data() {
         return {
