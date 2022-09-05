@@ -53,7 +53,7 @@ export default {
         }
     },
     created() {
-        vm.getEventPosts();
+        this.getEventPosts();
     }
 }
 </script>
