@@ -361,7 +361,7 @@
                                 <div class="ml-4 text-base font-medium text-gray-900">Events</div>
                             </a>
 
-                            <a href="#" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
+                            <a href="{{route('events.archive')}}" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
                                 <div
                                     class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-500 text-white">
                                     <!-- Heroicon name: outline/shield-check -->
@@ -374,7 +374,7 @@
                                 <div class="ml-4 text-base font-medium text-gray-900">Archiv</div>
                             </a>
 
-                            <a href="#" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
+                            <a href="{{ route('contact') }}" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
                                 <div
                                     class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-500 text-white">
                                     <!-- Heroicon name: outline/view-grid -->
@@ -401,6 +401,7 @@
                         <a href="{{route('about')}}" class="text-base font-medium text-gray-900 hover:text-gray-700"> Über uns
                         </a>
                     </div>
+                    @guest
                     <div class="mt-6">
                         <a href="{{ route('register') }}"
                             class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
@@ -411,6 +412,7 @@
                             </a>
                         </p>
                     </div>
+                    @endguest
                 </div>
             </div>
         </div>
