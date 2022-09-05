@@ -1,7 +1,14 @@
 <script>
+import axios from "axios";
+import LaravelVuePagination from "laravel-vue-pagination";
+import EditEventForm from "./EditEventForm.vue";
+import NewEventForm from "./NewEventForm.vue";
+import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
+import DeleteEventModal from "../Events/DeleteEventModal.vue";
 export default {
+
     components: {
-        'Pagination': LaravelVuePagination,
+        LaravelVuePagination,
         TransitionRoot,
         TransitionChild,
         Dialog,
@@ -9,9 +16,9 @@ export default {
         DialogTitle,
         NewEventForm,
         EditEventForm,
-        DeleteEventModal
+        DeleteEventModal,
     },
-    data() {
+    data(){
         return {
             laravelData: {},
             editEventId: null,
@@ -20,17 +27,21 @@ export default {
             showEvents: true,
             toDeleteId: -1,
             deleteModal: false,
-        };
+        }
     },
     created() {
         this.getResults();
     },
     methods: {
         getResults(page = 1) {
+            console.log('getResults');
             let vm = this;
             axios.get('/admin/api/events?page=' + page)
                 .then(response => {
                     vm.laravelData = response.data;
+                }).
+                catch(error => {
+                    console.log(error);
                 });
         },
         setEditID(id) {
@@ -56,16 +67,6 @@ export default {
 };
 </script>
 
-<script setup>
-import axios from "axios";
-import LaravelVuePagination from "laravel-vue-pagination";
-import EditEventForm from "./EditEventForm.vue";
-import NewEventForm from "./NewEventForm.vue";
-import { ref } from 'vue';
-import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
-import DeleteEventModal from "../Events/DeleteEventModal.vue";
-
-</script>
 
 <template>
     <div v-if="showEvents" :key="showEvents">
@@ -112,7 +113,7 @@ import DeleteEventModal from "../Events/DeleteEventModal.vue";
                                         </th>
                                         <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6 lg:pr-8">
                                             <span class="sr-only">Bearbeiten</span>
-                                            <Pagination :data="laravelData" @pagination-change-page="
+                                            <LaravelVuePagination :data="laravelData" @pagination-change-page="
                                                 getResults
                                             " />
                                         </th>
@@ -177,5 +178,5 @@ import DeleteEventModal from "../Events/DeleteEventModal.vue";
         <EditEventForm @close_edit="closeEdit" :event_id="editEventId"></EditEventForm>
     </div>
 
-    <DeleteEventModal :show="deleteModal" :event_id="toDeleteId" @close="deleteModal=false;toDeleteId=-1" @deleted="deleteModal=false;toDeleteId=-1;getResults"></DeleteEventModal>
+    <DeleteEventModal :show="deleteModal" :event_id="toDeleteId" @close="deleteModal=false;toDeleteId=-1" @deleted="deleteModal=false;toDeleteId=-1;getResults()"></DeleteEventModal>
 </template>

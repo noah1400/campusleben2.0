@@ -1,4 +1,6 @@
 <script>
+    import axios from 'axios';
+import LaravelVuePagination from 'laravel-vue-pagination';
 export default {
     components: {
         'Pagination': LaravelVuePagination,
@@ -96,7 +98,3 @@ export default {
     </div>
 </template>
 
-<script setup>
-import axios from 'axios';
-import LaravelVuePagination from 'laravel-vue-pagination';
-</script>

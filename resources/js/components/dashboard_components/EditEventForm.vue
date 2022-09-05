@@ -1,9 +1,14 @@
 <script>
+import { Switch } from '@headlessui/vue';
+import NewEventErrorNotif from './NewEventErrorNotif.vue';
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+import { ref } from 'vue';
 export default {
     components: {
-        DatePicker,
         Switch,
         NewEventErrorNotif,
+        Datepicker,
     },
     props: {
         event_id: {
@@ -63,40 +68,33 @@ export default {
             console.log(this.previewImageSrc);
         },
     },
-    data() {
-        return {
-            event: [],
-            loader: false,
-            hasLimit: false,
-            error: false,
-            error_messages: [],
-            previewImageSrc: '',
-            previewImage: false,
+    data(){
+            return {
+                event: ref([]),
+                loader: ref(false),
+                hasLimit: ref(false),
+                error: ref(false),
+                error_messages: [],
+                previewImageSrc: ref(''),
+                previewImage: ref(false),
 
-            event_name: '',
-            event_description: '',
-            event_location: '',
-            event_start_date: '',
-            event_end_date: '',
-            event_pre_regist: false,
-            event_closed: false,
-            event_limit: 0,
-            event_preview_image: '',
-            event_public: false,
-        };
-    },
+                event_name: ref(''),
+                event_description: ref(''),
+                event_location: ref(''),
+                event_start_date: ref(''),
+                event_end_date: ref(''),
+                event_pre_regist: ref(false),
+                event_closed: ref(false),
+                event_limit: ref(0),
+                event_preview_image: ref(''),
+                event_public: ref(false),
+            };
+        },
     created() {
         this.getEvent();
     },
 
 }
-</script>
-
-<script setup>
-import DatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css';
-import { Switch } from '@headlessui/vue';
-import NewEventErrorNotif from './NewEventErrorNotif.vue';
 </script>
 
 <template>
@@ -115,7 +113,7 @@ import NewEventErrorNotif from './NewEventErrorNotif.vue';
                             Name</label>
                         <div class="mt-1 sm:col-span-2 sm:mt-0">
                             <div class="flex max-w-lg rounded-md shadow-sm">
-                                <input v-model="event_name" type="text" name="name" id="name" autocomplete="name"
+                                <input :value="event_name" type="text" name="name" id="name" autocomplete="name"
                                     class="block w-full min-w-0 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
                             </div>
                         </div>
@@ -139,7 +137,8 @@ import NewEventErrorNotif from './NewEventErrorNotif.vue';
                             class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Standort</label>
                         <div class="mt-1 sm:col-span-2 sm:mt-0">
                             <div class="flex max-w-lg rounded-md shadow-sm">
-                                <input v-model="event_location" type="text" name="location" id="location" autocomplete="location"
+                                <input v-model="event_location" type="text" name="location" id="location"
+                                    autocomplete="location"
                                     class="block w-full min-w-0 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
                             </div>
 
@@ -162,7 +161,8 @@ import NewEventErrorNotif from './NewEventErrorNotif.vue';
                                 <img v-if="!previewImage && event_preview_image"
                                     class="absolute z-0 left-0 top-0 right-0 bottom-0 w-full h-full "
                                     :src="'/storage/'+event_preview_image" />
-                                <div v-if="event_preview_image" class="absolute z-10 inset-0 bg-gray-300 opacity-50"></div>
+                                <div v-if="event_preview_image" class="absolute z-10 inset-0 bg-gray-300 opacity-50">
+                                </div>
                                 <div class="space-y-1 text-center z-10">
                                     <svg class="mx-auto h-12 w-12 text-gray-300" stroke="currentColor" fill="none"
                                         viewBox="0 0 48 48" aria-hidden="true">
@@ -192,8 +192,8 @@ import NewEventErrorNotif from './NewEventErrorNotif.vue';
                             Datum</label>
                         <div class="mt-1 sm:col-span-2 sm:mt-0">
                             <div class="flex max-w-lg rounded-md shadow-sm">
-                                <DatePicker v-model="event_start_date" :format="'dd.MM.yyyy'" language="de" name="start_date"
-                                    id="start_date"
+                                <Datepicker v-model="event_start_date" :format="'dd.MM.yyyy'" language="de"
+                                    name="start_date" id="start_date"
                                     class="block w-full min-w-0 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
                             </div>
 
@@ -208,7 +208,8 @@ import NewEventErrorNotif from './NewEventErrorNotif.vue';
                             Datum</label>
                         <div class="mt-1 sm:col-span-2 sm:mt-0">
                             <div class="flex max-w-lg rounded-md shadow-sm">
-                                <DatePicker v-model="event_end_date" :format="'dd.MM.yyyy'" name="end_date" id="end_date"
+                                <Datepicker v-model="event_end_date" :format="'dd.MM.yyyy'" name="end_date"
+                                    id="end_date"
                                     class="block w-full min-w-0 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
                             </div>
 
@@ -223,7 +224,8 @@ import NewEventErrorNotif from './NewEventErrorNotif.vue';
                             Voranmeldung aktivieren?</label>
                         <div class="mt-1 sm:col-span-2 sm:mt-0">
                             <div class="flex max-w-lg">
-                                <Switch name="pre_registration_enabled" id="pre_registration_enabled" v-model="event_pre_regist"
+                                <Switch name="pre_registration_enabled" id="pre_registration_enabled"
+                                    v-model="event_pre_regist"
                                     :class="[event_pre_regist ? 'bg-indigo-600' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2']">
                                     <span class="sr-only">Voranmeldung aktivieren</span>
                                     <span aria-hidden="true"
@@ -238,7 +240,8 @@ import NewEventErrorNotif from './NewEventErrorNotif.vue';
                             class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Teilnehmer</label>
                         <div class="mt-1 sm:col-span-2 sm:mt-0">
                             <div class="flex max-w-lg rounded-md shadow-sm">
-                                <input :disabled="!event_pre_regist" v-model="event_limit" type="text" name="limit" id="limit"
+                                <input :disabled="!event_pre_regist" v-model="event_limit" type="text" name="limit"
+                                    id="limit"
                                     class="block w-full min-w-0 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
                             </div>
 

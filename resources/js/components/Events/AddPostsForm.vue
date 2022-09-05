@@ -1,4 +1,6 @@
 <script>
+import { PlusCircleIcon } from '@heroicons/vue/outline';
+import EditPostModal from './EditPostModal.vue';
 export default {
     components: {
         EditPostModal,
@@ -151,11 +153,7 @@ export default {
         },
     }
 }
-</script>
 
-<script setup>
-import { PlusCircleIcon } from '@heroicons/vue/outline';
-import EditPostModal from './EditPostModal.vue';
 </script>
 
 <template>

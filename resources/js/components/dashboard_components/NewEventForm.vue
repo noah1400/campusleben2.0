@@ -1,25 +1,31 @@
 <script>
+import NewEventErrorNotif from './NewEventErrorNotif.vue';
+import AddPostsForm from '../Events/AddPostsForm.vue';
+import Datepicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
+import { Switch } from '@headlessui/vue'
+import { ref } from 'vue'
 export default {
     components: {
-        DatePicker,
-        Switch,
         NewEventErrorNotif,
         AddPostsForm,
+        Datepicker,
+        Switch,
     },
     emits: ['close_create'],
-    data() {
+    data(){
         return {
-            loader: false,
-            previewImage: false,
-            previewImageSrc: '',
-            start_date: '',
-            end_date: '',
-            format: 'dd.MM.yyyy',
-            limit: false,
-            public_event: false,
-            error_messages: [],
-            error: false,
-        }
+        loader: false,
+        previewImage: false,
+        previewImageSrc: '',
+        format: 'dd.MM.yyyy',
+        error_messages: [],
+        error: false,
+        start_date: ref(new Date()),
+        end_date: ref(new Date()),
+        limit: ref(false),
+        public_event: ref(false),
+        };
     },
     methods: {
 
@@ -62,14 +68,6 @@ export default {
         },
     }
 }
-</script>
-
-<script setup>
-import DatePicker from '@vuepic/vue-datepicker';
-import '@vuepic/vue-datepicker/dist/main.css';
-import { Switch } from '@headlessui/vue';
-import NewEventErrorNotif from './NewEventErrorNotif.vue';
-import AddPostsForm from '../Events/AddPostsForm.vue';
 </script>
 
 
@@ -165,7 +163,7 @@ import AddPostsForm from '../Events/AddPostsForm.vue';
                             Datum</label>
                         <div class="mt-1 sm:col-span-2 sm:mt-0">
                             <div class="flex max-w-lg rounded-md shadow-sm">
-                                <DatePicker  v-model="start_date" :format="format" language="de" name="start_date"
+                                <Datepicker v-model="start_date" :format="format" :locale="de" name="start_date"
                                     id="start_date"
                                     class="block w-full min-w-0 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
                             </div>
@@ -181,7 +179,8 @@ import AddPostsForm from '../Events/AddPostsForm.vue';
                             Datum</label>
                         <div class="mt-1 sm:col-span-2 sm:mt-0">
                             <div class="flex max-w-lg rounded-md shadow-sm">
-                                <DatePicker v-model="end_date" :format="format" name="end_date" id="end_date"
+                                <Datepicker v-model="end_date" :format="format" :locale="de" name="end_date"
+                                    id="end_date"
                                     class="block w-full min-w-0 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
                             </div>
 

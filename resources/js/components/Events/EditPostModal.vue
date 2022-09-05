@@ -1,4 +1,9 @@
 <script>
+      import { ref } from 'vue'
+  import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
+  import { CheckIcon } from "@vue-hero-icons/outline"
+
+  const open = ref(true)
 export default {
     components: {
         TransitionRoot,
@@ -49,11 +54,3 @@ export default {
   </div>
 </div>
 </template>
-
-  <script setup>
-  import { ref } from 'vue'
-  import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
-  import { CheckIcon } from "@vue-hero-icons/outline"
-
-  const open = ref(true)
-  </script>

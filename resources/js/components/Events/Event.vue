@@ -1,4 +1,11 @@
 <script>
+import {
+Tab,
+TabGroup,
+TabList,
+TabPanel,
+TabPanels,
+} from '@headlessui/vue';
 export default {
     components: {
         Tab,
@@ -49,16 +56,6 @@ export default {
         vm.getEventPosts();
     }
 }
-</script>
-
-<script setup>
-import {
-    Tab,
-    TabGroup,
-    TabList,
-    TabPanel,
-    TabPanels,
-} from '@headlessui/vue';
 </script>
 
 

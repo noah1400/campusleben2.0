@@ -123,6 +123,3 @@ Route::post('/admin/events/close/{id}', [App\Http\Controllers\AdminController::c
 Route::post('/admin/events/open/{id}', [App\Http\Controllers\AdminController::class, 'openEvent'])
             ->name('admin.events.open')
             ->middleware(['auth', 'isAdmin']);
-Route::get('/admin/events/{id}', [App\Http\Controllers\AdminController::class, 'showEvent'])
-            ->name('admin.events.show')
-            ->middleware(['auth', 'isAdmin']);
