@@ -14,45 +14,46 @@ export default {
     emits: ['close_edit'],
     methods: {
         getEvent() {
-            axios.get('/admin/api/event/' + this.event_id)
+            let vm = this;
+            axios.get('/admin/api/event/' + vm.event_id)
                 .then(response => {
-                    this.event = response.data;
+                    vm.event = response.data;
 
-                    this.event_name = this.event.name;
-                    this.event_description = this.event.description;
-                    this.event_location = this.event.location;
-                    this.event_start_date = this.event.start_date;
-                    this.event_end_date = this.event.end_date;
-                    this.event_pre_regist = (this.event.pre_registration_enabled == 1) ? true : false;
-                    this.event_closed = (this.event.closed == 1) ? true : false;
-                    this.event_limit = this.event.limit;
-                    this.event_preview_image = this.event.preview_image;
-                    this.event_public = (this.event.public == 1) ? true : false;
-                    this.previewImageSrc = this.event.preview_image;
+                    vm.event_name = vm.event.name;
+                    vm.event_description = vm.event.description;
+                    vm.event_location = vm.event.location;
+                    vm.event_start_date = vm.event.start_date;
+                    vm.event_end_date = vm.event.end_date;
+                    vm.event_pre_regist = (vm.event.pre_registration_enabled == 1) ? true : false;
+                    vm.event_closed = (vm.event.closed == 1) ? true : false;
+                    vm.event_limit = vm.event.limit;
+                    vm.event_preview_image = vm.event.preview_image;
+                    vm.event_public = (vm.event.public == 1) ? true : false;
+                    vm.previewImageSrc = vm.event.preview_image;
                 });
         },
         submitEdit() {
             let formData = new FormData(document.getElementById("eventForm"));
-
+            let vm = this;
             this.loader = true;
-            axios.post('/admin/events/update/' + this.event_id, formData, {
+            axios.post('/admin/events/update/' + vm.event_id, formData, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
                 })
                 .then(response => {
-                    this.loader = false;
-                    this.$emit('close_edit');
+                    vm.loader = false;
+                    vm.$emit('close_edit');
 
                 }).catch(error => {
                     let errors = error.response.data.errors;
-                    this.error_messages = [];
+                    vm.error_messages = [];
                     for (let pair of Object.entries(errors)) {
                         console.log(pair[0] + ", " + pair[1]);
-                        this.error_messages.push(pair[1]);
+                        vm.error_messages.push(pair[1]);
                     }
-                    this.loader = false;
-                    this.error = true;
+                    vm.loader = false;
+                    vm.error = true;
                     window.scrollTo(0, 0);
                 });
         },

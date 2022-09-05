@@ -17,9 +17,10 @@
         methods: {
             deleteEvent() {
                 let url = '/admin/events/delete/' + this.event_id;
+                let vm = this;
                 axios.delete(url).then(response => {
                     console.log("Event deleted: url: " + url);
-                    this.$emit('deleted');
+                    vm.$emit('deleted');
                 })
                 .catch(error => {
                     console.error("Error deleting event: " + error + " url: " + url);

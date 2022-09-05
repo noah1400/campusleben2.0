@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
-import  path from "path";
+import path from "path";
 
 export default defineConfig({
     plugins: [
@@ -23,9 +23,14 @@ export default defineConfig({
         }),
     ],
     resolve: {
-        alias: {
+        // alias: {
+        //     vue: 'vue/dist/vue.esm-bundler.js',
+        //     '~alpine': path.resolve(__dirname, 'node_modules/alpinejs'),
+        // },
+        alias:
+        {
             vue: 'vue/dist/vue.esm-bundler.js',
-            '~alpine':path.resolve(__dirname,'node_modules/alpinejs'),
+            '~alpine': path.resolve(__dirname, 'node_modules/alpinejs'),
         },
     },
 });

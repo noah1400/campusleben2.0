@@ -20,8 +20,11 @@ const app = createApp({});
 
 import LaravelVuePagination from 'laravel-vue-pagination';
 import DatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css';
+import { Switch } from '@headlessui/vue';
 app.component('Pagination', LaravelVuePagination);
 app.component('DatePicker', DatePicker);
+app.component('Switch', Switch);
 // app.component('example-component', ExampleComponent);
 // app.component('events-list', EventComponent);
 // app.component('dashboard-layout', dashboardLayout);

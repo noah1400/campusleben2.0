@@ -15,9 +15,13 @@ export default {
 
     methods: {
         getResults(page = 1) {
+            let vm = this;
             axios.get('/admin/api/users?page=' + page)
                 .then(response => {
-                    this.laravelData = response.data;
+                    vm.laravelData = response.data;
+                }).
+                catch(error => {
+                    console.log(error);
                 });
 
         },

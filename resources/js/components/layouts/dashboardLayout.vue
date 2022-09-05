@@ -67,14 +67,6 @@ import {
 import { SearchIcon } from '@heroicons/vue/solid'
 
 
-const navigation = [
-    { id: 0, name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-    { id: 1, name: 'Users', href: '#', icon: UsersIcon, current: false },
-    { id: 2, name: 'Projects', href: '#', icon: FolderIcon, current: false },
-    { id: 3, name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
-    { id: 4, name: 'Documents', href: '#', icon: InboxIcon, current: false },
-    { id: 5, name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
-]
 
 const sidebarOpen = ref(false)
 

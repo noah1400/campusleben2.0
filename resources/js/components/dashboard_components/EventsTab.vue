@@ -1,7 +1,7 @@
 <script>
 export default {
     components: {
-        Pagination: LaravelVuePagination,
+        'Pagination': LaravelVuePagination,
         TransitionRoot,
         TransitionChild,
         Dialog,
@@ -19,6 +19,7 @@ export default {
             editEvent: false,
             showEvents: true,
             toDeleteId: -1,
+            deleteModal: false,
         };
     },
     created() {
@@ -26,9 +27,10 @@ export default {
     },
     methods: {
         getResults(page = 1) {
+            let vm = this;
             axios.get('/admin/api/events?page=' + page)
                 .then(response => {
-                    this.laravelData = response.data;
+                    vm.laravelData = response.data;
                 });
         },
         setEditID(id) {
@@ -63,7 +65,6 @@ import { ref } from 'vue';
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import DeleteEventModal from "../Events/DeleteEventModal.vue";
 
-const deleteModal = ref(false);
 </script>
 
 <template>
@@ -118,7 +119,7 @@ const deleteModal = ref(false);
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200 bg-white">
-                                    <tr v-for="event in this.laravelData.data" :key="event.id">
+                                    <tr v-for="event in laravelData.data" :key="event.id">
                                         <td
                                             class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
                                             {{ event.name }}
@@ -176,5 +177,5 @@ const deleteModal = ref(false);
         <EditEventForm @close_edit="closeEdit" :event_id="editEventId"></EditEventForm>
     </div>
 
-    <DeleteEventModal :show="deleteModal" :event_id="toDeleteId" @close="deleteModal=false;toDeleteId=-1" @deleted="deleteModal=false;toDeleteId=-1;getResults()"></DeleteEventModal>
+    <DeleteEventModal :show="deleteModal" :event_id="toDeleteId" @close="deleteModal=false;toDeleteId=-1" @deleted="deleteModal=false;toDeleteId=-1;getResults"></DeleteEventModal>
 </template>

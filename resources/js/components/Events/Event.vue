@@ -22,17 +22,17 @@ export default {
     methods: {
         getEventPosts() {
             let url = '/api/posts/' + this.event.id;
-
+            let vm = this;
             axios.get(url).then(response => {
                 let res = response.data;
                 var cover = {
                     id: 0,
-                    title: this.event.name,
-                    src: '/storage/' + this.event.preview_image,
-                    alt: this.event.name,
+                    title: vm.event.name,
+                    src: '/storage/' + vm.event.preview_image,
+                    alt: vm.event.name,
                 }
-                this.selected_post = cover;
-                this.posts.push(cover);
+                vm.selected_post = cover;
+                vm.posts.push(cover);
                 for (let i = 0; i < res.length; i++) {
                     var post = {
                         id: res[i].id + 1,
@@ -40,13 +40,13 @@ export default {
                         src: '/storage/'+res[i].picture,
                         alt: res[i].subtitle,
                     }
-                    this.posts.push(post);
+                    vm.posts.push(post);
                 }
             });
         }
     },
     created() {
-        this.getEventPosts();
+        vm.getEventPosts();
     }
 }
 </script>

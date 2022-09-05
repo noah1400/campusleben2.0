@@ -32,6 +32,7 @@ export default {
             }
 
             this.loader = true;
+            let vm = this;
             axios
                 .post("/admin/api/events/create", formData, {
                     headers: {
@@ -39,19 +40,19 @@ export default {
                     },
                 })
                 .then((response) => {
-                    this.loader = false;
-                    this.$refs.eventForm.reset();
-                    this.$emit('close_create');
+                    vm.loader = false;
+                    vm.$refs.eventForm.reset();
+                    vm.$emit('close_create');
                 })
                 .catch((error) => {
                     let errors = error.response.data.errors;
-                    this.error_messages = [];
+                    vm.error_messages = [];
                     for (let pair of Object.entries(errors)) {
                         console.log(pair[0] + ", " + pair[1]);
-                        this.error_messages.push(pair[1]);
+                        vm.error_messages.push(pair[1]);
                     }
-                    this.loader = false;
-                    this.error = true;
+                    vm.loader = false;
+                    vm.error = true;
                     window.scrollTo(0, 0);
                 });
         },
@@ -74,6 +75,7 @@ import AddPostsForm from '../Events/AddPostsForm.vue';
 
 
 <template>
+    <!-- asd -->
     <form ref="eventForm" id="eventForm" class="space-y-8 divide-y divide-gray-200 mt-5">
 
         <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
@@ -163,7 +165,7 @@ import AddPostsForm from '../Events/AddPostsForm.vue';
                             Datum</label>
                         <div class="mt-1 sm:col-span-2 sm:mt-0">
                             <div class="flex max-w-lg rounded-md shadow-sm">
-                                <DatePicker v-model="start_date" :format="format" language="de" name="start_date"
+                                <DatePicker  v-model="start_date" :format="format" language="de" name="start_date"
                                     id="start_date"
                                     class="block w-full min-w-0 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
                             </div>

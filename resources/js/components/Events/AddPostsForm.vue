@@ -104,6 +104,7 @@ export default {
             }
         },
         savePosts(){
+            let vm = this;
             this.loader = true;
             for (let i = 0; i < this.upload_files.length; i++) {
                 let url = '/api/posts/newpost';
@@ -115,8 +116,8 @@ export default {
                 })
                 .catch(error => {
                     console.log(error.response.data);
-                    this.old_posts.push(this.upload_files[i]);
-                    this.new_posts = this.new_posts.filter(p => p.id != this.upload_files[i].id);
+                    vm.old_posts.push(vm.upload_files[i]);
+                    vm.new_posts = vm.new_posts.filter(p => p.id != vm.upload_files[i].id);
                 });
             }
             this.upload_files = [];
