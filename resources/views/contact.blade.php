@@ -30,6 +30,15 @@
                 <h2>Discord</h2>
                 <iframe src="https://discord.com/widget?id=953312705513680967&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
             </div>
+            <div class="mt-6 prose prose-indigo prose-lg text-gray-500 mx-auto">
+
+                <p class="text-xl text-gray-500 leading-8">
+                    <strong>Fehler melden:</strong><br>
+                    Du hast einen Fehler oder eine Sicherheitslücke auf unserer Website entdeckt?<br>
+                    Dann melde dich bitte bei uns entweder per E-Mail, Instagram, Discord oder melde den Fehler direkt bei
+                    <a href="https://github.com/noah1400/campusleben2.0"> GitHub</a>.
+            </p>
+            </div>
         </div>
     </div>
 @endsection
