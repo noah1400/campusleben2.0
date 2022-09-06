@@ -24,6 +24,9 @@ export default {
         return {
             posts: [],
             selected_post: {id: 0, name: '', src: '', alt: '', title: ''},
+            pre_registration_count: 0,
+            auth: false,
+            attending: false,
         };
     },
     methods: {
@@ -50,10 +53,51 @@ export default {
                     vm.posts.push(post);
                 }
             });
-        }
+        },
+        getRegistrationCount(){
+            let url = '/api/event/user/count/' + this.event.id;
+            let vm = this;
+            axios.get(url).then(response => {
+                let res = response.data;
+                vm.pre_registration_count = res.count;
+            });
+        },
+        isAuth(){
+            // if pre-registration is disabled, checking auth is unnecessary
+            if(this.event.pre_registration_enabled==1){
+                let url = '/api/user/isauthenticated';
+                let vm = this;
+                axios.get(url).then(response => {
+                    let res = response.data;
+                    vm.auth = res.auth;
+                });
+            }
+        },
+        isAttending(){
+            if(this.event.pre_registration_enabled==1){
+                let url = '/api/event/user/attending/' + this.event.id;
+                let vm = this;
+                axios.get(url).then(response => {
+                    let res = response.data;
+                    vm.attending = res.attending;
+                });
+            }
+        },
+        attend() {
+            let url = '/api/user/attend/' + this.event.id;
+            let vm = this;
+            axios.post(url).then(response => {
+                let res = response.data;
+                vm.attending = res.attending;
+                vm.pre_registration_count = res.count;
+            });
+        },
     },
     created() {
         this.getEventPosts();
+        this.getRegistrationCount();
+        this.isAuth();
+        this.isAttending();
     }
 }
 </script>
@@ -62,7 +106,7 @@ export default {
 <template>
     <div class="bg-white">
         <div v-if="event.public==0 || event.public==false" class="text-center bg-red-500 text-white py-2">
-            <p class="text-sm">Dieses Event is nicht öffentlich.</p>
+            <p class="text-sm">Dieses Event ist nicht öffentlich.</p>
         </div>
         <div class="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
             <div class="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
@@ -108,7 +152,23 @@ export default {
                         </div>
                     </div>
 
-
+                    <div v-if="event.pre_registration_enabled==1" class="mt-5 box-border border-solid border-stone-100 border border-spacing-5 p-4">
+                        {{ pre_registration_count }} von {{ (event.limit==0)?"unbegrenzten":event.limit }} Plätzen belegt
+                        <div v-if="auth" class="mt-2">
+                            <button v-if="!attending" @click="attend" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Jetzt anmelden
+                            </button>
+                            <button v-if="attending" @click="attend" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-50">
+                                Abmelden
+                            </button>
+                        </div>
+                        <div v-if="!auth" class="mt-4">
+                            Um sich für dieses Event anzumelden, müssen Sie sich zuerst einloggen.
+                            <a href="/login" class="mt-1 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Jetzt einloggen
+                            </a>
+                        </div>
+                    </div>
 
 
                 </div>

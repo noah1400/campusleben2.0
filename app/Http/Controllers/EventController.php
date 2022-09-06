@@ -41,82 +41,7 @@ class EventController extends Controller
 
 
 
-    public function edit($id){
-        $event = Event::findOrFail($id);
-        return view('events.edit', compact('event'));
-    }
 
-    public function update(Request $request, $id){
-        $this->validate($request, [
-            'name' => 'required',
-            'description' => 'required',
-            'location' => 'required',
-            'start_date' => ['required','date','date_format:d.m.Y'],
-            'end_date' => ['required','date','date_format:d.m.Y','after_or_equal:start_date'],
-            'preview_image' => 'image|nullable|max:1999',
-            'limit' => 'required|integer',
-        ]);
-        $event = Event::findOrFail($id);
-        $event->name = $request->name;
-        $event->description = $request->description;
-        $event->location = $request->location;
-        $event->start_date = Carbon::createFromFormat('d.m.Y', $request->start_date);
-        $event->end_date = Carbon::createFromFormat('d.m.Y', $request->end_date);
-        if($request->has('pre_registration_enabled')){
-            $event->pre_registration_enabled = true;
-            if($request->has('team_registration_enabled')){
-                $event->team_registration_enabled = true;
-            }else{
-                $event->team_registration_enabled = false;
-            }
-        }else{
-            $event->pre_registration_enabled = false;
-            $event->team_registration_enabled = false;
-        }
-        if($request->has('limit')){
-            if($request->limit > 0){
-                $event->limit = $request->limit;
-            }else{
-                $event->limit = 0;
-            }
-        }
-
-        if (request()->hasFile('preview_image')) {
-            $imageURL = request()->file('preview_image')->store('public/events');
-
-            $parameters['image_url'] = substr($imageURL, 7);
-
-            Image::configure(array('driver' => 'gd'));
-
-            Image::make(storage_path('app/public/' . $parameters['image_url']))
-                ->heighten(256)
-                ->save(storage_path('app/public/' . $parameters['image_url']));
-
-            $previousImage = $event->preview_image;
-            //delete previous image
-            if($previousImage != null){
-                if(file_exists(storage_path('app/public/' . $previousImage))){
-                    unlink(storage_path('app/public/' . $previousImage));
-                }
-            }
-
-            $event->preview_image = $parameters['image_url'];
-
-        }
-
-        if ($request->has('public')) {
-            if ($request->public == 1 || $request->public == 'on') {
-                $event->public = true;
-            } else {
-                $event->public = false;
-            }
-        }
-
-
-        $event->save();
-
-        return redirect()->route('events.show', $event->id);
-    }
 
     public function attend(Request $request, $id)
     {
@@ -127,12 +52,6 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $user->events()->attach($event);
         return redirect()->route('events.myevents');
-    }
-
-    public function attendShow($id)
-    {
-        $event = Event::findOrFail($id);
-        return view('events.attendShow', compact('event'));
     }
 
     /**
@@ -189,5 +108,11 @@ class EventController extends Controller
         $event = Event::findOrFail($id);
         $event->delete();
         return redirect()->route('events.index');
+    }
+
+    public function countUsers($id){
+        $event = Event::findOrFail($id);
+        $users = $event->users;
+        return response()->json(['count' => $users->count()]);
     }
 }

@@ -29,23 +29,6 @@ class AdminController extends Controller
     // Show all users
     public function showUsers()
     {
-        // $event = request('event', null);
-        // if($event != null) {
-        //     $users = User::whereHas('events', function($query) {
-        //         $query->where('id', request('event'));
-        //     })->orderBy('isAdmin','desc')->paginate(50);
-        //     if ($users->count() == 0) {
-        //         $title = 'Diese Event hat keine Teilnehmer';
-        //     }else{
-        //         $title = 'Teilnehmer von Event: ' . Event::findOrFail(request('event'))->name;
-        //     }
-        // } else {
-        //     $users = User::orderBy('isAdmin','desc')->orderBy('id')->paginate(50);
-        //     $title = 'Alle Teilnehmer';
-        // }
-        // $user_count = User::count();
-        // $events = Event::all();
-        // return view('admin.users', compact('users', 'events', 'user_count', 'title', 'event'));
         $users = User::orderBy('isAdmin','desc')->orderBy('id')->paginate(50);
         return response()->json($users);
     }
@@ -62,22 +45,6 @@ class AdminController extends Controller
     // Show all events
     public function showEvents()
     {
-        // if(request('user', null) != null) {
-        //     $events = Event::whereHas('users', function($query) {
-        //         $query->where('id', request('user'));
-        //     })->paginate(50);
-        //     if ($events->count() == 0) {
-        //         $title = 'Dieser Benutzer hat keine Events';
-        //     }else{
-        //         $title = 'Events von Benutzer: ' . User::findOrFail(request('user'))->name;
-        //     }
-        // } else {
-        //     $events = Event::orderBy('id')->paginate(50);
-        //     $title = 'Alle Events';
-        // }
-        // $event_count = Event::count();
-        // $users = User::all();
-        // return view('admin.events', compact('events', 'users', 'event_count', 'title'));
         $events = Event::orderBy('id')->paginate(50);
         return response()->json($events);
     }
@@ -115,8 +82,8 @@ class AdminController extends Controller
             'name' => 'required',
             'description' => 'required',
             'location' => 'required',
-            'start_date' => ['required','date','date_format:d.m.Y'],
-            'end_date' => ['required','date','date_format:d.m.Y','after_or_equal:start_date'],
+            'start_date' => ['required','date','date_format:d.m.Y H:i'],
+            'end_date' => ['required','date','date_format:d.m.Y H:i','after_or_equal:start_date'],
             'limit' => 'integer',
             'preview_image' => 'image|nullable',
             'public' => 'string',
@@ -126,8 +93,8 @@ class AdminController extends Controller
         $event->name = $request->name;
         $event->description = $request->description;
         $event->location = $request->location;
-        $event->start_date = Carbon::createFromFormat('d.m.Y', $request->start_date);
-        $event->end_date = Carbon::createFromFormat('d.m.Y', $request->end_date);
+        $event->start_date = Carbon::createFromFormat('d.m.Y H:i', $request->start_date);
+        $event->end_date = Carbon::createFromFormat('d.m.Y H:i', $request->end_date);
         if($request->has('pre_registration_enabled')){
             $event->pre_registration_enabled = true;
             if($request->has('team_registration_enabled')){
@@ -180,13 +147,6 @@ class AdminController extends Controller
         return redirect()->route('admin.events');
     }
 
-    // Show form to edit event
-    public function editEvent($id)
-    {
-        $event = Event::findOrFail($id);
-        return view('admin.events.edit', compact('event'));
-    }
-
     // Update event
     public function updateEvent(Request $request, $id)
     {
@@ -194,8 +154,8 @@ class AdminController extends Controller
             'name' => 'required',
             'description' => 'required',
             'location' => 'required',
-            'start_date' => ['required','date','date_format:d.m.Y'],
-            'end_date' => ['required','date','date_format:d.m.Y','after_or_equal:start_date'],
+            'start_date' => ['required','date','date_format:d.m.Y H:i'],
+            'end_date' => ['required','date','date_format:d.m.Y H:i','after_or_equal:start_date'],
             'preview_image' => 'image|nullable',
             'limit' => 'integer',
             'public' => 'string',
@@ -204,8 +164,8 @@ class AdminController extends Controller
         $event->name = $request->name;
         $event->description = $request->description;
         $event->location = $request->location;
-        $event->start_date = Carbon::createFromFormat('d.m.Y', $request->start_date);
-        $event->end_date = Carbon::createFromFormat('d.m.Y', $request->end_date);
+        $event->start_date = Carbon::createFromFormat('d.m.Y H:i', $request->start_date);
+        $event->end_date = Carbon::createFromFormat('d.m.Y H:i', $request->end_date);
         if($request->has('pre_registration_enabled')){
             $event->pre_registration_enabled = true;
             if($request->has('team_registration_enabled')){
@@ -220,11 +180,11 @@ class AdminController extends Controller
         if($request->has('limit')){
             if($request->limit > 0){
                 $event->limit = $request->limit;
-            }else{
+            }else if($event->pre_registration_enabled){
                 $event->limit = 0;
+            }else{
+                $event->limit = null;
             }
-        }else{
-            $event->limit = 0;
         }
 
         if (request()->hasFile('preview_image')) {

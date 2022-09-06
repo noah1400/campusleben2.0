@@ -18,7 +18,7 @@ export default {
         loader: false,
         previewImage: false,
         previewImageSrc: '',
-        format: 'dd.MM.yyyy',
+        format: 'dd.MM.yyyy HH:mm',
         error_messages: [],
         error: false,
         start_date: ref(new Date()),

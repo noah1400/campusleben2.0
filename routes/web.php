@@ -33,11 +33,7 @@ Route::get('/events/archive', [App\Http\Controllers\EventController::class, 'arc
 Route::get('/events/me', [App\Http\Controllers\EventController::class, 'myevents'])
             ->name('events.myevents')
             ->middleware('auth');
-Route::get('/events/attend/{event}', [App\Http\Controllers\EventController::class, 'attendShow'])
-            ->name('events.attendShow');
-Route::post('/events/attend/{event}', [App\Http\Controllers\EventController::class, 'attend'])
-            ->name('events.attend')
-            ->middleware('auth');
+
 Route::get('/events/{id}', [App\Http\Controllers\EventController::class, 'show'])
             ->name('events.show');
 
@@ -61,6 +57,12 @@ Route::post('/user/data/delete', [App\Http\Controllers\UserController::class, 'd
             ->middleware('auth');
 
 
+Route::get('/api/user/isauthenticated', [App\Http\Controllers\UserController::class, 'isAuthenticated'])
+            ->name('api.user.isauthenticated');
+
+Route::post('/api/user/attend/{event}', [App\Http\Controllers\UserController::class, 'attendEvent'])
+            ->name('events.attendShow')
+            ->middleware('auth');
 
 Route::get('/api/posts/{event}', [App\Http\Controllers\PostController::class, 'getPosts'])
     ->name('admin.posts.show');
@@ -76,6 +78,16 @@ Route::post('/api/posts/update', [App\Http\Controllers\PostController::class, 'u
 Route::delete('/api/posts/delete/{post}', [App\Http\Controllers\PostController::class, 'deletePost'])
     ->name('admin.posts.delete')
     ->middleware(['auth', 'isAdmin']);
+
+Route::get('/api/event/user/count/{event}', [App\Http\Controllers\EventController::class, 'countUsers'])
+    ->name('admin.event.user.count');
+
+Route::get('/api/event/user/attending/{event}', [App\Http\Controllers\UserController::class, 'isAttending'])
+    ->name('admin.event.user.attending')
+    ->middleware('auth');
+
+
+
 
 
 
@@ -107,9 +119,6 @@ Route::get('/admin/events/create', [App\Http\Controllers\AdminController::class,
             ->middleware(['auth', 'isAdmin']);
 Route::post('/admin/api/events/create', [App\Http\Controllers\AdminController::class, 'storeEvent'])
             ->name('admin.events.store')
-            ->middleware(['auth', 'isAdmin']);
-Route::get('/admin/events/edit/{id}', [App\Http\Controllers\AdminController::class, 'editEvent'])
-            ->name('admin.events.edit')
             ->middleware(['auth', 'isAdmin']);
 Route::post('/admin/events/update/{id}', [App\Http\Controllers\AdminController::class, 'updateEvent'])
             ->name('admin.events.update')

@@ -192,7 +192,7 @@ export default {
                             Datum</label>
                         <div class="mt-1 sm:col-span-2 sm:mt-0">
                             <div class="flex max-w-lg rounded-md shadow-sm">
-                                <Datepicker v-model="event_start_date" :format="'dd.MM.yyyy'" language="de"
+                                <Datepicker v-model="event_start_date" :format="'dd.MM.yyyy HH:mm'" language="de"
                                     name="start_date" id="start_date"
                                     class="block w-full min-w-0 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
                             </div>
@@ -208,7 +208,7 @@ export default {
                             Datum</label>
                         <div class="mt-1 sm:col-span-2 sm:mt-0">
                             <div class="flex max-w-lg rounded-md shadow-sm">
-                                <Datepicker v-model="event_end_date" :format="'dd.MM.yyyy'" name="end_date"
+                                <Datepicker v-model="event_end_date" :format="'dd.MM.yyyy HH:mm'" name="end_date"
                                     id="end_date"
                                     class="block w-full min-w-0 flex-1 rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
                             </div>

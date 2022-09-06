@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Event;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -40,5 +41,29 @@ class UserController extends Controller
             $user->delete();
         }
         return redirect()->route('events.index');
+    }
+
+    public function isAuthenticated(){
+        return response()->json(['auth' => auth()->check()]);
+    }
+
+    public function isAttending($event) {
+        $user = auth()->user();
+        $attending = $user->events()->where('event_id', $event)->exists();
+        return response()->json(['attending' => $attending]);
+    }
+
+    public function attendEvent($id) {
+        $event = Event::findOrFail($id);
+        $count = $event->users()->count();
+        $user = auth()->user();
+        $attending = $user->events()->where('event_id', $id)->exists();
+        if($attending){
+            $user->events()->detach($id);
+        } else {
+            $user->events()->attach($id);
+        }
+        return response()->json(['attending' => !$attending,
+                                    'count' => $count + ($attending ? -1 : 1)]);
     }
 }
