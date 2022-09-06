@@ -61,6 +61,9 @@ export default {
 
 <template>
     <div class="bg-white">
+        <div v-if="event.public==0 || event.public==false" class="text-center bg-red-500 text-white py-2">
+            <p class="text-sm">Dieses Event is nicht öffentlich.</p>
+        </div>
         <div class="mx-auto max-w-2xl py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
             <div class="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-8">
                 <!-- Image gallery -->

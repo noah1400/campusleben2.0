@@ -17,7 +17,9 @@ class EventController extends Controller
      */
     public function index(){
         //get all events that are not expired
-        $events = Event::whereDate('end_date', '>=', Carbon::now())->get();
+        $events = Event::whereDate('end_date', '>=', Carbon::now())
+        ->where('public', true)
+        ->get();
         return view('events.index', compact('events'));
     }
 
@@ -141,6 +143,16 @@ class EventController extends Controller
      */
     public function show($id){
         $event = Event::findOrFail($id);
+        if ($event->public == false){
+            // return 404
+            if ( Auth::check() == false){
+                abort(404);
+            }else{
+                if (Auth::user()->isAdmin == false){
+                    abort(404);
+                }
+            }
+        }
         //Convert date to format d.m.Y
         $event->start_date = Carbon::parse($event->start_date)->format('d.m.Y');
         $event->end_date = Carbon::parse($event->end_date)->format('d.m.Y');

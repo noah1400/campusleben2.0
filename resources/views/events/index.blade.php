@@ -16,7 +16,6 @@
             <div class="max-w-5xl mx-auto text-center">
                 <div class="flex flex-wrap flex-row justify-center">
                     @foreach ($events as $event)
-                    @if($event->public)
                     <a href="{{ route('events.show', $event) }}">
                         <div
                             class="transition transform hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none m-3 flex-initial bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200 w-72 h-80">
@@ -36,7 +35,6 @@
                             </div>
                         </div>
                     </a>
-                        @endif
                     @endforeach
                 </div>
             </div>
