@@ -22,9 +22,7 @@ export default defineConfig({
                 },
             },
         }),
-        obfuscator({
-            optionsPreset: 'medium-obfuscation',
-        }),
+
 
     ],
     resolve: {
