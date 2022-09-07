@@ -19,6 +19,11 @@
                 required: true,
             },
         },
+        data() {
+            return {
+                open: open,
+            };
+        },
         methods: {
             deleteEvent() {
                 let url = '/admin/events/delete/' + this.event_id;
