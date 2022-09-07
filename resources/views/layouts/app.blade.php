@@ -56,10 +56,7 @@
                             aria-expanded="false">
                             <span>Menü</span>
                             <!--
-                Heroicon name: solid/chevron-down
-
-                Item active: "text-gray-600", Item inactive: "text-gray-400"
-              -->
+                Heroicon name: solid/chevron-down -->
                             <svg class="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                 aria-hidden="true">
@@ -68,17 +65,6 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </button>
-
-                        <!--
-              'Solutions' flyout menu, show/hide based on flyout menu state.
-
-              Entering: "transition ease-out duration-200"
-                From: "opacity-0 translate-y-1"
-                To: "opacity-100 translate-y-0"
-              Leaving: "transition ease-in duration-150"
-                From: "opacity-100 translate-y-0"
-                To: "opacity-0 translate-y-1"
-            -->
                         <div x-cloak x-show="solutionflyout" x-transition:enter="transition ease-out duration-200"
                             x-transition:enter-start="opacity-0 translate-y-1"
                             x-transition:enter-end="opacity-100 translate-y-0"
@@ -161,16 +147,10 @@
                     </div>
 
                     <div class="relative">
-                        <!-- Item active: "text-gray-900", Item inactive: "text-gray-500" -->
                         <button @click="moreflyout = ! moreflyout" type="button"
                             class="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             aria-expanded="false">
                             <span>Mehr</span>
-                            <!--
-                Heroicon name: solid/chevron-down
-
-                Item active: "text-gray-600", Item inactive: "text-gray-400"
-              -->
                             <svg class="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                 aria-hidden="true">
@@ -179,17 +159,6 @@
                                     clip-rule="evenodd" />
                             </svg>
                         </button>
-
-                        <!--
-              'More' flyout menu, show/hide based on flyout menu state.
-
-              Entering: "transition ease-out duration-200"
-                From: "opacity-0 translate-y-1"
-                To: "opacity-100 translate-y-0"
-              Leaving: "transition ease-in duration-150"
-                From: "opacity-100 translate-y-0"
-                To: "opacity-0 translate-y-1"
-            -->
                         <div x-cloak x-show="moreflyout" x-transition:enter="transition ease-out duration-200"
                             x-transition:enter-start="opacity-0 translate-y-1"
                             x-transition:enter-end="opacity-100 translate-y-0"
@@ -245,17 +214,6 @@
                                     </svg>
                                 </button>
                             </div>
-
-                            <!--
-                  Dropdown menu, show/hide based on menu state.
-
-                  Entering: "transition ease-out duration-100"
-                    From: "transform opacity-0 scale-95"
-                    To: "transform opacity-100 scale-100"
-                  Leaving: "transition ease-in duration-75"
-                    From: "transform opacity-100 scale-100"
-                    To: "transform opacity-0 scale-95"
-                -->
                             <div x-show="loggedinshow" x-transition:enter="transition ease-out duration-100"
                                 x-transition:enter-start="transform opacity-0 scale-95"
                                 x-transition:enter-end="transform opacity-100 scale-100"
@@ -295,17 +253,6 @@
                 </div>
             </div>
         </div>
-
-        <!--
-      Mobile menu, show/hide based on mobile menu state.
-
-      Entering: "duration-200 ease-out"
-        From: "opacity-0 scale-95"
-        To: "opacity-100 scale-100"
-      Leaving: "duration-100 ease-in"
-        From: "opacity-100 scale-100"
-        To: "opacity-0 scale-95"
-    -->
         <div class="z-10" x-cloak x-show="mobilemenu" x-transition:enter="duration-200 ease-out"
             x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
             x-transition:leave="duration-100 ease-in" x-transition:leave-start="opacity-100 scale-100"
