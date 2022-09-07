@@ -111,7 +111,17 @@ class EventController extends Controller
     }
 
     public function countUsers($id){
+
         $event = Event::findOrFail($id);
+        if($event->public == false){
+            if(Auth::check() == false){
+                abort(404);
+            }else{
+                if(Auth::user()->isAdmin == false){
+                    abort(404);
+                }
+            }
+        }
         $users = $event->users;
         return response()->json(['count' => $users->count()]);
     }

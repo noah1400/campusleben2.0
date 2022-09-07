@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Event;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class PostController extends Controller
@@ -79,35 +80,17 @@ class PostController extends Controller
 
     public function getPosts(Request $request, $event)
     {
-        // $results = Post::where('event_id', $event)
-        //                         ->orderBy('created_at', 'desc')
-        //                         ->paginate(6);
-        // $posts = '';
-        // $postsArray = [];
-        // foreach($results as $pos){
-        //     $postsArray[] = $pos;
-        // }
-        // $array = array_chunk($postsArray, 3, true);
-        // foreach ($array as $column)
-        // {
-        //     $posts .= '<div class="row">';
-        //     foreach ($column as $post)
-        //     {
-        //         $r = route('events.show', ['id' => $post->event->id]);
-        //         $posts .= '<div class="col-md-4 p-2 postPreview">';
-        //         $posts .= '<a href="'.$r.'?p='.$post->id.'">';
-        //         $posts .= '<div class="postImageOuter">';
-        //         $posts .= '<img class="w-100" src="' . asset('storage/' . $post->picture) . '"></img>';
-        //         $posts .= '<div class="postOverlay">';
-        //         $posts .= '</div>';
-        //         $posts .= '</div>';
-        //         $posts .= '</a>';
-        //         $posts .= '</div>';
-        //     }
-        //     $posts .= '</div>';
-        // }
-        // return $posts;
-        $posts = Event::findOrFail($event)->posts()->get()->toArray();
+        $ev = Event::findOrFail($event);
+        if($ev->public == false){
+            if(Auth::check() == false){
+                abort(404);
+            }else{
+                if(Auth::user()->isAdmin == false){
+                    abort(404);
+                }
+            }
+        }
+        $posts = $ev->posts()->get()->toArray();
         return response()->json($posts);
     }
 
