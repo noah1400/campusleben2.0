@@ -109,7 +109,7 @@ export default {
             let vm = this;
             this.loader = true;
             for (let i = 0; i < this.upload_files.length; i++) {
-                let url = '/api/posts/newpost';
+                let url = '/admin/api/posts/newpost';
                 let formData = new FormData();
                 formData.append('picture', this.upload_files[i].picture);
                 formData.append('subtitle', this.upload_files[i].subtitle);
@@ -124,7 +124,7 @@ export default {
             }
             this.upload_files = [];
             for (let i = 0; i < this.updated_posts.length; i++) {
-                let url = '/api/posts/update';
+                let url = '/admin/api/posts/update';
                 let formData = new FormData();
                 formData.append('id', this.updated_posts[i].id);
                 formData.append('subtitle', this.updated_posts[i].subtitle);
@@ -133,7 +133,7 @@ export default {
             }
             this.updated_posts = [];
             for(let i = 0; i < this.posts_to_delete.length; i++){
-                let url = '/api/posts/delete/'+this.posts_to_delete[i].id;
+                let url = '/admin/api/posts/delete/'+this.posts_to_delete[i].id;
                 axios.delete(url).then(response => {
                 });
             }

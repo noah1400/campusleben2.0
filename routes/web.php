@@ -67,20 +67,20 @@ Route::post('/api/user/attend/{event}', [App\Http\Controllers\UserController::cl
 Route::get('/api/posts/{event}', [App\Http\Controllers\PostController::class, 'getPosts'])
     ->name('admin.posts.show');
 
-Route::post('/api/posts/newpost', [App\Http\Controllers\PostController::class, 'newPost'])
+Route::post('/admin/api/posts/newpost', [App\Http\Controllers\PostController::class, 'newPost'])
     ->name('admin.posts.newpost')
     ->middleware(['auth', 'isAdmin']);
 
-Route::post('/api/posts/update', [App\Http\Controllers\PostController::class, 'updatePost'])
+Route::post('/admin/api/posts/update', [App\Http\Controllers\PostController::class, 'updatePost'])
     ->name('admin.posts.update')
     ->middleware(['auth', 'isAdmin']);
 
-Route::delete('/api/posts/delete/{post}', [App\Http\Controllers\PostController::class, 'deletePost'])
+Route::delete('/admin/api/posts/delete/{post}', [App\Http\Controllers\PostController::class, 'deletePost'])
     ->name('admin.posts.delete')
     ->middleware(['auth', 'isAdmin']);
 
 Route::get('/api/event/user/count/{event}', [App\Http\Controllers\EventController::class, 'countUsers'])
-    ->name('admin.event.user.count');
+    ->name('event.user.count');
 
 Route::get('/api/event/user/attending/{event}', [App\Http\Controllers\UserController::class, 'isAttending'])
     ->name('admin.event.user.attending')
