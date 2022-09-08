@@ -75,9 +75,25 @@ class UserController extends Controller
                 }
             }
         }
-        $count = $event->users()->count();
+        $count = $event->users->count();
         $user = auth()->user();
         $attending = $user->events()->where('event_id', $id)->exists();
+
+        // If the event is full, return error message.
+        // If the limit is 0, there is no limit.
+        if($count >= $event->limit && $event->limit != 0 && $attending == false){
+            return response()->json(['error' => 'Event is full'], 422);
+        }
+        // If pre registration is disabled, return error message.
+        if($event->pre_registration_enabled != true) {
+            return response()->json(['error' => 'Pre-registration is not enabled'], 422);
+        }
+        // If event is closed, return error message.
+        if($event->closed == true) {
+            return response()->json(['error' => 'Event is closed'], 422);
+        }
+
+
         if($attending){
             $user->events()->detach($id);
         } else {
