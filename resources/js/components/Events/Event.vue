@@ -146,6 +146,10 @@ export default {
                         <h3 class="sr-only">Description</h3>
 
                         <div class="space-y-6 text-base text-gray-700 whitespace-pre-line" v-html="event.description" />
+                        <div class="mt-4 space-y-6 text-base text-gray-700 whitespace-pre-line" >
+                            Von: {{ event.start_date }}<br>
+                            Bis: {{ event.end_date }}<br>
+                        </div>
                         <div class="mt-5 space-y-6 text-base text-gray-700 whitespace-pre-line" v-html="'zum Bild: '" />
                         <div class="space-y-6 text-base text-gray-700 whitespace-pre-line" >
                         {{ selected_post.title }}

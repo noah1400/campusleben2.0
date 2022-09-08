@@ -72,20 +72,11 @@ class EventController extends Controller
                 }
             }
         }
-        //Convert date to format d.m.Y
-        $event->start_date = Carbon::parse($event->start_date)->format('d.m.Y');
-        $event->end_date = Carbon::parse($event->end_date)->format('d.m.Y');
+        //Convert date to format d.m.Y H:i
+        $event->start_date = Carbon::parse($event->start_date)->format('d.m.Y H:i');
+        $event->end_date = Carbon::parse($event->end_date)->format('d.m.Y H:i');
 
-        if (request()->has('p'))
-        {
-            $post = $event->posts()->where('id', request('p'))->first();
-        }
-        else
-        {
-            $post = null;
-        }
-
-        return view('events.show', compact('event', 'post'));
+        return view('events.show', compact('event'));
     }
 
     public function close($id)
