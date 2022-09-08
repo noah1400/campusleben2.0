@@ -62,7 +62,7 @@ export default {
             axios.get(url).then(response => {
                 let res = response.data;
                 vm.pre_registration_count = res.count;
-                vm.full = (vm.pre_registration_count >= vm.event.limit)?true:false;
+                vm.full = (vm.pre_registration_count >= vm.event.limit&&vm.event.limt!=0)?true:false;
                 vm.closed = (vm.event.closed == 1)?true:false;
             });
 
