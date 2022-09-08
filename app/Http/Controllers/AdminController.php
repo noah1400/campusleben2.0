@@ -220,6 +220,9 @@ class AdminController extends Controller
             $event->public = false;
         }
 
+        // for now
+        $event->closed = false;
+
 
         $event->save();
 

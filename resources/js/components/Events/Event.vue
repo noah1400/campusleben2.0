@@ -27,6 +27,8 @@ export default {
             pre_registration_count: 0,
             auth: false,
             attending: false,
+            closed: false,
+            full: false,
         };
     },
     methods: {
@@ -60,7 +62,10 @@ export default {
             axios.get(url).then(response => {
                 let res = response.data;
                 vm.pre_registration_count = res.count;
+                vm.full = (vm.pre_registration_count >= vm.event.limit)?true:false;
+                vm.closed = (vm.event.closed == 1)?true:false;
             });
+
         },
         isAuth(){
             // if pre-registration is disabled, checking auth is unnecessary
@@ -90,10 +95,12 @@ export default {
                 let res = response.data;
                 vm.attending = res.attending;
                 vm.pre_registration_count = res.count;
+                vm.full = (vm.pre_registration_count >= vm.event.limit)?true:false;
             });
         },
     },
     created() {
+        console.log(this.event);
         this.getEventPosts();
         this.getRegistrationCount();
         this.isAuth();
@@ -157,12 +164,18 @@ export default {
                     </div>
 
                     <div v-if="event.pre_registration_enabled==1" class="mt-5 box-border border-solid border-stone-100 border border-spacing-5 p-4">
+                        <div v-show="closed" :class="{'text-red-500':auth==true,'text-gray-500':auth==false}">
+                            <p class="text-sm">Die Voranmeldung für dieses Event ist abgelaufen.</p>
+                        </div>
+                        <div v-show="full" :class="'text-red-500'">
+                            <p class="text-sm">Das Event ist voll.</p>
+                        </div>
                         {{ pre_registration_count }} von {{ (event.limit==0)?"unbegrenzten":event.limit }} Plätzen belegt
                         <div v-if="auth" class="mt-2">
-                            <button v-if="!attending" @click="attend" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            <button v-show="!attending" :disabled="(closed || full)" @click="attend"  type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                 Jetzt anmelden
                             </button>
-                            <button v-if="attending" @click="attend" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-50">
+                            <button v-show="attending" :disabled="(closed)" @click="attend" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-50">
                                 Abmelden
                             </button>
                         </div>
@@ -173,8 +186,6 @@ export default {
                             </a>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
