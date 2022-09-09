@@ -370,6 +370,12 @@
                             </a>
                         </p>
                     </div>
+                    @else
+                    <div class="mt-6">
+                        <a href="{{ route('logout') }}"
+                            class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+                            Abmelden </a>
+                    </div>
                     @endguest
                 </div>
             </div>
