@@ -150,7 +150,7 @@ export default {
 
 
                     <div class="mt-6">
-                        <h3 class="sr-only">Description</h3>
+                        <h3 class="sr-only">Beschreibung</h3>
 
                         <div class="space-y-6 text-base text-gray-700 whitespace-pre-line" v-html="event.description" />
                         <div class="mt-4 space-y-6 text-base text-gray-700 whitespace-pre-line" >

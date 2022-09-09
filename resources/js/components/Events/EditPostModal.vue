@@ -36,16 +36,15 @@ export default {
             <h3 class="text-lg font-medium leading-6 text-gray-900" id="modal-title">{{ post.subtitle }}</h3>
             <div class="mt-2">
                 <input type="text" v-model="post.subtitle" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md" />
-              <p class="text-sm text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur amet labore.</p>
             </div>
           </div>
         </div>
         <div class="mt-5 sm:mt-6">
             <button type="button" @click="$emit('save',post);$emit('close')" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
-                Save
+                Speichern
                 </button>
             <button type="button" @click="$emit('delete',post);$emit('close')" class="inline-flex justify-center w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:text-sm">
-                Delete
+                Löschen
                 </button>
           <button @click="$emit('close')" type="button" class="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm">Go back to dashboard</button>
         </div>
