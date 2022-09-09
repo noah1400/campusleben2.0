@@ -46,6 +46,17 @@ class AdminController extends Controller
     public function showEvents()
     {
         $events = Event::orderBy('id')->paginate(50);
+        // convert start_date and end_date to "d.m.Y H:i"
+        Carbon::setLocale('de');
+        foreach ($events as $event) {
+            $event->start_date = Carbon::parse($event->start_date)
+            ->locale('de')
+            // example: (8.September 2022 15:00)
+            ->isoFormat('dd. DD.MM.YYYY H:mm');
+            $event->end_date = Carbon::parse($event->end_date)
+            ->locale('de')
+            ->isoFormat('dd. DD.MM.YYYY H:mm');
+        }
         return response()->json($events);
     }
 

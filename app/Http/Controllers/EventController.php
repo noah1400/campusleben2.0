@@ -73,8 +73,12 @@ class EventController extends Controller
             }
         }
         //Convert date to format d.m.Y H:i
-        $event->start_date = Carbon::parse($event->start_date)->format('d.m.Y H:i');
-        $event->end_date = Carbon::parse($event->end_date)->format('d.m.Y H:i');
+        $event->start_date = Carbon::parse($event->start_date)
+        ->locale('de')
+        ->isoFormat('dd. DD.MM.YYYY H:mm');
+        $event->end_date = Carbon::parse($event->end_date)
+        ->locale('de')
+        ->isoFormat('dd. DD.MM.YYYY H:mm');
 
         return view('events.show', compact('event'));
     }
