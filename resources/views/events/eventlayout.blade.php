@@ -26,8 +26,10 @@
                                             <p class="sm:text-xl lg:text-2xl">{{ $event->name }}</p>
                                         @endif
                                     </div>
-                                    <div class="px-4 py-2 sm:p-6 break-all h-1/2 whitespace-pre-line">
-                                        {{ $event->description }}
+                                    <div class="px-4 py-2 sm:p-6 break-words h-1/2 whitespace-pre-line">
+                                        <strong class="text-gray-900 text-base">{{ $event->name }}</strong>
+                                        <strong class="text-gray-800 text-base">{{ $event->start_date }}</strong>
+                                        <p class="text-gray-500 text-base">{{ $event->description }}</p>
                                     </div>
                         </div>
                         </a>

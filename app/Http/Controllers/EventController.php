@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Intervention\Image\ImageManagerStatic as Image;
 use \Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class EventController extends Controller
 {
@@ -20,6 +21,18 @@ class EventController extends Controller
         $events = Event::whereDate('end_date', '>=', Carbon::now())
         ->where('public', true)
         ->get();
+
+        foreach($events as $event){
+            // format date of each event
+            $event->start_date = Carbon::parse($event->start_date)
+            ->locale('de')
+            ->isoFormat('dd. DD.MM.YYYY H:mm');
+            $event->end_date = Carbon::parse($event->end_date)
+            ->locale('de')
+            ->isoFormat('dd. DD.MM.YYYY H:mm');
+            // shorten description
+            $event->description = Str::limit($event->description, 80, '...');
+        }
         return view('events.index', compact('events'));
     }
 
