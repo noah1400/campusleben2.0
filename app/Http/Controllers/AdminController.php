@@ -47,7 +47,6 @@ class AdminController extends Controller
     {
         $events = Event::orderBy('id')->paginate(50);
         // convert start_date and end_date to "d.m.Y H:i"
-        Carbon::setLocale('de');
         foreach ($events as $event) {
             $event->start_date = Carbon::parse($event->start_date)
             ->locale('de')
