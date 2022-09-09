@@ -156,6 +156,7 @@ export default {
                         <div class="mt-4 space-y-6 text-base text-gray-700 whitespace-pre-line" >
                             Von: {{ event.start_date }}<br>
                             Bis: {{ event.end_date }}<br>
+                            Standort: {{ event.location }}<br>
                         </div>
                         <div class="mt-5 space-y-6 text-base text-gray-700 whitespace-pre-line" v-html="'zum Bild: '" />
                         <div class="space-y-6 text-base text-gray-700 whitespace-pre-line" >
