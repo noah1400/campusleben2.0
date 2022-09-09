@@ -23,7 +23,7 @@ export default {
             post_to_edit: null,
             edit_post_modal: false,
             next_id: 0,
-            loader: false,
+            unsaved_posts: false,
             postAdded: false,
         }
     },
@@ -61,6 +61,7 @@ export default {
             for (let i = 0; i < files.length; i++) {
                 this.createPost(files[i]);
             }
+            this.unsaved_posts = true;
         },
         createPost(file) {
             let reader = new FileReader();
@@ -104,10 +105,10 @@ export default {
                     this.upload_files.push(post);
                 }
             }
+            this.unsaved_posts = true;
         },
         savePosts(){
             let vm = this;
-            this.loader = true;
             for (let i = 0; i < this.upload_files.length; i++) {
                 let url = '/admin/api/posts/newpost';
                 let formData = new FormData();
@@ -138,8 +139,11 @@ export default {
                 });
             }
             this.posts_to_delete = [];
-            this.loader = false;
+            this.unsaved_posts = false;
             this.postAdded = true;
+            setTimeout(() => {
+                this.postAdded = false;
+            }, 1500);
         },
         deletePost(post) {
             if(this.old_posts.find(p => p.id == post.id)){
@@ -150,6 +154,7 @@ export default {
             }
             this.new_posts = this.new_posts.filter(p => p.id != post.id);
             this.old_posts = this.old_posts.filter(p => p.id != post.id);
+            this.unsaved_posts = true;
         },
     }
 }
@@ -234,21 +239,15 @@ export default {
             </div>
         </div>
         <input type="file" ref="postInput" class="hidden" accept=".jpg,.jpeg,.png" @change="addPost" multiple />
-        <button v-if="!loader" :key="loader" type="button" @click="savePosts" class="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        <button type="button" @click="savePosts" class="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
             Save
         </button>
-        <button v-if="loader" :key="loader" type="button"
-                    class="mt-4 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    disabled>
-                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
-                        fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
-                        </circle>
-                        <path class="opacity-75" fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                        </path>
-                    </svg>
-                    Loading...
-                </button>
+        <!-- Saved notification green text -->
+        <p class="text-green-500 text-sm font-medium " v-show="postAdded">
+            Posts saved
+        </p>
+        <p class="text-red-500 text-sm font-medium " v-show="unsaved_posts">
+            Posts unsaved
+        </p>
     </form>
 </template>
