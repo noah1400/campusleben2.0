@@ -18,7 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 })->name("welcome");
 
-Auth::routes();
+Auth::routes([
+    'reset' => false,
+    'confirm' => false,
+    'verify' => false,
+]);
 
 Route::get('/home', function(){return redirect()->route("welcome");})->name("home");
 Route::get('/contact', function(){return view('contact');})->name("contact");
