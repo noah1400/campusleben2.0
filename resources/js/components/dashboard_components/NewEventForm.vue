@@ -52,13 +52,18 @@ export default {
                 })
                 .catch((error) => {
                     let errors = error.response.data.errors;
-                    vm.error_messages = [];
-                    for (let pair of Object.entries(errors)) {
-                        console.log(pair[0] + ", " + pair[1]);
-                        vm.error_messages.push(pair[1]);
+                    if(errors){
+                        vm.error_messages = [];
+                        for (let pair of Object.entries(errors)) {
+                            console.log(pair[0] + ", " + pair[1]);
+                            vm.error_messages.push(pair[1]);
+                        }
+                        vm.loader = false;
+                        vm.error = true;
+                    }else{
+                        console.error(error);
                     }
-                    vm.loader = false;
-                    vm.error = true;
+
                     window.scrollTo(0, 0);
                 });
         },
