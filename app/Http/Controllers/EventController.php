@@ -38,8 +38,23 @@ class EventController extends Controller
 
     public function archive(){
         //get all events that are expired
-        $events = Event::whereDate('end_date', '<', Carbon::now())->get();
-        return view('events.archive', compact('events'));
+        //get all events that are not expired
+        $events = Event::whereDate('end_date', '<', Carbon::now())
+        ->where('public', true)
+        ->get();
+
+        foreach($events as $event){
+            // format date of each event
+            $event->start_date = Carbon::parse($event->start_date)
+            ->locale('de')
+            ->isoFormat('dd. DD.MM.YYYY H:mm');
+            $event->end_date = Carbon::parse($event->end_date)
+            ->locale('de')
+            ->isoFormat('dd. DD.MM.YYYY H:mm');
+            // shorten description
+            $event->description = Str::limit($event->description, 80, '...');
+        }
+        return view('events.index', compact('events'));
     }
 
     /**
