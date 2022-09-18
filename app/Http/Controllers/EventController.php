@@ -54,7 +54,7 @@ class EventController extends Controller
             // shorten description
             $event->description = Str::limit($event->description, 80, '...');
         }
-        return view('events.index', compact('events'));
+        return view('events.archive', compact('events'));
     }
 
     /**
