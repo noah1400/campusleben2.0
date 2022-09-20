@@ -405,7 +405,7 @@
                 </a>
             </div>
             <div class="mt-8 md:mt-0 md:order-1">
-                <p class="text-center text-base text-gray-400">&copy; 2020 Campus Leben, e.V. Alle Rechte vorbehalten</p>
+                <p class="text-center text-base text-gray-400">&copy; {{ env('COPYRIGHT','2022') }} Campus Leben, e.V. Alle Rechte vorbehalten</p>
             </div>
         </div>
     </footer>
