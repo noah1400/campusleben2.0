@@ -113,6 +113,13 @@ export default {
                                 Um was geht es in diesem Event?! Wer kommt?
                                 Eintritt?!
                             </p>
+                            <p class="mt-2 text-sm text-gray-500">
+                                <a class="text-indigo-600 hover:text-indigo-500"
+                                    href="https://www.markdownguide.org/basic-syntax/">Markdown Syntax</a><br>
+                                <a class="text-indigo-600 hover:text-indigo-500"
+                                    href="https://www.markdownguide.org/cheat-sheet/">Cheat Sheet</a><br>
+                                <span class="text-red-600">Noch nicht alles implementiert</span>
+                            </p>
                         </div>
                     </div>
 
