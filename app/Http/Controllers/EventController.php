@@ -33,6 +33,8 @@ class EventController extends Controller
             ->isoFormat('dd. DD.MM.YYYY H:mm');
             // shorten description
             $event->description = Str::limit($event->description, 80, '...');
+            // remove line breaks
+            $event->description = str_replace(array("\r", "\n"), ' ', $event->description);
         }
         return view('events.index', compact('events'));
     }
@@ -55,6 +57,8 @@ class EventController extends Controller
             ->isoFormat('dd. DD.MM.YYYY H:mm');
             // shorten description
             $event->description = Str::limit($event->description, 80, '...');
+            // remove line breaks
+            $event->description = str_replace(array("\r", "\n"), ' ', $event->description);
         }
         return view('events.archive', compact('events'));
     }
