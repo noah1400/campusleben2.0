@@ -18,8 +18,9 @@ class EventController extends Controller
      */
     public function index(){
         //get all events that are not expired
-        $events = Event::whereDate('end_date', '>=', Carbon::now())
+        $events = Event::where('end_date', '>=', Carbon::now())
         ->where('public', true)
+        ->orderBy('start_date', 'desc')
         ->get();
 
         foreach($events as $event){
@@ -39,8 +40,9 @@ class EventController extends Controller
     public function archive(){
         //get all events that are expired
         //get all events that are not expired
-        $events = Event::whereDate('end_date', '<', Carbon::now())
+        $events = Event::where('end_date', '<', Carbon::now())
         ->where('public', true)
+        ->orderBy('start_date', 'desc')
         ->get();
 
         foreach($events as $event){
