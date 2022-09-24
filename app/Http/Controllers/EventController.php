@@ -20,7 +20,7 @@ class EventController extends Controller
         //get all events that are not expired
         $events = Event::where('end_date', '>=', Carbon::now())
         ->where('public', true)
-        ->orderBy('start_date', 'desc')
+        ->orderBy('start_date', 'asc')
         ->get();
 
         foreach($events as $event){
