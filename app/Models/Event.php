@@ -12,6 +12,10 @@ class Event extends Model
 {
     use HasFactory;
 
+    public function sponsors() {
+        return $this->belongsToMany(Sponsor::class);
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class);
