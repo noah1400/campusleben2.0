@@ -8,6 +8,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 use \Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use GrahamCampbell\Markdown\Facades\Markdown;
 
 class EventController extends Controller
 {
@@ -113,6 +114,9 @@ class EventController extends Controller
         $event->end_date = Carbon::parse($event->end_date)
         ->locale('de')
         ->isoFormat('dd. DD.MM.YYYY H:mm');
+
+        // Convert markdown to html
+        $event->description = Markdown::convert($event->description)->getContent();
 
         return view('events.show', compact('event'));
     }

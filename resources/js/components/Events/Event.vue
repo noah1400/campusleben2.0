@@ -109,6 +109,93 @@ export default {
 }
 </script>
 
+<style scoped>
+
+.description:deep() {
+    line-height: 1.5em;
+    font-size: 1.1em;
+}
+
+.description:deep() ul {
+    list-style-type: disc;
+    margin: -0.5em 0 -0.5em 1.5em !important;
+}
+
+.description:deep() ol {
+    list-style-type: decimal;
+    margin: -0.5em 0 -0.5em 1.5em !important;
+}
+
+.description:deep() li {
+    margin: 0 !important;
+}
+
+.description:deep() p {
+    margin: -0.5em 0 -0.5em 0 !important;
+}
+
+.description:deep() hr {
+    margin: 0 0 0 0 !important;
+}
+
+.description:deep() a {
+    color: #3490dc;
+    text-decoration: underline;
+}
+
+.description:deep() blockquote {
+    border-left: 5px solid #ccc;
+    margin: 1.5em 10px !important;
+    padding: 0.5em 10px;
+}
+
+.description:deep() h1,
+.description:deep() h2,
+.description:deep() h3,
+.description:deep() h4,
+.description:deep() h5,
+.description:deep() h6 {
+    margin: 0 0 0.5rem 0;
+    font-weight: bold;
+}
+
+.description:deep() h1 {
+    font-size: 2.2rem;
+    line-height: 1.2;
+    letter-spacing: -.1rem;
+}
+
+.description:deep() h2 {
+    font-size: 1.9rem;
+    line-height: 1.25;
+    letter-spacing: -.1rem;
+}
+
+.description:deep() h3 {
+    font-size: 1.7rem;
+    line-height: 1.3;
+    letter-spacing: -.1rem;
+}
+
+.description:deep() h4 {
+    font-size: 1.5rem;
+    line-height: 1.35;
+    letter-spacing: -.08rem;
+}
+
+.description:deep() h5 {
+    font-size: 1.4rem;
+    line-height: 1.5;
+    letter-spacing: -.05rem;
+}
+
+.description:deep() h6 {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    letter-spacing: 0;
+}
+
+</style>
 
 <template>
     <div class="bg-white">
@@ -152,7 +239,7 @@ export default {
                     <div class="mt-6">
                         <h3 class="sr-only">Beschreibung</h3>
 
-                        <div class="space-y-6 text-base text-gray-700 whitespace-pre-line" v-html="event.description" />
+                        <div class="description space-y-6 text-base text-gray-700 whitespace-pre-wrap" v-html="event.description" />
                         <div class="mt-4 space-y-6 text-base text-gray-700 whitespace-pre-line" >
                             Von: {{ event.start_date }}<br>
                             Bis: {{ event.end_date }}<br>
