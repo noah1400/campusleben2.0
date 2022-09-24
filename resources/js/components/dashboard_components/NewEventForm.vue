@@ -108,7 +108,7 @@ export default {
                             class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Beschreibung</label>
                         <div class="mt-1 sm:col-span-2 sm:mt-0">
                             <textarea id="description" name="description" rows="3"
-                                class="block w-full max-w-lg rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
+                                class="h-64 block w-full max-w-lg rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" />
                             <p class="mt-2 text-sm text-gray-500">
                                 Um was geht es in diesem Event?! Wer kommt?
                                 Eintritt?!
