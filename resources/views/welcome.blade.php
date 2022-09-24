@@ -12,7 +12,7 @@
         <h2 class="text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl"> #Campuswillleben</h2>
       </div>
       <div class="max-w-7xl mx-auto p-5">
-        <img style="max-height: 250px" class="mx-auto" src="{{ asset('storage/images/csm_logo_campusleben.png') }}" alt="Aerial view of city buildings with a clear sky">
+        <img style="max-height: 250px" class="mx-auto" src="{{ asset('storage/images/csm_logo_campusleben.png') }}" alt="Logo">
       </div>
     </div>
   </div>
