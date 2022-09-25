@@ -200,6 +200,26 @@ export default {
     letter-spacing: 0;
 }
 
+.description:deep() pre {
+    font: 1em/normal 'Roboto Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+    margin-bottom: 1.5rem !important;
+    overflow: auto;
+}
+
+.description:deep() pre > code {
+    display: block;
+    padding: 1rem 1.5rem;
+    white-space: pre;
+}
+
+.description:deep() code {
+    font: 1em/normal 'Roboto Mono', 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+    margin: 0 0.2rem;
+    background: #F1F1F1;
+    border: 1px solid #E1E1E1;
+    border-radius: 4px;
+}
+
 </style>
 
 <template>
