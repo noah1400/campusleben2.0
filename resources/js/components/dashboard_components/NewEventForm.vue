@@ -118,6 +118,8 @@ export default {
                                     href="https://www.markdownguide.org/basic-syntax/">Markdown Syntax</a><br>
                                 <a class="text-indigo-600 hover:text-indigo-500"
                                     href="https://www.markdownguide.org/cheat-sheet/">Cheat Sheet</a><br>
+                                    <a class="text-indigo-600 hover:text-indigo-500"
+                                    href="https://commonmark.org/help/tutorial/index.html">Tutorial</a><br>
                                 <span class="text-red-600">Noch nicht alles implementiert</span>
                             </p>
                         </div>
