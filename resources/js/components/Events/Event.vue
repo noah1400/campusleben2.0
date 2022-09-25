@@ -121,6 +121,11 @@ export default {
     margin: -0.5em 0 -0.5em 1.5em !important;
 }
 
+.description:deep() li:has( input[type=checkbox]) {
+    list-style-type: none;
+    margin-left: -1.5em !important;
+}
+
 .description:deep() ol {
     list-style-type: decimal;
     margin: -0.5em 0 -0.5em 1.5em !important;
