@@ -50,6 +50,7 @@ return [
         League\CommonMark\Extension\Strikethrough\StrikethroughExtension::class,
         League\CommonMark\Extension\Autolink\AutolinkExtension::class,
         League\CommonMark\Extension\TaskList\TaskListExtension::class,
+        App\Markdown\Extensions\Marker\MarkerExtension::class,
     ],
 
     /*
