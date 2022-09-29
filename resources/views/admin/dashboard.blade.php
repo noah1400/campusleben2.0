@@ -22,12 +22,6 @@
             display: none !important
         }
     </style>
-
-    <script>
-        window.posts = @json($posts);
-        window.events = @json($events);
-        window.users = @json($users);
-    </script>
 </head>
 <body class="h-full">
     <div id="app">

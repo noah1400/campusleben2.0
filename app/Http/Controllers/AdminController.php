@@ -14,13 +14,7 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        $users = User::all();
-        $events = Event::all();
-        $posts = [];
-        foreach ($events as $event) {
-            $posts[] = $event->posts()->get()->toArray();
-        }
-        return view('admin.dashboard', compact('users', 'events', 'posts'));
+        return view('admin.dashboard');
     }
 
     // User functions
