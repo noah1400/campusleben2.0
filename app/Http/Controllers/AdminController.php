@@ -334,7 +334,7 @@ public function deleteEvent($id)
     }
 
     public function getTimeline() {
-        return LOG::orderBy('created_at', 'desc')->cursorPaginate(2);
+        return LOG::orderBy('id', 'desc')->cursorPaginate(2);
     }
 
 
