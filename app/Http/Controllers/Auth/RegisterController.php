@@ -68,6 +68,8 @@ class RegisterController extends Controller
         $log = new LOG();
         $log->user_email = $data['email'];
         $log->action = "User registered: " . $data['name'];;
+        $log->type ="create";
+        $log->save();
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
