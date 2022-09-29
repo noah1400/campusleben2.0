@@ -1,5 +1,5 @@
 <script>
-import NewEventErrorNotif from '../dashboard_components/NewEventErrorNotif.vue';
+import NewEventErrorNotif from './NewEventErrorNotif.vue';
 import AddPostsForm from './AddPostsForm.vue';
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'

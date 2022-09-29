@@ -1,6 +1,6 @@
 <script>
 import { Switch } from '@headlessui/vue';
-import NewEventErrorNotif from '../dashboard_components/NewEventErrorNotif.vue';
+import NewEventErrorNotif from '.NewEventErrorNotif.vue';
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import { ref } from 'vue';
