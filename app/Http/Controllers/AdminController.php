@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\User;
+use App\Models\LOG;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use \Carbon\Carbon;
 use Intervention\Image\ImageManagerStatic as Image;
-use Illuminate\Support\Facades\Log;
 use PDF;
 
 class AdminController extends Controller
@@ -79,12 +78,6 @@ class AdminController extends Controller
         return response()->json($events);
     }
 
-    // Show form to create new event
-    public function createEvent()
-    {
-        return view('admin.events.create');
-    }
-
     // Store new event
     public function storeEvent(Request $request)
     {
@@ -153,6 +146,11 @@ class AdminController extends Controller
         }
 
         $event->save();
+        $log = new LOG();
+        $log->user_email = auth()->user()->email;
+        $log->action = 'Event created: '. $event->name;
+        $log->type = "create";
+        $log->save();
 
         return redirect()->route('admin.events');
     }
@@ -170,7 +168,13 @@ class AdminController extends Controller
             'limit' => 'integer',
             'public' => 'string',
         ]);
+        $nameChanged = false;
+        $oldName = '';
         $event = Event::findOrFail($id);
+        if($event->name != $request->name){
+            $nameChanged = true;
+            $oldName = $event->name;
+        }
         $event->name = $request->name;
         $event->description = $request->description;
         $event->location = $request->location;
@@ -235,6 +239,18 @@ class AdminController extends Controller
 
 
         $event->save();
+        if($nameChanged) {
+            $log = new LOG();
+            $log->user_email = auth()->user()->email;
+            $log->action = 'Event name changed: ' . $oldName . ' to ' . $event->name;
+            $log->type = "update";
+            $log->save();
+        }
+        $log = new LOG();
+        $log->user_email = auth()->user()->email;
+        $log->action = 'Event updated: '. $event->name;
+        $log->type = "update";
+        $log->save();
 
         return response()->json($event);
     }
@@ -248,7 +264,13 @@ public function deleteEvent($id)
     foreach ($posts as $post){
         $post->delete();
     }
+    $n = $event->name;
     $event->delete();
+    $log = new LOG();
+    $log->user_email = auth()->user()->email;
+    $log->action = 'Event deleted: '. $n;
+    $log->type = 'delete';
+    $log->save();
     return response()->json($event);
 }
 
@@ -311,7 +333,9 @@ public function deleteEvent($id)
         return $pdf->download('users.pdf');
     }
 
-
+    public function getTimeline() {
+        return LOG::orderBy('created_at', 'desc')->cursorPaginate(2);
+    }
 
 
 }
