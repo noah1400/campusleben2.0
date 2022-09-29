@@ -1,8 +1,8 @@
 <script>
 import axios from "axios";
 import LaravelVuePagination from "laravel-vue-pagination";
-import EditEventForm from "./EditEventForm.vue";
-import NewEventForm from "./NewEventForm.vue";
+import EditEventForm from "../Events/EditEventForm.vue";
+import NewEventForm from "../Events/NewEventForm.vue";
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import DeleteEventModal from "../Events/DeleteEventModal.vue";
 export default {
