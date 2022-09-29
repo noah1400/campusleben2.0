@@ -102,9 +102,11 @@
                 let now = new Date();
                 let then = new Date(timestamp);
                 let elapsed = now - then;
-                let elapsed_string = "";
                 let elapsed_years = Math.floor(elapsed / 31536000000);
                 if (elapsed_years > 0) {
+                    if(elapsed_year > 10){
+                        return ">10j";
+                    }
                     return elapsed_years + "j";
                 }
                 let elapsed_weeks = Math.floor(elapsed / 604800000);
