@@ -84,14 +84,6 @@ export default {
 
 </script>
 <template>
-    <!--
-    This example requires updating your template:
-
-    ```
-    <html class="h-full bg-gray-100">
-    <body class="h-full">
-    ```
-  -->
 
     <div>
         <TransitionRoot as="template" :show="sidebarOpen">
@@ -146,10 +138,7 @@ export default {
                 </div>
             </Dialog>
         </TransitionRoot>
-
-        <!-- Static sidebar for desktop -->
         <div class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
-            <!-- Sidebar component, swap this element with another sidebar if you like -->
             <div class="flex-1 flex flex-col min-h-0 bg-gray-800">
                 <div class="flex items-center h-16 flex-shrink-0 px-4 bg-gray-900">
                     <a href="/">
@@ -186,12 +175,7 @@ export default {
                         <h1 class="text-2xl font-semibold text-gray-900">{{ currentTab.name }}</h1>
                     </div>
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 bg-gray-50">
-                        <!-- Replace with your content -->
-                        <!-- <div class="py-4">
-                            <div class="border-4 border-dashed border-gray-200 rounded-lg h-96" />
-                        </div> -->
                         <Tabs :tab="currentTab"></Tabs>
-                        <!-- /End replace -->
                     </div>
                 </div>
             </main>
