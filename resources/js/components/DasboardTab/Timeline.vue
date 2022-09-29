@@ -17,7 +17,7 @@
                     <div class="flex-1 space-y-1">
                         <div class="flex items-center justify-between">
                             <h3 class="text-sm font-medium">{{ timeEvent.email }}</h3>
-                            <p class="text-sm text-gray-500">{{ timeEvent.time }}</p>
+                            <p :key="timeEvent.time" class="text-sm text-gray-500">{{ timeEvent.time }}</p>
                         </div>
                         <p class="text-sm text-gray-500">
                             {{ timeEvent.action }}
@@ -60,6 +60,10 @@
                 }
             },
             prepareTimeline() {
+                //update time
+                this.timeline.forEach(element => {
+                    element.time = this.prepareElapsedTime(element.created_at);
+                });
                 this.timelineData.data.forEach(element => {
                     let email = element.user_email;
                     let action = element.action;
@@ -80,6 +84,7 @@
                         type: type,
                         color: color,
                         time: time,
+                        created_at: element.created_at
                     };
                     this.timeline.push(timelineItem);
                     this.id++;
