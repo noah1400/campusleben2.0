@@ -24,7 +24,6 @@
 </head>
 
 <body class="min-h-screen" x-data="{ solutionflyout: false, moreflyout: false, mobilemenu: false }">
-    <!-- This example requires Tailwind CSS v2.0+ -->
     <div class="flex flex-col min-h-screen justify-between">
     <div class="relative bg-white flex-shrink-0">
         <div class="flex justify-between items-center px-4 py-6 sm:px-6 md:justify-start md:space-x-10">
@@ -40,7 +39,6 @@
                     class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
                     aria-expanded="false">
                     <span class="sr-only">Open menu</span>
-                    <!-- Heroicon name: outline/menu -->
                     <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                         stroke-width="2" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
@@ -50,13 +48,10 @@
             <div class="hidden md:flex-1 md:flex md:items-center md:justify-between">
                 <nav class="flex space-x-10">
                     <div class="relative">
-                        <!-- Item active: "text-gray-900", Item inactive: "text-gray-500" -->
                         <button @click="solutionflyout = ! solutionflyout" type="button"
                             class="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             aria-expanded="false">
                             <span>Menü</span>
-                            <!--
-                Heroicon name: solid/chevron-down -->
                             <svg class="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500"
                                 xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                 aria-hidden="true">
@@ -78,7 +73,6 @@
                                         class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
                                         <div
                                             class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
-                                            <!-- Heroicon name: outline/chart-bar -->
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -95,7 +89,6 @@
                                         class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
                                         <div
                                             class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
-                                            <!-- Heroicon name: outline/cursor-click -->
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -112,7 +105,6 @@
                                         class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
                                         <div
                                             class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
-                                            <!-- Heroicon name: outline/shield-check -->
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -129,7 +121,6 @@
                                         class="-m-3 p-3 flex items-start rounded-lg hover:bg-gray-50">
                                         <div
                                             class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
-                                            <!-- Heroicon name: outline/view-grid -->
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -205,7 +196,6 @@
                                     class="inline-flex justify-center w-full  px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900"
                                     id="menu-button" aria-expanded="true" aria-haspopup="true">
                                     {{ Auth::user()->name }}
-                                    <!-- Heroicon name: solid/chevron-down -->
                                     <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd"
@@ -229,7 +219,6 @@
                                 </div>
                                 @admin
                                 <div class="py-1" role="none">
-                                    <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
                                     <a href="{{ route('admin.dashboard') }}" class="text-gray-700 block px-4 py-2 text-sm" role="menuitem"
                                         tabindex="-1" id="menu-item-0">Admin Dashboard</a>
                                 </div>
@@ -264,7 +253,6 @@
                             <button @click="mobilemenu = false" type="button"
                                 class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                                 <span class="sr-only">Menü schließen</span>
-                                <!-- Heroicon name: outline/x -->
                                 <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none"
                                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -278,7 +266,6 @@
                                 class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
                                 <div
                                     class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-500 text-white">
-                                    <!-- Heroicon name: outline/chart-bar -->
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -292,7 +279,6 @@
                                 class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
                                 <div
                                     class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-500 text-white">
-                                    <!-- Heroicon name: outline/cursor-click -->
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -305,7 +291,6 @@
                             <a href="{{route('events.archive')}}" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
                                 <div
                                     class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-500 text-white">
-                                    <!-- Heroicon name: outline/shield-check -->
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -318,7 +303,6 @@
                             <a href="{{ route('contact') }}" class="-m-3 p-3 flex items-center rounded-lg hover:bg-gray-50">
                                 <div
                                     class="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-500 text-white">
-                                    <!-- Heroicon name: outline/view-grid -->
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
                                         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round"

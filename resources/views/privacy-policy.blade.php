@@ -3,7 +3,6 @@
 @section('content')
     <div class="w-full min-h-screen bg-white">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- We've used 3xl here, but feel free to try other max-widths based on your needs -->
             <div class="max-w-3xl mx-auto">
                 <h1 class="h1">Datenschutzerklärung</h1>
                 <p class="mt-0 mb-4">Verantwortlicher im Sinne der Datenschutzgesetze, insbesondere der EU-Datenschutzgrundverordnung (DSGVO),

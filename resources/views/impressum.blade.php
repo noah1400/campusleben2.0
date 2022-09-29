@@ -3,7 +3,6 @@
 @section('content')
     <div class="w-full bg-white min-h-screen">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- We've used 3xl here, bust feel free to try other max-widths based on your needs -->
             <div class="max-w-3xl mx-auto">
                 <div class='impressum'>
                     <h1 class="h1">Impressum</h1>

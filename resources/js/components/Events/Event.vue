@@ -255,7 +255,6 @@ export default {
                     </TabPanels>
                 </TabGroup>
 
-                <!-- Product info -->
                 <div class="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
                     <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ event.name }}</h1>
 
