@@ -12,30 +12,53 @@ use PDF;
 
 class AdminController extends Controller
 {
+
+    /**
+     * Admin Dasboard Cotroller
+     * Controlls every api call related to admin dashboard
+     */
+
+
+    /**
+     * Loads the admin dashboard
+     */
     public function dashboard()
     {
         return view('admin.dashboard');
     }
 
-    // User functions
 
-    // Show all users
+
+
+
+
+    /**
+     * Api call to get all users
+     * returns all users in paginated json format
+     */
     public function showUsers()
     {
         $users = User::orderBy('isAdmin','desc')->orderBy('id')->paginate(50);
         return response()->json($users);
     }
 
-    // Show user by id
+    /**
+     * Api call to get one single user
+     * returns the user in json format
+     * @param int $id
+     */
     public function showUser($id)
     {
         $user = User::findOrFail($id);
         return response()->json($user);
     }
 
-    // Event functions
 
-    // Show all events
+
+    /**
+     * Api call to get all events
+     * returns all events in paginated json format
+     */
     public function showEvents()
     {
         $events = Event::orderBy('id')->paginate(50);
@@ -52,19 +75,30 @@ class AdminController extends Controller
         return response()->json($events);
     }
 
-    // Show event by id
+    /**
+     * Api call to get one single event
+     * returns the event in json format
+     * @param int $id
+     */
     public function getEvent($id) {
         $event = Event::findOrFail($id);
         return response()->json($event);
     }
 
-    // Return Posts of Event
+    /**
+     * Api call to get all posts of one single event
+     * returns all posts of one single event in json format
+     */
     public function getPosts($id) {
         $posts = Event::findOrFail($id)->posts()->get()->toArray();
         return response()->json($posts);
     }
 
-
+    /**
+     * Api call to get all Events that a single user is attending
+     * returns all events in json format
+     * @param int $id
+     */
     public function showUserEvents($id)
     {
         $user = User::findOrFail($id);
@@ -72,7 +106,11 @@ class AdminController extends Controller
         return response()->json($events);
     }
 
-    // Store new event
+    /**
+     * Api call to create a new event
+     * returns the new event in json format
+     * @param Request $request
+     */
     public function storeEvent(Request $request)
     {
         $this->validate($request, [
@@ -146,10 +184,15 @@ class AdminController extends Controller
         $log->type = "create";
         $log->save();
 
-        return redirect()->route('admin.events');
+        return response()->json($event);
     }
 
-    // Update event
+    /**
+     * Api call to update an event
+     * returns the updated event in json format
+     * @param Request $request
+     * @param int $id
+     */
     public function updateEvent(Request $request, $id)
     {
         $this->validate($request, [
@@ -249,7 +292,10 @@ class AdminController extends Controller
         return response()->json($event);
     }
 
-    // Delete event
+/**
+ * Api call to delete an event
+ * returns the deleted event in json format
+ */
 public function deleteEvent($id)
 {
     $event = Event::findOrFail($id);
@@ -268,7 +314,13 @@ public function deleteEvent($id)
     return response()->json($event);
 }
 
-    // Close event
+    /**
+     * @deprecated
+     *
+     * Api call to close an Event
+     * returns the closed event in json format
+     * @param int $id
+     */
     public function closeEvent($id)
     {
         $event = Event::findOrFail($id);
@@ -277,7 +329,13 @@ public function deleteEvent($id)
         return redirect()->route('admin.events');
     }
 
-    // Open event
+    /**
+     * @deprecated
+     *
+     * Api call to open an Event
+     * returns the opened event in json format
+     * @param int $id
+     */
     public function openEvent($id)
     {
         $event = Event::findOrFail($id);
@@ -286,17 +344,11 @@ public function deleteEvent($id)
         return redirect()->route('admin.events');
     }
 
-    // Show event
-    public function showEvent($id)
-    {
-        $event = Event::findOrFail($id);
-        $users = $event->users();
-        $users_count = $event->users()->count();
-        return view('admin.events.show', compact('event', 'users_count'));
-    }
 
-
-    // Create pdf of users
+    /**
+     * @deprecated
+     * Api call to create pdf
+     */
     public function createPdf() {
         if(request('event', null) != null) {
             $event = Event::find(request('event'));
@@ -327,6 +379,10 @@ public function deleteEvent($id)
         return $pdf->download('users.pdf');
     }
 
+    /**
+     * Api call to get timeline
+     * returns the timeline in cursor paginated json format
+     */
     public function getTimeline() {
         return LOG::orderBy('id', 'desc')->cursorPaginate(2);
     }

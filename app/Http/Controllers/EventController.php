@@ -12,6 +12,13 @@ use GrahamCampbell\Markdown\Facades\Markdown;
 
 class EventController extends Controller
 {
+
+    /**
+     * EventController
+     * Controlls everything related to events
+     */
+
+
     /**
      * Display a listing of the resource.
      *
@@ -121,27 +128,7 @@ class EventController extends Controller
         return view('events.show', compact('event'));
     }
 
-    public function close($id)
-    {
-        $event = Event::findOrFail($id);
-        $event->closed = true;
-        $event->save();
-        return redirect()->route('events.show', ['id' => $id]);
-    }
 
-    public function open($id)
-    {
-        $event = Event::findOrFail($id);
-        $event->closed = false;
-        $event->save();
-        return redirect()->route('events.show', ['id' => $id]);
-    }
-
-    public function delete($id){
-        $event = Event::findOrFail($id);
-        $event->delete();
-        return redirect()->route('events.index');
-    }
 
     public function countUsers($id){
 
