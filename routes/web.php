@@ -56,12 +56,12 @@ Route::get('/posts/{event}', [App\Http\Controllers\PostController::class, 'getPo
 Route::get('/user/data/show', [App\Http\Controllers\UserController::class, 'showdata'])
             ->name('userdata.showdata')
             ->middleware('auth');
-Route::get('/user/data/delete', [App\Http\Controllers\UserController::class, 'deletedataShow'])
-            ->name('userdata.deletedata')
-            ->middleware('auth');
-Route::post('/user/data/delete', [App\Http\Controllers\UserController::class, 'deletedata'])
-            ->name('userdata.delete')
-            ->middleware('auth');
+// Route::get('/user/data/delete', [App\Http\Controllers\UserController::class, 'deletedataShow'])
+//             ->name('userdata.deletedata')
+//             ->middleware('auth');
+// Route::post('/user/data/delete', [App\Http\Controllers\UserController::class, 'deletedata'])
+//             ->name('userdata.delete')
+//             ->middleware('auth');
 
 
 Route::get('/api/user/isauthenticated', [App\Http\Controllers\UserController::class, 'isAuthenticated'])
