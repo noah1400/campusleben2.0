@@ -22,6 +22,15 @@
         }
     </style>
     <link rel="stylesheet" type="text/css" href="{{asset("vendor/cookie-consent/css/cookie-consent.css")}}">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9EXW3HTKWE"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-9EXW3HTKWE');
+    </script>
     <!-- Google Tag Manager -->
     <script>
         (function(w, d, s, l, i) {
