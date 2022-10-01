@@ -115,11 +115,11 @@
                 }
                 let elapsed_days = Math.floor(elapsed / 86400000);
                 if (elapsed_days > 0) {
-                    return elapsed_days + "d";
+                    return elapsed_days + "t";
                 }
                 let elapsed_hours = Math.floor(elapsed / 3600000);
                 if (elapsed_hours > 0) {
-                    return elapsed_hours + "h";
+                    return elapsed_hours + "S";
                 }
                 let elapsed_minutes = Math.floor(elapsed / 60000);
                 if (elapsed_minutes > 0) {
