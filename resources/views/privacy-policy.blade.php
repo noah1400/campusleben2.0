@@ -68,6 +68,21 @@
                     nicht gewährleistet. Zudem können einzelne Dienste und Services nicht verfügbar oder eingeschränkt sein.
                     Aus diesem Grund ist ein Widerspruch ausgeschlossen. </p>
                 <p class="mt-0 mb-4"></p>
+                <h3 class="h3">Webanalysetools</h3>
+                <p class="mt-0 mb-4">Wir setzen Google Analytics, einen Webanalysedienst der Google Inc. („Google“), ein. Google verwendet Cookies. Die durch das Cookie erzeugten Informationen über die Benutzung des Onlineangebotes durch die Nutzer werden in der Regel an einen Server von Google in den USA übertragen und dort gespeichert.</p>
+                <p class="mt-0 mb-4">Google wird diese Informationen in unserem Auftrag benutzen, um die Nutzung unseres Onlineangebotes durch die Nutzer auszuwerten, um Reports über die Aktivitäten innerhalb dieses Onlineangebotes zusammenzustellen und um weitere mit der Nutzung dieses Onlineangebotes und der Internetnutzung verbundene Dienstleistungen uns gegenüber zu erbringen. Dabei können aus den verarbeiteten Daten pseudonyme Nutzungsprofile der Nutzer erstellt werden.</p>
+                <p class="mt-0 mb-4">Wir setzen Google Analytics nur mit aktivierter IP-Anonymisierung ein. Das bedeutet, die IP-Adresse der Nutzer wird von Google innerhalb von Mitgliedstaaten der Europäischen Union oder in anderen Vertragsstaaten des Abkommens über den Europäischen Wirtschaftsraum gekürzt. Nur in Ausnahmefällen wird die volle IP-Adresse an einen Server von Google in den USA übertragen und dort gekürzt. Die von dem Browser des Nutzers übermittelte IP-Adresse wird nicht mit anderen Daten von Google zusammengeführt.</p>
+                <p class="mt-0 mb-4">Die Nutzer können die Speicherung der Cookies durch eine entsprechende Einstellung ihrer Browser-Software verhindern; die Nutzer können darüber hinaus die Erfassung der durch das Cookie erzeugten und auf ihre Nutzung des Onlineangebotes bezogenen Daten an Google sowie die Verarbeitung dieser Daten durch Google verhindern, indem sie das unter dem folgenden Link verfügbare Browser-Plugin herunterladen und installieren:
+                    <a class="no-underline hover:underline text-blue-600 dark:text-blue-400" href="http://tools.google.com/dlpage/gaoptout?hl=de">  http://tools.google.com/dlpage/gaoptout?hl=de</a>.</p>
+                <p class="mt-0 mb-4">Weitere Informationen zur Datennutzung zu Werbezwecken durch Google, Einstellungs- und Widerspruchsmöglichkeiten erfahren Sie auf den Webseiten von Google:
+                    <a class="no-underline hover:underline text-blue-600 dark:text-blue-400" href="https://www.google.com/intl/de/policies/privacy/partners/"> https://www.google.com/intl/de/policies/privacy/partners/</a>
+                    („Datennutzung durch Google bei Ihrer Nutzung von Websites oder Apps unserer Partner“),
+                    <a class="no-underline hover:underline text-blue-600 dark:text-blue-400" href="http://www.google.com/policies/technologies/ads"> http://www.google.com/policies/technologies/ads</a>
+                    („Datennutzung zu Werbezwecken“),
+                    <a class="no-underline hover:underline text-blue-600 dark:text-blue-400" href="http://www.google.de/settings/ads"> http://www.google.de/settings/ads</a>
+                    („Informationen verwalten, die Google verwendet, um Ihnen Werbung einzublenden“) und
+                    <a class="no-underline hover:underline text-blue-600 dark:text-blue-400" href="http://www.google.com/ads/preferences/"> http://www.google.com/ads/preferences/</a>
+                    („Bestimmen Sie, welche Werbung Google Ihnen zeigt“).</p>
                 <h2 class="h2">Registrierung auf unserer Website</h2>
                 <h3 class="h3">Art und Zweck der Verarbeitung:</h3>
                 <p class="mt-0 mb-4">Für die Registrierung auf unserer Website benötigen wir einige personenbezogene Daten, die über eine
