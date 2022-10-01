@@ -44,7 +44,8 @@ class EventController extends Controller
             // remove line breaks
             $event->description = str_replace(array("\r", "\n"), ' ', $event->description);
         }
-        return view('events.index', compact('events'));
+        $title = "Events";
+        return view('events.index', compact('events','title'));
     }
 
     public function archive(){
@@ -68,7 +69,8 @@ class EventController extends Controller
             // remove line breaks
             $event->description = str_replace(array("\r", "\n"), ' ', $event->description);
         }
-        return view('events.archive', compact('events'));
+        $title="Archiv";
+        return view('events.archive', compact('events', 'title'));
     }
 
     /**
@@ -124,8 +126,8 @@ class EventController extends Controller
 
         // Convert markdown to html
         $event->description = Markdown::convert($event->description)->getContent();
-
-        return view('events.show', compact('event'));
+        $title = $event->name;
+        return view('events.show', compact('event', 'title'));
     }
 
 
