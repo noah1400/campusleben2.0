@@ -6,9 +6,12 @@ use App\Models\Event;
 use App\Models\User;
 use App\Models\LOG;
 use Illuminate\Http\Request;
-use \Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Intervention\Image\ImageManagerStatic as Image;
 use PDF;
+use AkkiIo\LaravelGoogleAnalytics\Facades\LaravelGoogleAnalytics;
+use AkkiIo\LaravelGoogleAnalytics\Period;
+use Google\Analytics\Data\V1beta\MetricAggregation;
 
 class AdminController extends Controller
 {
@@ -385,6 +388,44 @@ public function deleteEvent($id)
      */
     public function getTimeline() {
         return LOG::orderBy('id', 'desc')->cursorPaginate(2);
+    }
+
+    /**
+     * Api call to get most views per page
+     * Over ga4 api
+     */
+    public function ga4_mostViewsByPage() {
+        $from = (request('days', null) != null
+        && is_int(request('days', null))
+        && request('days', -1) >= 0) ? Period::days(request('days')) : Period::days(7);
+        $count = (request('count', null) != null
+        && is_int(request('count', null))
+        && request('count', -1) >= 0) ? request('count', 10) : 10;
+
+        $res = LaravelGoogleAnalytics::getMostViewsByPage($from, $count);
+        return response()->json($res);
+    }
+
+    /**
+     * Api call to get views growth of views
+     * between the date ranges 14 days ago and 7 days ago
+     * and 7 days ago and today
+     */
+    public function ga4_lastWeekThisWeek() {
+        $lastWeekPeriod = Period::create(Carbon::today()->subDays(14), Carbon::today()->subDays(7));
+        $thisWeekPeriod = Period::create(Carbon::today()->subDays(7), Carbon::today());
+
+        $lastWeekResult = LaravelGoogleAnalytics::dateRange($lastWeekPeriod)
+            ->metrics('activeUsers')
+            ->get();
+        $thisWeekResult = LaravelGoogleAnalytics::dateRange($thisWeekPeriod)
+            ->metrics('activeUsers')
+            ->get();
+
+        return response()->json([
+            'lastWeek' => $lastWeekResult,
+            'thisWeek' => $thisWeekResult
+        ]);
     }
 
 

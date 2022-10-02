@@ -1,6 +1,7 @@
 <template>
     <div>
-        <ul role="list" class="divide-y divide-grey-200">
+        <h3 class="mt-5 text-lg font-medium leading-6 text-gray-900">Timeline</h3>
+        <ul role="list" class="mt-2 divide-y divide-grey-200">
             <li v-for="timeEvent in timeline" :key="timeEvent.id" class="py-4">
                 <div class="flex space-x-3">
                     <div :class="[timeEvent.color,'p-1 h-7 w-7 rounded-full']">
