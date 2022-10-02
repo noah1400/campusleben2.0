@@ -17,7 +17,8 @@
         "league/commonmark": "^2.3",
         "n0sz/commonmark-marker-extension": "^1.0",
         "spatie/laravel-sitemap": "^6.2",
-        "statikbe/laravel-cookie-consent": "^1.4"
+        "statikbe/laravel-cookie-consent": "^1.4",
+        "ext-bcmath": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

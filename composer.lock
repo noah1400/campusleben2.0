@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "688a78888707513dd8de657f74aa6e69",
+    "content-hash": "673e4b2c3e6957e759474f906f009f39",
     "packages": [
         {
             "name": "akki-io/laravel-google-analytics",
@@ -9713,7 +9713,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0.2"
+        "php": "^8.0.2",
+        "ext-bcmath": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"
