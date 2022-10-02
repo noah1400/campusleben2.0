@@ -34,7 +34,6 @@ export default {
     },
     methods: {
         getResults(page = 1) {
-            console.log('getResults');
             let vm = this;
             axios.get('/admin/api/events?page=' + page)
                 .then(response => {

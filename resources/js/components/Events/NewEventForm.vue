@@ -32,10 +32,6 @@ export default {
         submitEvent() {
             let formData = new FormData(document.getElementById("eventForm"));
 
-            // Output form data
-            for (var pair of formData.entries()) {
-                console.log(pair[0] + ", " + pair[1]);
-            }
 
             this.loader = true;
             let vm = this;

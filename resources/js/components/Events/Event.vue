@@ -100,7 +100,6 @@ export default {
         },
     },
     created() {
-        console.log(this.event);
         this.getEventPosts();
         this.getRegistrationCount();
         this.isAuth();

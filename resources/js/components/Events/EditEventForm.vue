@@ -66,7 +66,6 @@ export default {
         onFileChange(e) {
             this.previewImage = true;
             this.previewImageSrc = URL.createObjectURL(e.target.files[0]);
-            console.log(this.previewImageSrc);
         },
     },
     data(){

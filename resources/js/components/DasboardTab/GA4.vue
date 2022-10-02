@@ -73,11 +73,6 @@ export default {
             }else{
                 this.growth = 100;
             }
-
-            console.log("Analytics: ", this.analytics);
-            console.log("Last Week: " + this.lw);
-            console.log("This Week: " + this.tw);
-            console.log("Growth: " + this.growth);
         }
     },
     created() {
