@@ -100,11 +100,11 @@ Route::get('/admin/api/timeline', [App\Http\Controllers\AdminController::class, 
 // Analytics
 // mvbp ( most views by page)
 Route::get('/admin/api/analytics/mvbp', [App\Http\Controllers\AdminController::class, 'ga4_mostViewsByPage'])
-    ->name('admin.analytics')
+    ->name('admin.analytics.mvbp')
     ->middleware(['auth', 'isAdmin']);
 // lwtw (last week this week)
 Route::get('/admin/api/analytics/lwtw', [App\Http\Controllers\AdminController::class, 'ga4_lastWeekThisWeek'])
-    ->name('admin.analytics')
+    ->name('admin.analytics.lwtw')
     ->middleware(['auth', 'isAdmin']);
 
 
