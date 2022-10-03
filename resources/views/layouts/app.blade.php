@@ -9,6 +9,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }} - {{ (isset($title)) ? $title : 'Start' }}</title>
+    <meta property="og:title" content="{{ config('app.name', 'Laravel') }} - {{ (isset($title)) ? $title : 'Start' }}">
+    <meta name="twitter:title" content="{{ config('app.name', 'Laravel') }} - {{ (isset($title)) ? $title : 'Start' }}">
+
+    <meta name="description" content="{{ (isset($metaDescription)) ? $metaDescription : 'Hier findet ihr alles was das Studentenherz begehrt.' }}">
+    <meta property="og:description" content="{{ (isset($metaDescription)) ? $metaDescription : 'Hier findet ihr alles was das Studentenherz begehrt.' }}">
+    <meta name="twitter:description" content="{{ (isset($metaDescription)) ? $metaDescription : 'Hier findet ihr alles was das Studentenherz begehrt.' }}">
+
+    <meta property="og:image" content="{{ (isset($metaImage) && $metaImage != null) ? $metaImage : asset('storage/images/csm_logo_campusleben.png') }}">
+    <meta name="twitter:image" content="{{ (isset($metaImage) && $metaImage != null) ? $metaImage : asset('storage/images/csm_logo_campusleben.png') }}">
 
     <!-- Fonts -->
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">

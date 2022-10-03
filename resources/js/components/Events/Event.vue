@@ -6,6 +6,8 @@ TabList,
 TabPanel,
 TabPanels,
 } from '@headlessui/vue';
+
+
 export default {
     components: {
         Tab,
@@ -103,7 +105,12 @@ export default {
         this.getEventPosts();
         this.getRegistrationCount();
         this.isAuth();
-        this.isAttending();
+        this.isAttending()
+        let metatags = {
+            title: this.event.name,
+            description: this.event.description,
+            image: '/storage/' + this.event.preview_image,
+        }
     }
 }
 </script>

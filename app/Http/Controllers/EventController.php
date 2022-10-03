@@ -124,10 +124,17 @@ class EventController extends Controller
         ->locale('de')
         ->isoFormat('dd. DD.MM.YYYY H:mm');
 
+        // Meta Tags
+        $metaDescription = $event->description;
+        $metaImage = asset('storage/'.$event->preview_image);
+
         // Convert markdown to html
         $event->description = Markdown::convert($event->description)->getContent();
         $title = $event->name;
-        return view('events.show', compact('event', 'title'));
+
+
+
+        return view('events.show', compact('event', 'title', 'metaDescription', 'metaImage'));
     }
 
 
