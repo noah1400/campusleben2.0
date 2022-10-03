@@ -106,11 +106,6 @@ export default {
         this.getRegistrationCount();
         this.isAuth();
         this.isAttending()
-        let metatags = {
-            title: this.event.name,
-            description: this.event.description,
-            image: '/storage/' + this.event.preview_image,
-        }
     }
 }
 </script>
