@@ -70,6 +70,8 @@ export default {
 
             if (this.lw > 0) {
                 this.growth = ((this.tw - this.lw) / this.lw) * 100;
+                // Round to 2 decimal places
+                this.growth = Math.round((this.growth + Number.EPSILON) * 100) / 100;
             }else{
                 this.growth = 100;
             }
