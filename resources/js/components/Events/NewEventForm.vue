@@ -3,7 +3,7 @@ import NewEventErrorNotif from './NewEventErrorNotif.vue';
 import AddPostsForm from './AddPostsForm.vue';
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
-import { Switch } from '@headlessui/vue'
+import { Switch, Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/vue'
 import { ref } from 'vue'
 export default {
     components: {
@@ -11,6 +11,9 @@ export default {
         AddPostsForm,
         Datepicker,
         Switch,
+        Disclosure,
+        DisclosureButton,
+        DisclosurePanel
     },
     emits: ['close_create'],
     data(){
@@ -232,6 +235,38 @@ export default {
                             </p>
                         </div>
                     </div>
+
+                    <Disclosure as="section" aria-labelledby="sponsor-heading" class="flex flex-col items-start">
+                        <h2 id="sponsor-heading" class="sr-only">Sponsors</h2>
+                        <div class="relative py-4 flex flex-row">
+                            <div class="mx-auto flex max-w-7xl space-x-6 divide-x divide-gray-200 px-4 test-sm sm:px-6 lg:px-8">
+                                <div>
+                                    <DisclosureButton class="group flex items-center font-medium text-gray-700">
+                                        <div class="mr-2 h-5 w-5 flex-none text-gray-400 group-hover:text-gray-500" aria-hidden="true">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                                                <path fill-rule="evenodd" d="M3.792 2.938A49.069 49.069 0 0112 2.25c2.797 0 5.54.236 8.209.688a1.857 1.857 0 011.541 1.836v1.044a3 3 0 01-.879 2.121l-6.182 6.182a1.5 1.5 0 00-.439 1.061v2.927a3 3 0 01-1.658 2.684l-1.757.878A.75.75 0 019.75 21v-5.818a1.5 1.5 0 00-.44-1.06L3.13 7.938a3 3 0 01-.879-2.121V4.774c0-.897.64-1.683 1.542-1.836z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+
+                                        0 Sponsoren
+                                    </DisclosureButton>
+                                </div>
+                                <div class="pl-6">
+                                    <button type="button" class="text-gray-500">Alle Entfernen</button>
+                                </div>
+                            </div>
+                        </div>
+                        <DisclosurePanel class="px-4 pt-2 border-gray-200 border-t w-100">
+                            <div>
+                                Hier wird man Sponsoren auswählen. (Wird noch gemacht)
+                                <!--
+                                    https://tailwindui.com/components/ecommerce/components/category-filters
+                                    With expandable product filter panel
+                                -->
+                            </div>
+                        </DisclosurePanel>
+                    </Disclosure>
+
 
                     <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
                         <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
