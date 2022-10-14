@@ -41,6 +41,8 @@ Route::get('/events/me', [App\Http\Controllers\EventController::class, 'myevents
 
 Route::get('/events/{id}', [App\Http\Controllers\EventController::class, 'show'])
             ->name('events.show');
+Route::get('/api/event/user/count/{event}', [App\Http\Controllers\EventController::class, 'countUsers'])
+            ->name('event.user.count');
 
 
 Route::post('/posts/newpost', [App\Http\Controllers\PostController::class, 'newPost'])
@@ -49,6 +51,21 @@ Route::post('/posts/newpost', [App\Http\Controllers\PostController::class, 'newP
 
 Route::get('/posts/{event}', [App\Http\Controllers\PostController::class, 'getPosts'])
             ->name('events.posts');
+
+Route::get('/api/posts/{event}', [App\Http\Controllers\PostController::class, 'getPosts'])
+            ->name('admin.posts.show');
+
+Route::post('/admin/api/posts/newpost', [App\Http\Controllers\PostController::class, 'newPost'])
+            ->name('admin.posts.newpost')
+            ->middleware(['auth', 'isAdmin']);
+
+Route::post('/admin/api/posts/update', [App\Http\Controllers\PostController::class, 'updatePost'])
+            ->name('admin.posts.update')
+            ->middleware(['auth', 'isAdmin']);
+
+Route::delete('/admin/api/posts/delete/{post}', [App\Http\Controllers\PostController::class, 'deletePost'])
+            ->name('admin.posts.delete')
+            ->middleware(['auth', 'isAdmin']);
 
 
 
@@ -70,59 +87,14 @@ Route::get('/api/user/isauthenticated', [App\Http\Controllers\UserController::cl
 Route::post('/api/user/attend/{event}', [App\Http\Controllers\UserController::class, 'attendEvent'])
             ->name('events.attendShow')
             ->middleware('auth');
-
-
-
-Route::get('/api/posts/{event}', [App\Http\Controllers\PostController::class, 'getPosts'])
-    ->name('admin.posts.show');
-
-Route::post('/admin/api/posts/newpost', [App\Http\Controllers\PostController::class, 'newPost'])
-    ->name('admin.posts.newpost')
-    ->middleware(['auth', 'isAdmin']);
-
-Route::post('/admin/api/posts/update', [App\Http\Controllers\PostController::class, 'updatePost'])
-    ->name('admin.posts.update')
-    ->middleware(['auth', 'isAdmin']);
-
-Route::delete('/admin/api/posts/delete/{post}', [App\Http\Controllers\PostController::class, 'deletePost'])
-    ->name('admin.posts.delete')
-    ->middleware(['auth', 'isAdmin']);
-
-Route::get('/admin/api/timeline', [App\Http\Controllers\AdminController::class, 'getTimeline'])
-    ->name('admin.timeline')
-    ->middleware(['auth', 'isAdmin']);
-
-
-
-
-
-
-// Analytics
-// mvbp ( most views by page)
-Route::get('/admin/api/analytics/mvbp', [App\Http\Controllers\AdminController::class, 'ga4_mostViewsByPage'])
-    ->name('admin.analytics.mvbp')
-    ->middleware(['auth', 'isAdmin']);
-// lwtw (last week this week)
-Route::get('/admin/api/analytics/lwtw', [App\Http\Controllers\AdminController::class, 'ga4_lastWeekThisWeek'])
-    ->name('admin.analytics.lwtw')
-    ->middleware(['auth', 'isAdmin']);
-
-
-
-
-
-
-
-Route::get('/api/event/user/count/{event}', [App\Http\Controllers\EventController::class, 'countUsers'])
-    ->name('event.user.count');
-
 Route::get('/api/event/user/attending/{event}', [App\Http\Controllers\UserController::class, 'isAttending'])
-    ->name('admin.event.user.attending')
-    ->middleware('auth');
+            ->name('admin.event.user.attending')
+            ->middleware('auth');
 
-
-
-
+Route::get('/api/sponsors/{event}', [App\Http\Controllers\SponsorController::class, 'getSponsors'])
+            ->name('api.sponsor.get');
+Route::get('/api/sponsors', [App\Http\Controllers\SponsorController::class, 'getActiveSponsors'])
+            ->name('api.sponsor.getActive');
 
 
 
@@ -165,4 +137,29 @@ Route::post('/admin/events/close/{id}', [App\Http\Controllers\AdminController::c
             ->middleware(['auth', 'isAdmin']);
 Route::post('/admin/events/open/{id}', [App\Http\Controllers\AdminController::class, 'openEvent'])
             ->name('admin.events.open')
+            ->middleware(['auth', 'isAdmin']);
+Route::get('/admin/api/timeline', [App\Http\Controllers\AdminController::class, 'getTimeline'])
+    ->name('admin.timeline')
+    ->middleware(['auth', 'isAdmin']);
+
+
+
+
+
+
+// Analytics
+// mvbp ( most views by page)
+Route::get('/admin/api/analytics/mvbp', [App\Http\Controllers\AdminController::class, 'ga4_mostViewsByPage'])
+    ->name('admin.analytics.mvbp')
+    ->middleware(['auth', 'isAdmin']);
+// lwtw (last week this week)
+Route::get('/admin/api/analytics/lwtw', [App\Http\Controllers\AdminController::class, 'ga4_lastWeekThisWeek'])
+    ->name('admin.analytics.lwtw')
+    ->middleware(['auth', 'isAdmin']);
+
+Route::get('/admin/api/sponsors', [App\Http\Controllers\AdminController::class, 'getAllSponsors'])
+            ->name('admin.sponsors')
+            ->middleware(['auth', 'isAdmin']);
+Route::get('/admin/api/sponsors/create', [App\Http\Controllers\AdminController::class, 'createSponsor'])
+            ->name('admin.sponsors.create')
             ->middleware(['auth', 'isAdmin']);

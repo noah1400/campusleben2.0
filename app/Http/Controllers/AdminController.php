@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Event;
 use App\Models\User;
 use App\Models\LOG;
+use App\Models\Sponsor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\ImageManagerStatic as Image;
 use PDF;
 use AkkiIo\LaravelGoogleAnalytics\Facades\LaravelGoogleAnalytics;
 use AkkiIo\LaravelGoogleAnalytics\Period;
-use Google\Analytics\Data\V1beta\MetricAggregation;
+
 
 class AdminController extends Controller
 {
@@ -429,4 +431,126 @@ public function deleteEvent($id)
     }
 
 
+    /**
+     * Gets all sponsors
+     * @return \Illuminate\Http\Response list of sponsors
+     */
+    public function getAllSponsors() {
+        $sponsors = Sponsor::all();
+        return response()->json($sponsors);
+    }
+
+    /**
+     * Creates a new sponsor
+     * @return \Illuminate\Http\Response the created sponsor
+     */
+    public function createSponsor(Request $request) {
+
+        // extend validator url rule to allow äöüß
+        // because äöüß are valid in german urls
+        // https://stackoverflow.com/questions/28487089/laravel-url-validation-umlauts
+        Validator::extend('url', function ($attribute, $value, $parameters, $validator) {
+            $url = str_replace(["ä","ö","ü"], ["ae", "oe", "ue"], $value);
+            return filter_var($url, FILTER_VALIDATE_URL);
+        });
+
+
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'image' => 'required|image',
+            'link' => 'required|url'
+        ]);
+
+
+        $sponsor = new Sponsor();
+        $sponsor->name = $request->name;
+        $sponsor->link = $request->link;
+
+        $imageUrl = request()->file('image')->store('public/sponsors');
+        $URL = substr($imageUrl, 7);
+        Image::configure(array('driver' => 'gd'));
+        Image::make(storage_path('app/public/') . $URL)
+        ->widen(300)
+        ->save(storage_path('app/public/' . $URL));
+
+        $sponsor->image = $URL;
+        if (request()->has('active')) {
+            $sponsor->active = true;
+        } else {
+            $sponsor->active = false;
+        }
+
+        $sponsor->save();
+
+        $log = new LOG();
+        $log->user_email = auth()->user()->email;
+        $log->action = 'Sponsor created: '. $sponsor->name;
+        $log->type = 'create';
+        $log->save();
+
+        return response()->json($sponsor);
+    }
+
+    /**
+     * Updates a sponsor
+     * @return \Illuminate\Http\Response the updated sponsor
+     */
+    public function editSponsor(Request $request, Sponsor $sponsor) {
+        // extend validator url rule to allow äöüß
+        // because äöüß are valid in german urls
+        // https://stackoverflow.com/questions/28487089/laravel-url-validation-umlauts
+        Validator::extend('url', function ($attribute, $value, $parameters, $validator) {
+            $url = str_replace(["ä","ö","ü"], ["ae", "oe", "ue"], $value);
+            return filter_var($url, FILTER_VALIDATE_URL);
+        });
+
+
+        $this->validate($request, [
+            'name' => 'required|string|max:255',
+            'image' => 'required|image',
+            'link' => 'required|url'
+        ]);
+        $nameChanged = false;
+        if ($sponsor->name != $request->name) {
+            $nameChanged = true;
+        }
+
+        $sponsor->name = $request->name;
+        $sponsor->link = $request->link;
+
+        if ($sponsor->image != $request->image) {
+            $imageUrl = request()->file('image')->store('public/sponsors');
+            $URL = substr($imageUrl, 7);
+            Image::configure(array('driver' => 'gd'));
+            Image::make(storage_path('app/public/') . $URL)
+            ->widen(300)
+            ->save(storage_path('app/public/' . $URL));
+
+            if (file_exists(storage_path('app/public/') . $sponsor->image)) {
+                unlink(storage_path('app/public/') . $sponsor->image);
+            }
+            $sponsor->image = $URL;
+        }
+
+        if (request()->has('active')) {
+            $sponsor->active = true;
+        } else {
+            $sponsor->active = false;
+        }
+        $sponsor->save();
+
+        if($nameChanged) {
+            $log = new LOG();
+            $log->user_email = auth()->user()->email;
+            $log->action = 'Sponsor name changed: '. $sponsor->name;
+            $log->type = 'update';
+            $log->save();
+        }
+
+        $log = new LOG();
+        $log->user_email = auth()->user()->email;
+        $log->action = 'Sponsor updated: '. $sponsor->name;
+        $log->type = 'update';
+        $log->save();
+    }
 }
