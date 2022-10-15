@@ -24,55 +24,65 @@ Auth::routes([
     'verify' => false,
 ]);
 
-Route::get('/home', function(){return redirect()->route("welcome");})->name("home");
-Route::get('/contact', function(){return view('contact', ['title'=>'Kontakt']);})->name("contact");
-Route::get('/impressum', function(){return view('impressum', ['title'=>'Impressum']);})->name("impressum");
-Route::get('/about', function(){return view('about', ['title'=>'Über uns']);})->name("about");
-Route::get('/datenschutz', function(){return view('privacy-policy', ['title'=>'Datenschutz']);})->name("datenschutz");
+Route::get('/home', function () {
+    return redirect()->route("welcome");
+})->name("home");
+Route::get('/contact', function () {
+    return view('contact', ['title' => 'Kontakt']);
+})->name("contact");
+Route::get('/impressum', function () {
+    return view('impressum', ['title' => 'Impressum']);
+})->name("impressum");
+Route::get('/about', function () {
+    return view('about', ['title' => 'Über uns']);
+})->name("about");
+Route::get('/datenschutz', function () {
+    return view('privacy-policy', ['title' => 'Datenschutz']);
+})->name("datenschutz");
 Route::get('/sitemap.xml', [App\Http\Controllers\SitemapXmlController::class, 'index'])->name("sitemap");
 
 Route::get('/events', [App\Http\Controllers\EventController::class, 'index'])
-            ->name('events.index');
+    ->name('events.index');
 Route::get('/events/archive', [App\Http\Controllers\EventController::class, 'archive'])
-            ->name('events.archive');
+    ->name('events.archive');
 Route::get('/events/me', [App\Http\Controllers\EventController::class, 'myevents'])
-            ->name('events.myevents')
-            ->middleware('auth');
+    ->name('events.myevents')
+    ->middleware('auth');
 
 Route::get('/events/{id}', [App\Http\Controllers\EventController::class, 'show'])
-            ->name('events.show');
+    ->name('events.show');
 Route::get('/api/event/user/count/{event}', [App\Http\Controllers\EventController::class, 'countUsers'])
-            ->name('event.user.count');
+    ->name('event.user.count');
 
 
 Route::post('/posts/newpost', [App\Http\Controllers\PostController::class, 'newPost'])
-            ->name('posts.newpost')
-            ->middleware(['auth', 'isAdmin']);
+    ->name('posts.newpost')
+    ->middleware(['auth', 'isAdmin']);
 
 Route::get('/posts/{event}', [App\Http\Controllers\PostController::class, 'getPosts'])
-            ->name('events.posts');
+    ->name('events.posts');
 
 Route::get('/api/posts/{event}', [App\Http\Controllers\PostController::class, 'getPosts'])
-            ->name('admin.posts.show');
+    ->name('admin.posts.show');
 
 Route::post('/admin/api/posts/newpost', [App\Http\Controllers\PostController::class, 'newPost'])
-            ->name('admin.posts.newpost')
-            ->middleware(['auth', 'isAdmin']);
+    ->name('admin.posts.newpost')
+    ->middleware(['auth', 'isAdmin']);
 
 Route::post('/admin/api/posts/update', [App\Http\Controllers\PostController::class, 'updatePost'])
-            ->name('admin.posts.update')
-            ->middleware(['auth', 'isAdmin']);
+    ->name('admin.posts.update')
+    ->middleware(['auth', 'isAdmin']);
 
 Route::delete('/admin/api/posts/delete/{post}', [App\Http\Controllers\PostController::class, 'deletePost'])
-            ->name('admin.posts.delete')
-            ->middleware(['auth', 'isAdmin']);
+    ->name('admin.posts.delete')
+    ->middleware(['auth', 'isAdmin']);
 
 
 
 
 Route::get('/user/data/show', [App\Http\Controllers\UserController::class, 'showdata'])
-            ->name('userdata.showdata')
-            ->middleware('auth');
+    ->name('userdata.showdata')
+    ->middleware('auth');
 // Route::get('/user/data/delete', [App\Http\Controllers\UserController::class, 'deletedataShow'])
 //             ->name('userdata.deletedata')
 //             ->middleware('auth');
@@ -82,62 +92,64 @@ Route::get('/user/data/show', [App\Http\Controllers\UserController::class, 'show
 
 
 Route::get('/api/user/isauthenticated', [App\Http\Controllers\UserController::class, 'isAuthenticated'])
-            ->name('api.user.isauthenticated');
+    ->name('api.user.isauthenticated');
 
 Route::post('/api/user/attend/{event}', [App\Http\Controllers\UserController::class, 'attendEvent'])
-            ->name('events.attendShow')
-            ->middleware('auth');
+    ->name('events.attendShow')
+    ->middleware('auth');
 Route::get('/api/event/user/attending/{event}', [App\Http\Controllers\UserController::class, 'isAttending'])
-            ->name('admin.event.user.attending')
-            ->middleware('auth');
+    ->name('admin.event.user.attending')
+    ->middleware('auth');
 
 Route::get('/api/sponsors/{event}', [App\Http\Controllers\SponsorController::class, 'getSponsors'])
-            ->name('api.sponsor.get');
+    ->name('api.sponsor.get');
 Route::get('/api/sponsors', [App\Http\Controllers\SponsorController::class, 'getActiveSponsors'])
-            ->name('api.sponsor.getActive');
+    ->name('api.sponsor.getActive');
 
 
 
-Route::get('/admin', function(){return redirect()->route('admin.dashboard');})->middleware(['auth', 'isAdmin']);
+Route::get('/admin', function () {
+    return redirect()->route('admin.dashboard');
+})->middleware(['auth', 'isAdmin']);
 Route::get('/admin/dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])
-            ->name('admin.dashboard')
-            ->middleware(['auth', 'isAdmin']);
+    ->name('admin.dashboard')
+    ->middleware(['auth', 'isAdmin']);
 Route::get('/admin/api/users', [App\Http\Controllers\AdminController::class, 'showUsers'])
-            ->name('admin.users')
-            ->middleware(['auth', 'isAdmin']);
+    ->name('admin.users')
+    ->middleware(['auth', 'isAdmin']);
 Route::get('/admin/users/{user}', [App\Http\Controllers\AdminController::class, 'showUser'])
-            ->name('admin.users.show')
-            ->middleware(['auth', 'isAdmin']);
+    ->name('admin.users.show')
+    ->middleware(['auth', 'isAdmin']);
 Route::get('/admin/users/toPdf', [App\Http\Controllers\AdminController::class, 'createPdf'])
-            ->name('admin.users.toPdf')
-            ->middleware(['auth', 'isAdmin']);
+    ->name('admin.users.toPdf')
+    ->middleware(['auth', 'isAdmin']);
 Route::get('/admin/api/events', [App\Http\Controllers\AdminController::class, 'showEvents'])
-            ->name('admin.events')
-            ->middleware(['auth', 'isAdmin']);
+    ->name('admin.events')
+    ->middleware(['auth', 'isAdmin']);
 Route::get('/admin/api/events/{user}', [App\Http\Controllers\AdminController::class, 'showUserEvents'])
-            ->name('admin.user.events.show')
-            ->middleware(['auth', 'isAdmin']);
+    ->name('admin.user.events.show')
+    ->middleware(['auth', 'isAdmin']);
 Route::get('/admin/api/event/{event}', [App\Http\Controllers\AdminController::class, 'getEvent'])
-            ->name('admin.events.show')
-            ->middleware(['auth', 'isAdmin']);
+    ->name('admin.events.show')
+    ->middleware(['auth', 'isAdmin']);
 Route::get('/admin/events/create', [App\Http\Controllers\AdminController::class, 'createEvent'])
-            ->name('admin.events.create')
-            ->middleware(['auth', 'isAdmin']);
+    ->name('admin.events.create')
+    ->middleware(['auth', 'isAdmin']);
 Route::post('/admin/api/events/create', [App\Http\Controllers\AdminController::class, 'storeEvent'])
-            ->name('admin.events.store')
-            ->middleware(['auth', 'isAdmin']);
+    ->name('admin.events.store')
+    ->middleware(['auth', 'isAdmin']);
 Route::post('/admin/events/update/{id}', [App\Http\Controllers\AdminController::class, 'updateEvent'])
-            ->name('admin.events.update')
-            ->middleware(['auth', 'isAdmin']);
+    ->name('admin.events.update')
+    ->middleware(['auth', 'isAdmin']);
 Route::delete('/admin/events/delete/{id}', [App\Http\Controllers\AdminController::class, 'deleteEvent'])
-            ->name('admin.events.delete')
-            ->middleware(['auth', 'isAdmin']);
+    ->name('admin.events.delete')
+    ->middleware(['auth', 'isAdmin']);
 Route::post('/admin/events/close/{id}', [App\Http\Controllers\AdminController::class, 'closeEvent'])
-            ->name('admin.events.close')
-            ->middleware(['auth', 'isAdmin']);
+    ->name('admin.events.close')
+    ->middleware(['auth', 'isAdmin']);
 Route::post('/admin/events/open/{id}', [App\Http\Controllers\AdminController::class, 'openEvent'])
-            ->name('admin.events.open')
-            ->middleware(['auth', 'isAdmin']);
+    ->name('admin.events.open')
+    ->middleware(['auth', 'isAdmin']);
 Route::get('/admin/api/timeline', [App\Http\Controllers\AdminController::class, 'getTimeline'])
     ->name('admin.timeline')
     ->middleware(['auth', 'isAdmin']);
@@ -158,8 +170,8 @@ Route::get('/admin/api/analytics/lwtw', [App\Http\Controllers\AdminController::c
     ->middleware(['auth', 'isAdmin']);
 
 Route::get('/admin/api/sponsors', [App\Http\Controllers\AdminController::class, 'getAllSponsors'])
-            ->name('admin.sponsors')
-            ->middleware(['auth', 'isAdmin']);
-Route::get('/admin/api/sponsors/create', [App\Http\Controllers\AdminController::class, 'createSponsor'])
-            ->name('admin.sponsors.create')
-            ->middleware(['auth', 'isAdmin']);
+    ->name('admin.sponsors')
+    ->middleware(['auth', 'isAdmin']);
+Route::post('/admin/api/sponsors/create', [App\Http\Controllers\AdminController::class, 'createSponsor'])
+    ->name('admin.sponsors.create')
+    ->middleware(['auth', 'isAdmin']);

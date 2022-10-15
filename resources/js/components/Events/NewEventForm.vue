@@ -80,7 +80,6 @@ export default {
 
 
 <template>
-    <!-- asd -->
     <form ref="eventForm" id="eventForm" class="space-y-8 divide-y divide-gray-200 mt-5">
 
         <div class="space-y-8 divide-y divide-gray-200 sm:space-y-5">
