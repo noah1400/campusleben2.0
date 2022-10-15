@@ -87,6 +87,7 @@ class AdminController extends Controller
      */
     public function getEvent($id) {
         $event = Event::findOrFail($id);
+        $sponsors = $event->sponsors;
         return response()->json($event);
     }
 
@@ -129,6 +130,8 @@ class AdminController extends Controller
             'public' => 'string',
         ]);
 
+
+
         $event = new Event();
         $event->name = $request->name;
         $event->description = $request->description;
@@ -146,6 +149,8 @@ class AdminController extends Controller
             $event->pre_registration_enabled = false;
             $event->team_registration_enabled = false;
         }
+
+
 
         if($request->has('limit')){
             if($request->limit > 0){
@@ -183,6 +188,27 @@ class AdminController extends Controller
         }
 
         $event->save();
+
+        // $request->sponsors is json array of sponsor ids
+        // try to decode it
+        try {
+            $sponsors = json_decode($request->sponsors);
+        } catch (\Throwable $th) {
+            // if it fails, return error
+            return abort(400, 'Data not valid');
+        }
+
+
+        for ($i=0; $i < count($sponsors); $i++) {
+            $sponsor = Sponsor::findOr($sponsors[$i], function () {
+                return null;
+            });
+            if($sponsor != null){
+                $event->sponsors()->attach($sponsor);
+            }
+        }
+
+
         $log = new LOG();
         $log->user_email = auth()->user()->email;
         $log->action = 'Event created: '. $event->name;
@@ -281,6 +307,26 @@ class AdminController extends Controller
 
 
         $event->save();
+
+        // $request->sponsors is json array of sponsor ids
+        // try to decode it
+        try {
+            $sponsors = json_decode($request->sponsors);
+        } catch (\Throwable $th) {
+            // if it fails, return error
+            return abort(400, 'Data not valid');
+        }
+
+        $event->sponsors()->detach();
+        for ($i=0; $i < count($sponsors); $i++) {
+            $sponsor = Sponsor::findOr($sponsors[$i], function () {
+                return null;
+            });
+            if($sponsor != null){
+                $event->sponsors()->attach($sponsor);
+            }
+        }
+
         if($nameChanged) {
             $log = new LOG();
             $log->user_email = auth()->user()->email;

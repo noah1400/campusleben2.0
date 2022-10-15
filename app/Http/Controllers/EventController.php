@@ -124,6 +124,9 @@ class EventController extends Controller
         ->locale('de')
         ->isoFormat('dd. DD.MM.YYYY H:mm');
 
+        // add sponsors to event
+        $sponsors = $event->sponsors;
+
         // Meta Tags
         $metaDescription = $event->description;
         $metaImage = asset('storage/'.$event->preview_image);

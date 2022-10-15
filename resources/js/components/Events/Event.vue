@@ -6,16 +6,19 @@ TabList,
 TabPanel,
 TabPanels,
 } from '@headlessui/vue';
+import LogoClouds from '../Sponsors/LogoClouds.vue';
+
 
 
 export default {
     components: {
-        Tab,
-        TabGroup,
-        TabList,
-        TabPanel,
-        TabPanels,
-    },
+    Tab,
+    TabGroup,
+    TabList,
+    TabPanel,
+    TabPanels,
+    LogoClouds
+},
     props: {
         event: {
             type: Object,
@@ -299,6 +302,7 @@ export default {
                             </a>
                         </div>
                     </div>
+                    <LogoClouds v-if="event.sponsors.length > 0" class="mt-10" :sponsors=event.sponsors />
                 </div>
             </div>
         </div>

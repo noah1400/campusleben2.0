@@ -28,13 +28,15 @@ export default {
         end_date: ref(new Date()),
         limit: ref(false),
         public_event: ref(false),
+        sponsors: [],
+        sponsors_selected: [],
         };
     },
     methods: {
 
         submitEvent() {
             let formData = new FormData(document.getElementById("eventForm"));
-
+            formData.append('sponsors', JSON.stringify(this.sponsors_selected));
 
             this.loader = true;
             let vm = this;
@@ -73,7 +75,24 @@ export default {
             this.previewImage = true;
             this.previewImageSrc = URL.createObjectURL(e.target.files[0]);
         },
-    }
+        getSponsors() {
+            let vm = this;
+            axios
+                .get("/admin/api/sponsors")
+                .then((response) => {
+                    vm.sponsors = response.data;
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
+        cleanSponsors() {
+            this.sponsors_selected = [];
+        },
+    },
+    created () {
+        this.getSponsors();
+    },
 }
 </script>
 
@@ -247,21 +266,27 @@ export default {
                                             </svg>
                                         </div>
 
-                                        0 Sponsoren
+                                        {{ sponsors_selected.length }} Sponsoren
                                     </DisclosureButton>
                                 </div>
                                 <div class="pl-6">
-                                    <button type="button" class="text-gray-500">Alle Entfernen</button>
+                                    <button type="button" class="text-gray-500" @click="cleanSponsors">Alle Entfernen</button>
                                 </div>
                             </div>
                         </div>
-                        <DisclosurePanel class="px-4 pt-2 border-gray-200 border-t w-100">
-                            <div>
-                                Hier wird man Sponsoren auswählen. (Wird noch gemacht)
-                                <!--
-                                    https://tailwindui.com/components/ecommerce/components/category-filters
-                                    With expandable product filter panel
-                                -->
+                        <DisclosurePanel class="pt-2 border-gray-200 border-t w-100">
+                            <div class="mx-auto max-w-7xl">
+                                <fieldset>
+                                    <div class="flex flex-row flex-wrap">
+                                        <div v-for="sponsor in sponsors" :key="sponsor.id" class="flex flex-col items-center p-3">
+                                            <div class="flex flex-row items-center">
+                                                <input type="checkbox" :id="'sponsor-' + sponsor.id" :value="sponsor.id" v-model="sponsors_selected" class="h-5 w-5 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                                <img class="h-12 w-12 rounded-full ml-3" :src="'/storage/'+sponsor.image" :alt="sponsor.name" />
+                                                <label :for="'sponsor-' + sponsor.id" class="ml-3 block text-sm font-medium text-gray-700">{{ sponsor.name }}</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
                             </div>
                         </DisclosurePanel>
                     </Disclosure>
