@@ -21,13 +21,5 @@
                 required: true
             }
         },
-        data() {
-            return {
-
-            }
-        },
-        created() {
-            console.log(this.sponsors)
-        }
     };
   </script>
