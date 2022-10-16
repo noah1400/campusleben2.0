@@ -61,6 +61,27 @@
                         </div>
                     </div>
                 </div>
+                <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
+                        <label class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                            Aktiv</label>
+                        <div class="mt-1 sm:col-span-2 sm:mt-0">
+                            <div class="flex max-w-lg">
+                                <Switch name="active" id="active" v-model="active_sponsor"
+                                    :class="[active_sponsor ? 'bg-indigo-600' : 'bg-gray-200', 'relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2']">
+                                    <span class="sr-only">Aktiv</span>
+                                    <span aria-hidden="true"
+                                        :class="[active_sponsor ? 'translate-x-5' : 'translate-x-0', 'pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out']" />
+                                </Switch>
+                            </div>
+
+                            <p v-if="active_sponsor" :key="active_sponsor" class="mt-2 text-sm text-gray-500">
+                                Der Sponsor wird auf der Startseite angezeigt.
+                            </p>
+                            <p v-if="!active_sponsor" :key="active_sponsor" class="mt-2 text-sm text-gray-500">
+                                Der Sponsor wird nicht auf der Startseite angezeigt.
+                            </p>
+                        </div>
+                    </div>
             </div>
         </div>
         <div class="pt-5">
@@ -93,7 +114,11 @@
 
 <script>
 import axios from 'axios';
+import { Switch } from '@headlessui/vue'
 export default {
+    components: {
+        Switch
+    },
     data() {
         return {
             image: false,
@@ -101,6 +126,7 @@ export default {
             loader: false,
             error: false,
             error_messages: [],
+            active_sponsor: false,
         }
     },
     emits: ['close_create'],
