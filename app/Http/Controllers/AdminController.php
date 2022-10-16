@@ -112,13 +112,8 @@ class AdminController extends Controller
         return response()->json($events);
     }
 
-    /**
-     * Api call to create a new event
-     * returns the new event in json format
-     * @param Request $request
-     */
-    public function storeEvent(Request $request)
-    {
+
+    private function createEditEvent(Request $request, Event $ev=null) {
         $this->validate($request, [
             'name' => 'required',
             'description' => 'required',
@@ -130,124 +125,15 @@ class AdminController extends Controller
             'public' => 'string',
         ]);
 
-
-
-        $event = new Event();
+        $event = $ev ?? new Event();
+        $nameChanged = $ev ? $ev->name != $request->name : false;
+        $oldName = $nameChanged ? $ev->name : null;
         $event->name = $request->name;
         $event->description = $request->description;
         $event->location = $request->location;
         $event->start_date = Carbon::createFromFormat('d.m.Y H:i', $request->start_date);
         $event->end_date = Carbon::createFromFormat('d.m.Y H:i', $request->end_date);
-        if($request->has('pre_registration_enabled')){
-            $event->pre_registration_enabled = true;
-            if($request->has('team_registration_enabled')){
-                $event->team_registration_enabled = true;
-            }else{
-                $event->team_registration_enabled = false;
-            }
-        }else{
-            $event->pre_registration_enabled = false;
-            $event->team_registration_enabled = false;
-        }
 
-
-
-        if($request->has('limit')){
-            if($request->limit > 0){
-                $event->limit = $request->limit;
-            }else{
-                $event->limit = 0;
-            }
-        } else {
-            $event->limit = 0;
-        }
-
-        if (request()->hasFile('preview_image')) {
-            $imageURL = request()->file('preview_image')->store('public/events');
-
-            $parameters['image_url'] = substr($imageURL, 7);
-
-            Image::configure(array('driver' => 'gd'));
-
-            Image::make(storage_path('app/public/' . $parameters['image_url']))
-                ->heighten(512)
-                ->save(storage_path('app/public/' . $parameters['image_url']));
-
-            $event->preview_image = $parameters['image_url'];
-
-        }
-
-        if ($request->has('public')) {
-            if ($request->public == 1 || $request->public == 'on') {
-                $event->public = true;
-            } else {
-                $event->public = false;
-            }
-        } else {
-            $event->public = false;
-        }
-
-        $event->save();
-
-        // $request->sponsors is json array of sponsor ids
-        // try to decode it
-        try {
-            $sponsors = json_decode($request->sponsors);
-        } catch (\Throwable $th) {
-            // if it fails, return error
-            return abort(400, 'Data not valid');
-        }
-
-
-        for ($i=0; $i < count($sponsors); $i++) {
-            $sponsor = Sponsor::findOr($sponsors[$i], function () {
-                return null;
-            });
-            if($sponsor != null){
-                $event->sponsors()->attach($sponsor);
-            }
-        }
-
-
-        $log = new LOG();
-        $log->user_email = auth()->user()->email;
-        $log->action = 'Event created: '. $event->name;
-        $log->type = "create";
-        $log->save();
-
-        return response()->json($event);
-    }
-
-    /**
-     * Api call to update an event
-     * returns the updated event in json format
-     * @param Request $request
-     * @param int $id
-     */
-    public function updateEvent(Request $request, $id)
-    {
-        $this->validate($request, [
-            'name' => 'required',
-            'description' => 'required',
-            'location' => 'required',
-            'start_date' => ['required','date','date_format:d.m.Y H:i'],
-            'end_date' => ['required','date','date_format:d.m.Y H:i','after_or_equal:start_date'],
-            'preview_image' => 'image|nullable',
-            'limit' => 'integer',
-            'public' => 'string',
-        ]);
-        $nameChanged = false;
-        $oldName = '';
-        $event = Event::findOrFail($id);
-        if($event->name != $request->name){
-            $nameChanged = true;
-            $oldName = $event->name;
-        }
-        $event->name = $request->name;
-        $event->description = $request->description;
-        $event->location = $request->location;
-        $event->start_date = Carbon::createFromFormat('d.m.Y H:i', $request->start_date);
-        $event->end_date = Carbon::createFromFormat('d.m.Y H:i', $request->end_date);
         if($request->has('pre_registration_enabled')){
             $event->pre_registration_enabled = true;
             if($request->has('team_registration_enabled')){
@@ -270,27 +156,43 @@ class AdminController extends Controller
         }
 
         if (request()->hasFile('preview_image')) {
-            $imageURL = request()->file('preview_image')->store('public/events');
+            if ($ev == null) {
+                $imageURL = request()->file('preview_image')->store('public/events');
 
-            $parameters['image_url'] = substr($imageURL, 7);
+                $parameters['image_url'] = substr($imageURL, 7);
 
-            Image::configure(array('driver' => 'gd'));
+                Image::configure(array('driver' => 'gd'));
 
-            Image::make(storage_path('app/public/' . $parameters['image_url']))
-                ->heighten(512)
-                ->save(storage_path('app/public/' . $parameters['image_url']));
+                Image::make(storage_path('app/public/' . $parameters['image_url']))
+                    ->heighten(512)
+                    ->save(storage_path('app/public/' . $parameters['image_url']));
 
-            $previousImage = $event->preview_image;
-            //delete previous image
-            if($previousImage != null){
-                if(file_exists(storage_path('app/public/' . $previousImage))){
-                    unlink(storage_path('app/public/' . $previousImage));
+                $event->preview_image = $parameters['image_url'];
+            } else {
+                $imageURL = request()->file('preview_image')->store('public/events');
+
+                $parameters['image_url'] = substr($imageURL, 7);
+
+                Image::configure(array('driver' => 'gd'));
+
+                Image::make(storage_path('app/public/' . $parameters['image_url']))
+                    ->heighten(512)
+                    ->save(storage_path('app/public/' . $parameters['image_url']));
+
+                $previousImage = $event->preview_image;
+                //delete previous image
+                if($previousImage != null){
+                    if(file_exists(storage_path('app/public/' . $previousImage))){
+                        unlink(storage_path('app/public/' . $previousImage));
+                    }
                 }
+
+                $event->preview_image = $parameters['image_url'];
             }
-
-            $event->preview_image = $parameters['image_url'];
-
         }
+
+        // for now
+        $event->closed = false;
 
         if ($request->has('public')) {
             if ($request->public == 1 || $request->public == 'on') {
@@ -298,13 +200,9 @@ class AdminController extends Controller
             } else {
                 $event->public = false;
             }
-        }else{
+        } else {
             $event->public = false;
         }
-
-        // for now
-        $event->closed = false;
-
 
         $event->save();
 
@@ -317,7 +215,11 @@ class AdminController extends Controller
             return abort(400, 'Data not valid');
         }
 
-        $event->sponsors()->detach();
+        if ($ev) {
+            // if event already exists, delete all sponsors
+            $event->sponsors()->detach();
+        }
+
         for ($i=0; $i < count($sponsors); $i++) {
             $sponsor = Sponsor::findOr($sponsors[$i], function () {
                 return null;
@@ -336,11 +238,37 @@ class AdminController extends Controller
         }
         $log = new LOG();
         $log->user_email = auth()->user()->email;
-        $log->action = 'Event updated: '. $event->name;
-        $log->type = "update";
+        if ($ev) {
+            $log->action = 'Event updated: ' . $event->name;
+            $log->type = "update";
+        } else {
+            $log->action = 'Event created: ' . $event->name;
+            $log->type = "create";
+        }
         $log->save();
 
         return response()->json($event);
+    }
+
+    /**
+     * Api call to create a new event
+     * returns the new event in json format
+     * @param Request $request
+     */
+    public function storeEvent(Request $request)
+    {
+        return $this->createEditEvent($request);
+    }
+
+    /**
+     * Api call to update an event
+     * returns the updated event in json format
+     * @param Request $request
+     * @param int $id
+     */
+    public function updateEvent(Request $request, Event $event)
+    {
+        return $this->createEditEvent($request, $event);
     }
 
 /**
@@ -487,10 +415,10 @@ public function deleteEvent($id)
     }
 
     /**
-     * Creates a new sponsor
-     * @return \Illuminate\Http\Response the created sponsor
+     * Creates or updates a sponsor
      */
-    public function createSponsor(Request $request) {
+    private function createEditSponsor(Request $request, Sponsor $spons=null) {
+
 
         // extend validator url rule to allow äöüß
         // because äöüß are valid in german urls
@@ -504,67 +432,18 @@ public function deleteEvent($id)
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'image' => 'required|image',
-            'link' => 'required|url'
+            'link' => 'required|url',
+            'active' => 'string'
         ]);
 
 
-        $sponsor = new Sponsor();
+
+        $sponsor = $spons ?? new Sponsor();
+        $nameChanged = ($spons) ? $sponsor->name != $request->name : false;
         $sponsor->name = $request->name;
         $sponsor->link = $request->link;
 
-        $imageUrl = request()->file('image')->store('public/sponsors');
-        $URL = substr($imageUrl, 7);
-        Image::configure(array('driver' => 'gd'));
-        Image::make(storage_path('app/public/') . $URL)
-        ->widen(300)
-        ->save(storage_path('app/public/' . $URL));
-
-        $sponsor->image = $URL;
-        if (request()->has('active')) {
-            $sponsor->active = true;
-        } else {
-            $sponsor->active = false;
-        }
-
-        $sponsor->save();
-
-        $log = new LOG();
-        $log->user_email = auth()->user()->email;
-        $log->action = 'Sponsor created: '. $sponsor->name;
-        $log->type = 'create';
-        $log->save();
-
-        return response()->json($sponsor);
-    }
-
-    /**
-     * Updates a sponsor
-     * @return \Illuminate\Http\Response the updated sponsor
-     */
-    public function editSponsor(Request $request, Sponsor $sponsor) {
-        // extend validator url rule to allow äöüß
-        // because äöüß are valid in german urls
-        // https://stackoverflow.com/questions/28487089/laravel-url-validation-umlauts
-        Validator::extend('url', function ($attribute, $value, $parameters, $validator) {
-            $url = str_replace(["ä","ö","ü"], ["ae", "oe", "ue"], $value);
-            return filter_var($url, FILTER_VALIDATE_URL);
-        });
-
-
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'image' => 'required|image',
-            'link' => 'required|url'
-        ]);
-        $nameChanged = false;
-        if ($sponsor->name != $request->name) {
-            $nameChanged = true;
-        }
-
-        $sponsor->name = $request->name;
-        $sponsor->link = $request->link;
-
-        if ($sponsor->image != $request->image) {
+        if ($spons == null) {
             $imageUrl = request()->file('image')->store('public/sponsors');
             $URL = substr($imageUrl, 7);
             Image::configure(array('driver' => 'gd'));
@@ -572,18 +451,35 @@ public function deleteEvent($id)
             ->widen(300)
             ->save(storage_path('app/public/' . $URL));
 
-            if (file_exists(storage_path('app/public/') . $sponsor->image)) {
-                unlink(storage_path('app/public/') . $sponsor->image);
-            }
             $sponsor->image = $URL;
+        } else {
+            if ($sponsor->image != $request->image) {
+                $imageUrl = request()->file('image')->store('public/sponsors');
+                $URL = substr($imageUrl, 7);
+                Image::configure(array('driver' => 'gd'));
+                Image::make(storage_path('app/public/') . $URL)
+                ->widen(300)
+                ->save(storage_path('app/public/' . $URL));
+
+                if (file_exists(storage_path('app/public/') . $sponsor->image)) {
+                    unlink(storage_path('app/public/') . $sponsor->image);
+                }
+                $sponsor->image = $URL;
+            }
         }
 
-        if (request()->has('active')) {
-            $sponsor->active = true;
-        } else {
+        if ($request->has('active')) {
+            if ($request->active == 1 || $request->active == 'on') {
+                $sponsor->active = true;
+            } else {
+                $sponsor->active = false;
+            }
+        }else{
             $sponsor->active = false;
         }
+
         $sponsor->save();
+
 
         if($nameChanged) {
             $log = new LOG();
@@ -595,8 +491,31 @@ public function deleteEvent($id)
 
         $log = new LOG();
         $log->user_email = auth()->user()->email;
-        $log->action = 'Sponsor updated: '. $sponsor->name;
-        $log->type = 'update';
+        if ($spons != null) {
+            $log->action = 'Sponsor updated: '. $sponsor->name;
+            $log->type = 'update';
+        }else{
+            $log->action = 'Sponsor created: '. $sponsor->name;
+            $log->type = 'create';
+        }
         $log->save();
+
+        return response()->json($sponsor);
+    }
+
+    /**
+     * Creates a new sponsor
+     * @return \Illuminate\Http\Response the created sponsor
+     */
+    public function createSponsor(Request $request) {
+        return $this->createEditSponsor($request);
+    }
+
+    /**
+     * Updates a sponsor
+     * @return \Illuminate\Http\Response the updated sponsor
+     */
+    public function editSponsor(Request $request, Sponsor $sponsor) {
+        return $this->createEditSponsor($request, $sponsor);
     }
 }
