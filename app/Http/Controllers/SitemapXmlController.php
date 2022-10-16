@@ -13,9 +13,7 @@ class SitemapXmlController extends Controller
         $map= SitemapGenerator::create('https://www.campusleben-es.de')
             ->getSitemap();
         foreach ($events as $event) {
-            if ($event->public) {
-                $map->add(url('/events/'.$event->id), $event->updated_at, '0.9', 'daily');
-            }
+            $map->add(url('/events/'.$event->id), $event->updated_at, '0.9', 'daily');
         }
         return $map->toResponse(request());
     }
