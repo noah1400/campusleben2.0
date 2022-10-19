@@ -113,7 +113,7 @@ class AdminController extends Controller
     }
 
 
-    private function createEditEvent(Request $request, Event $ev=null) {
+    private function createEditEvent(Request $request, int $ev=null) {
         $this->validate($request, [
             'name' => 'required',
             'description' => 'required',
@@ -125,9 +125,13 @@ class AdminController extends Controller
             'public' => 'string',
         ]);
 
-        $event = $ev ?? new Event();
-        $nameChanged = $ev ? $ev->name != $request->name : false;
-        $oldName = $nameChanged ? $ev->name : null;
+        if ($ev == null) {
+            $ev = new Event();
+        }else{
+            $event = Event::findOrFail($ev);
+        }
+        $nameChanged = $ev ? $event->name != $request->name : false;
+        $oldName = $nameChanged ? $event->name : null;
         $event->name = $request->name;
         $event->description = $request->description;
         $event->location = $request->location;
@@ -266,7 +270,7 @@ class AdminController extends Controller
      * @param Request $request
      * @param int $id
      */
-    public function updateEvent(Request $request, Event $event)
+    public function updateEvent(Request $request, int $event)
     {
         return $this->createEditEvent($request, $event);
     }
@@ -417,7 +421,7 @@ public function deleteEvent($id)
     /**
      * Creates or updates a sponsor
      */
-    private function createEditSponsor(Request $request, Sponsor $spons=null) {
+    private function createEditSponsor(Request $request, int $spons=null) {
 
 
         // extend validator url rule to allow äöüß
@@ -437,8 +441,11 @@ public function deleteEvent($id)
         ]);
 
 
-
-        $sponsor = $spons ?? new Sponsor();
+        if ($spons == null) {
+            $sponsor = new Sponsor();
+        } else {
+            $sponsor = Sponsor::findOrFail($spons);
+        }
         $nameChanged = ($spons) ? $sponsor->name != $request->name : false;
         $sponsor->name = $request->name;
         $sponsor->link = $request->link;
@@ -515,7 +522,7 @@ public function deleteEvent($id)
      * Updates a sponsor
      * @return \Illuminate\Http\Response the updated sponsor
      */
-    public function editSponsor(Request $request, Sponsor $sponsor) {
+    public function editSponsor(Request $request, int $sponsor) {
         return $this->createEditSponsor($request, $sponsor);
     }
 }
