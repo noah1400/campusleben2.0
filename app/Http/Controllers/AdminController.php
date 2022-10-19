@@ -126,7 +126,7 @@ class AdminController extends Controller
         ]);
 
         if ($ev == null) {
-            $ev = new Event();
+            $event = new Event();
         }else{
             $event = Event::findOrFail($ev);
         }
@@ -283,6 +283,7 @@ public function deleteEvent($id)
 {
     $event = Event::findOrFail($id);
     $event->users()->detach();
+    $event->sponsors()->detach();
     $posts = $event->posts;
     foreach ($posts as $post){
         $post->delete();
