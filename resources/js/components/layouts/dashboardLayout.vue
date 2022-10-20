@@ -53,6 +53,7 @@ export default {
     },
     methods: {
         selectTab(tab) {
+            this.$router.push({ name: tab.name.toLowerCase()})
             this.currentTab = tab;
             this.navigation.forEach(item => {
                 item.current = false;
@@ -61,6 +62,7 @@ export default {
         }
     },
     created() {
+        this.$route.params.tab = this.$route.params.tab || window.location.pathname.split('/')[3];
         this.navigation = [
             { id: 0, name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
             { id: 1, name: 'Users', href: '#', icon: UsersIcon, current: false },
@@ -75,6 +77,12 @@ export default {
             { name: 'Settings', href: '#' },
             { name: 'Sign out', href: '#' },
         ]
+        console.log(this.$route.params);
+        this.navigation.forEach(item => {
+            if (item.name.toLowerCase() == this.$route.params.tab.toLowerCase()) {
+                this.selectTab(item);
+            }
+        });
     }
 }
 

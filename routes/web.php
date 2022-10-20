@@ -111,7 +111,14 @@ Route::get('/api/sponsors', [App\Http\Controllers\SponsorController::class, 'get
 Route::get('/admin', function () {
     return redirect()->route('admin.dashboard');
 })->middleware(['auth', 'isAdmin']);
-Route::get('/admin/dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])
+
+Route::get('/admin/dashboard', function() {
+        return redirect()->route('admin.dashboard', ['any' => 'Dashboard']);
+    })
+    ->middleware(['auth', 'isAdmin']);
+
+Route::get('/admin/dashboard/{any}', [App\Http\Controllers\AdminController::class, 'dashboard'])
+    ->where('any', '.*')
     ->name('admin.dashboard')
     ->middleware(['auth', 'isAdmin']);
 Route::get('/admin/api/users', [App\Http\Controllers\AdminController::class, 'showUsers'])

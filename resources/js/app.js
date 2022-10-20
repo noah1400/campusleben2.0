@@ -7,6 +7,7 @@
 import './bootstrap';
 import { createApp, VueElement } from 'vue';
 import 'lodash'
+import router from './components/router/index';
 
 
 /**
@@ -16,7 +17,7 @@ import 'lodash'
  */
 
 const app = createApp({});
-
+app.use(router);
 
 import LaravelVuePagination from 'laravel-vue-pagination';
 app.component('Pagination', LaravelVuePagination);
