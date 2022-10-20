@@ -22,7 +22,8 @@ class Post extends Model
 
         static::deleting(function ($post) {
             $picture = $post->picture;
-            if ($picture) {
+            // delete previous associated image.
+            if ($picture != null) {
                 $picturePath = storage_path('app/public/' . $picture);
                 if (file_exists($picturePath)) {
                     unlink($picturePath);

@@ -27,7 +27,16 @@ class Event extends Model
         parent::boot();
 
         static::deleting(function($event) {
+            // detach attending users.
             $event->users()->detach();
+            // detach sponsoring
+            $event->sponsors()->detach();
+            // delete associated posts
+            $posts = $event->posts;
+            foreach ($posts as $post){
+                $post->delete();
+            }
+            // delete previous associated image.
             $picture = $event->preview_image;
             if ($picture) {
                 $picturePath = storage_path('app/public/' . $picture);

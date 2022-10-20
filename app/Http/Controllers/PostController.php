@@ -97,13 +97,7 @@ class PostController extends Controller
     public function deletePost($id) {
 
         $post = Post::findOrFail($id);
-        $previousImage = $post->picture;
-        //delete previous image
-        if($previousImage != null){
-            if(file_exists(storage_path('app/public/' . $previousImage))){
-                unlink(storage_path('app/public/' . $previousImage));
-            }
-        }
+        // The Picture gets deleted in the Post Model automatically
         $post->delete();
 
         return response()->json(['success' => 'Post deleted successfully'])->status(200);

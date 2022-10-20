@@ -282,14 +282,8 @@ class AdminController extends Controller
 public function deleteEvent($id)
 {
     $event = Event::findOrFail($id);
-    $event->users()->detach();
-    $event->sponsors()->detach();
-    $posts = $event->posts;
-    foreach ($posts as $post){
-        $post->delete();
-    }
     $n = $event->name;
-    $event->delete();
+    $event->delete(); // See deleting() method in Event
     $log = new LOG();
     $log->user_email = auth()->user()->email;
     $log->action = 'Event deleted: '. $n;
