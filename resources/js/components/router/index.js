@@ -26,7 +26,7 @@ const router = createRouter({
                     component: dashboardLayout
                 },
                 {
-                    name: 'settings',
+                    name: 'sponsors',
                     path: 'sponsors',
                     component: dashboardLayout
                 }
