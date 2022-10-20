@@ -233,6 +233,8 @@ class AdminController extends Controller
             }
         }
 
+        // LOG for event name update
+        // LOG for update and creation will be executed in Model Event
         if($nameChanged) {
             $log = new LOG();
             $log->user_email = auth()->user()->email;
@@ -240,16 +242,6 @@ class AdminController extends Controller
             $log->type = "update";
             $log->save();
         }
-        $log = new LOG();
-        $log->user_email = auth()->user()->email;
-        if ($ev) {
-            $log->action = 'Event updated: ' . $event->name;
-            $log->type = "update";
-        } else {
-            $log->action = 'Event created: ' . $event->name;
-            $log->type = "create";
-        }
-        $log->save();
 
         return response()->json($event);
     }
@@ -284,11 +276,6 @@ public function deleteEvent($id)
     $event = Event::findOrFail($id);
     $n = $event->name;
     $event->delete(); // See deleting() method in Event
-    $log = new LOG();
-    $log->user_email = auth()->user()->email;
-    $log->action = 'Event deleted: '. $n;
-    $log->type = 'delete';
-    $log->save();
     return response()->json($event);
 }
 
@@ -480,7 +467,6 @@ public function deleteEvent($id)
             $sponsor->active = false;
         }
 
-        $sponsor->save();
 
 
         if($nameChanged) {
@@ -491,16 +477,7 @@ public function deleteEvent($id)
             $log->save();
         }
 
-        $log = new LOG();
-        $log->user_email = auth()->user()->email;
-        if ($spons != null) {
-            $log->action = 'Sponsor updated: '. $sponsor->name;
-            $log->type = 'update';
-        }else{
-            $log->action = 'Sponsor created: '. $sponsor->name;
-            $log->type = 'create';
-        }
-        $log->save();
+        $sponsor->save();
 
         return response()->json($sponsor);
     }

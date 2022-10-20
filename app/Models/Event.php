@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
+use App\Models\LOG;
 use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Tags\Url;
 
@@ -44,6 +44,30 @@ class Event extends Model
                     unlink($picturePath);
                 }
             }
+        });
+
+        static::deleted(function($event) {
+            $log = new LOG();
+            $log->user_email = auth()->user()->email;
+            $log->action = 'Event deleted: '. $event->name;
+            $log->type = 'delete';
+            $log->save();
+        });
+
+        static::updated(function($event) {
+            $log = new LOG();
+            $log->user_email = auth()->user()->email;
+            $log->action = 'Event updated: '. $event->name;
+            $log->type = 'update';
+            $log->save();
+        });
+
+        static::created(function($event) {
+            $log = new LOG();
+            $log->user_email = auth()->user()->email;
+            $log->action = 'Event created: '. $event->name;
+            $log->type = 'create';
+            $log->save();
         });
     }
     /**
