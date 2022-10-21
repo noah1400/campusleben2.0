@@ -66,6 +66,17 @@
                                                 Inaktiv
                                             </span>
                                         </td>
+                                        <td
+                                            class="flex flex-col relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 lg:pr-8">
+                                            <a href="#" class="text-indigo-600 hover:text-indigo-900"
+                                                @click="setEditID(sponsor.id)">Bearbeiten<span class="sr-only">, {{
+                                                        sponsor.name
+                                                }}</span></a>
+                                            <a href="#" class="text-red-600 hover:text-red-900"
+                                                @click="deleteModal=true;openDeleteModal(sponsor.id)">Löschen<span class="sr-only">, {{
+                                                        sponsor.name
+                                                }}</span></a>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -83,10 +94,19 @@
         </button>
         <NewSponsorForm @close_create="closeCreate"></NewSponsorForm>
     </div>
+    <div v-if="editSponsor" :key="editSponsor">
+        <button type="button"
+            class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
+            @click="newSponsor = false;editSponsor=false;showSponsors=true">
+            Zurück
+        </button>
+        <EditSponsorForm @close_edit="closeEdit" :sponsor_id="editSponsorId"></EditSponsorForm>
+    </div>
 </template>
 
 <script>
 import NewSponsorForm from '../Sponsors/NewSponsorForm.vue';
+import EditEventForm from '../Events/EditEventForm.vue';
 export default {
     data() {
         return {
@@ -118,7 +138,20 @@ export default {
             this.showSponsors = true;
             this.getSponsors();
         },
+        closeEdit() {
+            this.editSponsor = false;
+            this.showSponsors = true;
+            this.getSponsors();
+        },
+        setEditID(id) {
+            this.editSponsorId = id;
+            this.editSponsor = true;
+            this.showSponsors = false;
+        },
+        openDeleteModal(id) {
+            this.toDeleteId = id;
+        },
     },
-    components: { NewSponsorForm }
+    components: { NewSponsorForm, EditEventForm }
 }
 </script>

@@ -101,10 +101,12 @@ Route::get('/api/event/user/attending/{event}', [App\Http\Controllers\UserContro
     ->name('admin.event.user.attending')
     ->middleware('auth');
 
-Route::get('/api/sponsors/{event}', [App\Http\Controllers\SponsorController::class, 'getSponsors'])
+Route::get('/api/sponsors/event/{event}', [App\Http\Controllers\SponsorController::class, 'getSponsors'])
     ->name('api.sponsor.get');
 Route::get('/api/sponsors', [App\Http\Controllers\SponsorController::class, 'getActiveSponsors'])
     ->name('api.sponsor.getActive');
+Route::get('/api/sponsor/{sponsor}', [App\Http\Controllers\SponsorController::class, 'getSponsor'])
+    ->name('api.sponsor.getOne');
 
 
 
@@ -174,4 +176,7 @@ Route::get('/admin/api/sponsors', [App\Http\Controllers\AdminController::class, 
     ->middleware(['auth', 'isAdmin']);
 Route::post('/admin/api/sponsors/create', [App\Http\Controllers\AdminController::class, 'createSponsor'])
     ->name('admin.sponsors.create')
+    ->middleware(['auth', 'isAdmin']);
+Route::post('/admin/api/sponsors/update/{id}', [App\Http\Controllers\AdminController::class, 'editSponsor'])
+    ->name('admin.sponsors.update')
     ->middleware(['auth', 'isAdmin']);

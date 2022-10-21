@@ -414,13 +414,22 @@ public function deleteEvent($id)
             return filter_var($url, FILTER_VALIDATE_URL);
         });
 
+        if($spons == null) {
+            $this->validate($request, [
+                'name' => 'required|string|max:255',
+                'image' => 'required|image',
+                'link' => 'required|url',
+                'active' => 'string'
+            ]);
+        } else {
+            $this->validate($request, [
+                'name' => 'required|string|max:255',
+                'image' => 'image',
+                'link' => 'required|url',
+                'active' => 'string'
+            ]);
+        }
 
-        $this->validate($request, [
-            'name' => 'required|string|max:255',
-            'image' => 'required|image',
-            'link' => 'required|url',
-            'active' => 'string'
-        ]);
 
 
         if ($spons == null) {
@@ -442,7 +451,7 @@ public function deleteEvent($id)
 
             $sponsor->image = $URL;
         } else {
-            if ($sponsor->image != $request->image) {
+            if (request()->has('image') && $sponsor->image != $request->image) {
                 $imageUrl = request()->file('image')->store('public/sponsors');
                 $URL = substr($imageUrl, 7);
                 Image::configure(array('driver' => 'gd'));

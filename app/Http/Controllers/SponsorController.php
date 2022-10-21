@@ -37,4 +37,13 @@ class SponsorController extends Controller
         $sponsors = Sponsor::where('active', true);
         return response()->json($sponsors);
     }
+
+    /**
+     * Gets Sponsor
+     * @return \Illuminate\Http\Response sponsor
+     */
+
+    function getSponsor(Sponsor $sponsor) {
+        return response()->json($sponsor);
+    }
 }
