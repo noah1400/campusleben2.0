@@ -168,7 +168,7 @@ class AdminController extends Controller
                 Image::configure(array('driver' => 'gd'));
 
                 Image::make(storage_path('app/public/' . $parameters['image_url']))
-                    ->heighten(512)
+                    ->heighten(1024)
                     ->save(storage_path('app/public/' . $parameters['image_url']));
 
                 $event->preview_image = $parameters['image_url'];
@@ -180,7 +180,7 @@ class AdminController extends Controller
                 Image::configure(array('driver' => 'gd'));
 
                 Image::make(storage_path('app/public/' . $parameters['image_url']))
-                    ->heighten(512)
+                    ->heighten(1536)
                     ->save(storage_path('app/public/' . $parameters['image_url']));
 
                 $previousImage = $event->preview_image;
@@ -446,7 +446,7 @@ public function deleteEvent($id)
             $URL = substr($imageUrl, 7);
             Image::configure(array('driver' => 'gd'));
             Image::make(storage_path('app/public/') . $URL)
-            ->widen(300)
+            ->widen(900)
             ->save(storage_path('app/public/' . $URL));
 
             $sponsor->image = $URL;
@@ -456,7 +456,7 @@ public function deleteEvent($id)
                 $URL = substr($imageUrl, 7);
                 Image::configure(array('driver' => 'gd'));
                 Image::make(storage_path('app/public/') . $URL)
-                ->widen(300)
+                ->widen(600)
                 ->save(storage_path('app/public/' . $URL));
 
                 if (file_exists(storage_path('app/public/') . $sponsor->image)) {
