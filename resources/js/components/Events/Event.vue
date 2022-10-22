@@ -243,7 +243,7 @@ export default {
                                 v-slot="{ selected }">
                                 <span class="sr-only"> {{ image.name }} </span>
                                 <span class="absolute inset-0 overflow-hidden rounded-md">
-                                    <img :src="image.src" alt="" class="h-full w-full object-cover object-center" />
+                                    <img :src="image.src" alt="" class="max-h-32 w-full object-cover object-center" />
                                 </span>
                                 <span
                                     :class="[selected ? 'ring-indigo-500' : 'ring-transparent', 'pointer-events-none absolute inset-0 rounded-md ring-2 ring-offset-2']"
@@ -254,7 +254,7 @@ export default {
 
                     <TabPanels class="aspect-w-1 aspect-h-1 w-full">
                         <TabPanel v-for="image in posts" :key="image.id">
-                            <img :src="image.src" :alt="image.alt" class="mx-auto h-full object-cover object-center sm:rounded-lg" />
+                            <img :src="image.src" :alt="image.alt" class="max-h-96 mx-auto h-full object-cover object-center sm:rounded-lg" />
                         </TabPanel>
                     </TabPanels>
                 </TabGroup>
