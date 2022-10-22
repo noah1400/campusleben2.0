@@ -254,7 +254,10 @@ export default {
 
                     <TabPanels class="aspect-w-1 aspect-h-1 w-full">
                         <TabPanel v-for="image in posts" :key="image.id">
-                            <img :src="image.src" :alt="image.alt" class="max-h-96 mx-auto h-full object-cover object-center sm:rounded-lg" />
+                            <img :src="image.src" :alt="image.alt"
+                            class="mx-auto h-full object-cover object-center sm:rounded-lg"
+                            style="max-height: 512px"
+                            />
                         </TabPanel>
                     </TabPanels>
                 </TabGroup>
