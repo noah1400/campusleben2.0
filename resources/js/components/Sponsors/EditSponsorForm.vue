@@ -56,15 +56,21 @@ export default {
 
                 }).catch(error => {
                     let errors = error.response.data.errors;
-                    console.log(error);
                     vm.error_messages = [];
-                    for (let pair of Object.entries(errors)) {
-                        console.log(pair[0] + ", " + pair[1]);
-                        vm.error_messages.push(pair[1]);
+                    if (errors) {
+                        for (let pair of Object.entries(errors)) {
+                            console.log(pair[0] + ", " + pair[1]);
+                            vm.error_messages.push(pair[1]);
+                        }
+                        vm.loader = false;
+                        vm.error = true;
+                    } else {
+                        console.log(error);
+                        vm.error_messages.push('Something went wrong, please contact the administrator');
+                        vm.loader = false;
+                        vm.error = true;
                     }
-                    vm.loader = false;
-                    vm.error = true;
-                    window.scrollTo(0, 0);
+                    window.scroll(0,0);
                 });
         }
     },
@@ -189,7 +195,7 @@ export default {
             </div>
         </div>
         <div class="relative z-20">
-            <ErrorNotification v-if="error" :show="error" :key="error" :messages="error_messages"></ErrorNotification>
+            <ErrorNotification v-if="error" :show="error" :key="error" :messages="error_messages" @close="error=false"></ErrorNotification>
         </div>
     </form>
 </template>

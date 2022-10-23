@@ -19,15 +19,9 @@
                                         <li v-for="message in messages" :key="message">{{ message[0] }}</li>
                                     </ul>
                                 </p>
-                                <div class="mt-3 flex space-x-7">
-                                    <button type="button"
-                                        class="rounded-md bg-white text-sm font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Undo</button>
-                                    <button type="button"
-                                        class="rounded-md bg-white text-sm font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Dismiss</button>
-                                </div>
                             </div>
                             <div class="ml-4 flex flex-shrink-0">
-                                <button type="button" @click="show = false"
+                                <button type="button" @click="show = false;$emit('close')"
                                     class="inline-flex rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                     <span class="sr-only">Close</span>
                                     <span class="h-5 w-5" >Close</span>
@@ -56,6 +50,7 @@ export default {
             required: true
         }
     },
+    emits: ['close'],
     data() {
         return {
             show: ref(true)

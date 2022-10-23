@@ -110,7 +110,7 @@
             </div>
         </div>
         <div class="relative z-20">
-            <ErrorNotification v-if="error" :show="error" :key="error" :messages="error_messages"></ErrorNotification>
+            <ErrorNotification v-if="error" :show="error" :key="error" :messages="error_messages" @close="error=false"></ErrorNotification>
         </div>
     </form>
 </template>
