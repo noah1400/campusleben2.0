@@ -49,7 +49,7 @@
 
 <script>
 export default {
-    name: "NewEventErrorNotif",
+    name: "ErrorNotification",
     props: {
         messages: {
             type: Array,

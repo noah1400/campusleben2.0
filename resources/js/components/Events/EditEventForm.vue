@@ -1,13 +1,13 @@
 <script>
 import { Switch, Disclosure, DisclosureButton, DisclosurePanel} from '@headlessui/vue';
-import NewEventErrorNotif from './NewEventErrorNotif.vue';
+import ErrorNotification from '../dashboard_components/ErrorNotification.vue';
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 import { ref } from 'vue';
 export default {
     components: {
         Switch,
-        NewEventErrorNotif,
+        ErrorNotification,
         Datepicker,
         Disclosure,
         DisclosureButton,
@@ -373,7 +373,7 @@ export default {
             </div>
         </div>
         <div class="relative z-20">
-            <NewEventErrorNotif v-if="error" :show="error" :key="error" :messages="error_messages"></NewEventErrorNotif>
+            <ErrorNotification v-if="error" :show="error" :key="error" :messages="error_messages"></ErrorNotification>
         </div>
     </form>
 </template>

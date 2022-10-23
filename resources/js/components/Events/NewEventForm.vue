@@ -1,5 +1,5 @@
 <script>
-import NewEventErrorNotif from './NewEventErrorNotif.vue';
+import ErrorNotification from '../dashboard_components/ErrorNotification.vue';
 import AddPostsForm from './AddPostsForm.vue';
 import Datepicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
@@ -7,7 +7,7 @@ import { Switch, Disclosure, DisclosureButton, DisclosurePanel } from '@headless
 import { ref } from 'vue'
 export default {
     components: {
-        NewEventErrorNotif,
+        ErrorNotification,
         AddPostsForm,
         Datepicker,
         Switch,
@@ -344,7 +344,7 @@ export default {
             </div>
         </div>
         <div class="relative z-20">
-            <NewEventErrorNotif v-if="error" :show="error" :key="error" :messages="error_messages"></NewEventErrorNotif>
+            <ErrorNotification v-if="error" :show="error" :key="error" :messages="error_messages"></ErrorNotification>
         </div>
     </form>
 
