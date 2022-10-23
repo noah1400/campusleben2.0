@@ -180,3 +180,6 @@ Route::post('/admin/api/sponsors/create', [App\Http\Controllers\AdminController:
 Route::post('/admin/api/sponsors/update/{id}', [App\Http\Controllers\AdminController::class, 'editSponsor'])
     ->name('admin.sponsors.update')
     ->middleware(['auth', 'isAdmin']);
+Route::delete('/admin/api/sponsors/delete/{id}', [App\Http\Controllers\AdminController::class, 'deleteSponsor'])
+    ->name('admin.sponsors.delete')
+    ->middleware(['auth', 'isAdmin']);

@@ -73,7 +73,7 @@
                                                         sponsor.name
                                                 }}</span></a>
                                             <a href="#" class="text-red-600 hover:text-red-900"
-                                                @click="deleteModal=true;openDeleteModal(sponsor.id)">Löschen<span class="sr-only">, {{
+                                                @click="openDeleteModal(sponsor.id)">Löschen<span class="sr-only">, {{
                                                         sponsor.name
                                                 }}</span></a>
                                         </td>
@@ -102,11 +102,14 @@
         </button>
         <EditSponsorForm @close_edit="closeEdit" :sponsor_id="editSponsorId"></EditSponsorForm>
     </div>
+
+    <DeleteSponsorModal :show="deleteModal" @close="deleteModal=false;toDeleteId=-1;" @deleted="deleteModal=false;toDeleteId=-1;getSponsors()" :sponsor_id="toDeleteId"></DeleteSponsorModal>
 </template>
 
 <script>
 import NewSponsorForm from '../Sponsors/NewSponsorForm.vue';
 import EditEventForm from '../Events/EditEventForm.vue';
+import DeleteSponsorModal from '../Sponsors/DeleteSponsorModal.vue';
 export default {
     data() {
         return {
@@ -150,8 +153,9 @@ export default {
         },
         openDeleteModal(id) {
             this.toDeleteId = id;
+            this.deleteModal=true;
         },
     },
-    components: { NewSponsorForm, EditEventForm }
+    components: { NewSponsorForm, EditEventForm, DeleteSponsorModal }
 }
 </script>

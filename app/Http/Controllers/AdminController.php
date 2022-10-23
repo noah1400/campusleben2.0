@@ -506,4 +506,14 @@ public function deleteEvent($id)
     public function editSponsor(Request $request, int $sponsor) {
         return $this->createEditSponsor($request, $sponsor);
     }
+
+    /**
+     * Deletes a sponsor
+     * @return \Illuminate\Http\Response the deleted sponsor
+     */
+    public function deleteSponsor(int $sponsor) {
+        $sponsor = Sponsor::findOrFail($sponsor);
+        $sponsor->delete();
+        return response()->json($sponsor);
+    }
 }
