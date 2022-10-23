@@ -22,6 +22,11 @@ class Sponsor extends Model
         static::deleting(function($sponsor) {
             // detach sponsoring
             $sponsor->events()->detach();
+            // delete image
+            $image = storage_path('app/public/' . $sponsor->image);
+            if (file_exists($image)) {
+                unlink($image);
+            }
         });
 
         static::deleted(function($sponsor) {
