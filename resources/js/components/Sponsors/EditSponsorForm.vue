@@ -188,5 +188,8 @@ export default {
                 </button>
             </div>
         </div>
+        <div class="relative z-20">
+            <ErrorNotification v-if="error" :show="error" :key="error" :messages="error_messages"></ErrorNotification>
+        </div>
     </form>
 </template>
