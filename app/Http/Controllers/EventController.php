@@ -46,45 +46,45 @@ class EventController extends Controller
         }
         $title = "Events";
 
-        $quotes = [
-            'Die Zukunft gehört den Machern – nicht den Zauderern.',
-            'Ein Leben ohne Feste gleicht einer weiten Reise ohne Einkehr.',
-            'A little party never killed nobody!',
-            'Die Zukunft ist ein Fest, das noch vor uns liegt.',
-            'Ein Fest ist immer nur so gut wie die Gäste, die es besuchen.',
-            'Ein Fest ohne Musik ist wie ein Körper ohne Seele.',
-            'Bier auf Wein, das lass sein',
-            'Lieber Rum trinken, als rumsitzen!',
-            'Ich sage immer nein zu Alkohol. Aber er hört einfach nicht auf mich.',
-            'Alkohol ist die Lösung. Aber was ist die Frage?',
-            'Die Zukunft kann man am besten voraussagen, wenn man sie selbst gestaltet.',
-            'Man muss die Zukunft abwarten und die Gegenwart genießen... oder ertragen.',
-            'Geduld ist nicht so einfach. Aber - nach meiner Erfahrung - meist zielführend.',
-            'Beim Warten kann man Geduld üben.',
-            'Warten bedeutet, dass das, worauf man wartet, wichtiger ist als das, was jetzt ist.',
-            'Eat, Sleep, Party, Repeat',
-            'Wenn ich morgen Augenringe habe das täuscht, das sind nur Schatten von großen Taten.',
-            'Feiern macht abhängig. Gar nicht erst damit anfangen liebe Kinder.',
-            'Alkohol ist keine Antwort, doch beim feiern vergisst man die Frage!',
-            'Ich geh erst nach Hause, wenn es hell ist. Nichts das mir noch was passiert!',
-            'Eine Klausur kann man wiederholen, eine Party nicht.',
-            'Lass uns Achtarmig einen reinorgeln.',
-            'Do it for the vine.',
-            /*
-            'Welcome to Bible Study. We’re all children of Jesus… Kumbaya my looordd.'
-            */
-            'Lass uns Hopfen und Malz wiederfinden.',
-            'Lass uns den Kranplatz nachverdichten.',
-            'Der Lärm ist die Seele der Party-Musik.',
-            'Wozu erst arbeiten, gleich feiern!',
-            'Lieber krank feiern, als gesund arbeiten.',
-            'Die Zukunft der Zukunft liegt in der Zukunft.',
-            'Zukunft ist ein Kind der Gegenwart.'
-        ];
+        // $quotes = [
+        //     'Die Zukunft gehört den Machern – nicht den Zauderern.',
+        //     'Ein Leben ohne Feste gleicht einer weiten Reise ohne Einkehr.',
+        //     'A little party never killed nobody!',
+        //     'Die Zukunft ist ein Fest, das noch vor uns liegt.',
+        //     'Ein Fest ist immer nur so gut wie die Gäste, die es besuchen.',
+        //     'Ein Fest ohne Musik ist wie ein Körper ohne Seele.',
+        //     'Bier auf Wein, das lass sein',
+        //     'Lieber Rum trinken, als rumsitzen!',
+        //     'Ich sage immer nein zu Alkohol. Aber er hört einfach nicht auf mich.',
+        //     'Alkohol ist die Lösung. Aber was ist die Frage?',
+        //     'Die Zukunft kann man am besten voraussagen, wenn man sie selbst gestaltet.',
+        //     'Man muss die Zukunft abwarten und die Gegenwart genießen... oder ertragen.',
+        //     'Geduld ist nicht so einfach. Aber - nach meiner Erfahrung - meist zielführend.',
+        //     'Beim Warten kann man Geduld üben.',
+        //     'Warten bedeutet, dass das, worauf man wartet, wichtiger ist als das, was jetzt ist.',
+        //     'Eat, Sleep, Party, Repeat',
+        //     'Wenn ich morgen Augenringe habe das täuscht, das sind nur Schatten von großen Taten.',
+        //     'Feiern macht abhängig. Gar nicht erst damit anfangen liebe Kinder.',
+        //     'Alkohol ist keine Antwort, doch beim feiern vergisst man die Frage!',
+        //     'Ich geh erst nach Hause, wenn es hell ist. Nichts das mir noch was passiert!',
+        //     'Eine Klausur kann man wiederholen, eine Party nicht.',
+        //     'Lass uns Achtarmig einen reinorgeln.',
+        //     'Do it for the vine.',
+        //     /*
+        //     'Welcome to Bible Study. We’re all children of Jesus… Kumbaya my looordd.'
+        //     */
+        //     'Lass uns Hopfen und Malz wiederfinden.',
+        //     'Lass uns den Kranplatz nachverdichten.',
+        //     'Der Lärm ist die Seele der Party-Musik.',
+        //     'Wozu erst arbeiten, gleich feiern!',
+        //     'Lieber krank feiern, als gesund arbeiten.',
+        //     'Die Zukunft der Zukunft liegt in der Zukunft.',
+        //     'Zukunft ist ein Kind der Gegenwart.'
+        // ];
 
-        $quote = $quotes[array_rand($quotes)];
+        // $quote = $quotes[array_rand($quotes)];
 
-        return view('events.index', compact('events','title', 'quote'));
+        return view('events.index', compact('events','title'));
     }
 
     public function archive(){
@@ -110,22 +110,22 @@ class EventController extends Controller
         }
         $title="Archiv";
 
-        $quotes = [
-            'Auch wenn du zurückschaust, schaust du nach vorne.',
-            'Die Vergangenheit vergeht nicht, sie ist immer gegenwärtig.',
-            'Auf älteren Fotos sieht man jünger aus.',
-            'Wer vor der Vergangenheit die Augen verschließt, wird blind für die Gegenwart.',
-            'Wer in der Zukunft lesen will, muss in der Vergangenheit blättern.',
-            'Was einmal war, verläßt uns nicht.',
-            'Die Vergangenheit begegnet uns jeden Tag, weil sie nie vergangen ist.',
-            'Wer nicht manchmal stehenbleibt und zurückschaut, weiß gar nicht, wie weit er schon gekommen ist.',
-            'Auch der Schnee von gestern fiel einst frisch vom Himmel.',
-            'Man sollte an die Vergangenheit denken, ohne sich mit allzu schwermütiger Sehnsucht in sie zu versenken.'
-        ];
+        // $quotes = [
+        //     'Auch wenn du zurückschaust, schaust du nach vorne.',
+        //     'Die Vergangenheit vergeht nicht, sie ist immer gegenwärtig.',
+        //     'Auf älteren Fotos sieht man jünger aus.',
+        //     'Wer vor der Vergangenheit die Augen verschließt, wird blind für die Gegenwart.',
+        //     'Wer in der Zukunft lesen will, muss in der Vergangenheit blättern.',
+        //     'Was einmal war, verläßt uns nicht.',
+        //     'Die Vergangenheit begegnet uns jeden Tag, weil sie nie vergangen ist.',
+        //     'Wer nicht manchmal stehenbleibt und zurückschaut, weiß gar nicht, wie weit er schon gekommen ist.',
+        //     'Auch der Schnee von gestern fiel einst frisch vom Himmel.',
+        //     'Man sollte an die Vergangenheit denken, ohne sich mit allzu schwermütiger Sehnsucht in sie zu versenken.'
+        // ];
 
-        $quote = $quotes[array_rand($quotes)];
+        // $quote = $quotes[array_rand($quotes)];
 
-        return view('events.archive', compact('events', 'title', 'quote'));
+        return view('events.archive', compact('events', 'title'));
     }
 
     /**
