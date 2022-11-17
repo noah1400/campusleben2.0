@@ -412,7 +412,7 @@
             </div>
         </div>
 
-        <main class="min-h-screen mb-auto flex-grow-1 flex-shrink-0 basis-auto">
+        <main class="min-h-screen mb-auto flex-grow-1 flex-shrink-0 basis-auto bg-white">
             @yield('content')
         </main>
         <footer class="bg-white m-auto w-full h-fit flex-shrink-0">

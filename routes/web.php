@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Models\Sponsor;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    // get all active Sponsors
+    $sponsors = Sponsor::where('active', true)->get();
+    return view('welcome', compact('sponsors'));
 })->name("welcome");
 
 Auth::routes([
