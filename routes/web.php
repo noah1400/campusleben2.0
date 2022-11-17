@@ -21,6 +21,11 @@ Route::get('/', function () {
     return view('welcome', compact('sponsors'));
 })->name("welcome");
 
+Route::get('/cafe/einstein', function () {
+    return view('cafe.einstein.index');
+})->name("cafe.einstein");
+
+
 Auth::routes([
     'reset' => false,
     'confirm' => false,
