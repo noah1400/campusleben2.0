@@ -21,6 +21,14 @@ Route::get('/', function () {
     return view('welcome', compact('sponsors'));
 })->name("welcome");
 
+Route::get('/l/{slug}', [App\Http\Controllers\LocationController::class, 'show'])->name('location.show');
+Route::post('/l/{slug}', [App\Http\Controllers\LocationController::class, 'store'])->name('location.store')
+    ->middleware(['auth', 'isAdmin']);
+Route::post('/l/{slug}/update', [App\Http\Controllers\LocationController::class, 'update'])->name('location.update')
+    ->middleware(['auth', 'isAdmin']);
+Route::delete('/l/{slug}', [App\Http\Controllers\LocationController::class, 'destroy'])->name('location.destroy')
+    ->middleware(['auth', 'isAdmin']);
+
 Route::get('/cafe/einstein', function () {
     $title = "Café Einstein";
     $metaDescription = "Das Café Einstein ist der Ort, an dem sich Studierende aller Fakultäten des Standortes Esslingen Campus Stadtmitte treffen. Die Studierenden erhalten im Café nicht nur Kaffee, Kaltgetränke und Snacks, sondern können gemeinsam die Pausenzeiten mit Hilfe eines Tischkickers und einem Billardtisch aktiv gestalten.";
