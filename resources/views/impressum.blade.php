@@ -12,7 +12,9 @@
                         73728 Esslingen am Neckar <br>
                     </p>
                     <p> <strong>Vertreten durch: </strong><br>
-                        Tristan Eberhardt (zweiter Vorsitzender)<br>
+                        Raluca Vedislav (1. Vorsitzende)<br>
+                        Tristan Eberhardt (2. Vorsitzende)<br>
+                        Benjamin Schmelz (Kassenwart)<br>
                     </p>
                     <p><strong>Kontakt:</strong> <br>
                         Telefon: 0711 397-3498<br>
