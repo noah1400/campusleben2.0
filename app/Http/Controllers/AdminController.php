@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\User;
 use App\Models\LOG;
 use App\Models\Sponsor;
+use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
@@ -515,5 +516,21 @@ public function deleteEvent($id)
         $sponsor = Sponsor::findOrFail($sponsor);
         $sponsor->delete();
         return response()->json($sponsor);
+    }
+
+    /**
+     * Returns all locations
+     */
+    public function getLocations() {
+        $locations = Location::all();
+        return response()->json($locations);
+    }
+
+    /**
+     * Get location with given slug
+     */
+    public function getLocation(string $slug) {
+        $location = Location::where('slug', $slug)->first();
+        return response()->json($location);
     }
 }

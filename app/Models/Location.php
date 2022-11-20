@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Location extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'slug',
+        'image',
+        'page_content',
+        'clickable',
+    ];
 }

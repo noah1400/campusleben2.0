@@ -21,6 +21,7 @@ import {
     MenuAlt2Icon,
     UsersIcon,
     XIcon,
+    LocationMarkerIcon
 } from '@heroicons/vue/outline'
 import { SearchIcon } from '@heroicons/vue/solid'
 export default {
@@ -41,6 +42,7 @@ export default {
         TransitionRoot,
         MenuAlt2Icon,
         XIcon,
+        LocationMarkerIcon,
     },
     data() {
         return {
@@ -66,7 +68,7 @@ export default {
             { id: 1, name: 'Users', href: '#', icon: UsersIcon, current: false },
             { id: 2, name: 'Events', href: '#', icon: CalendarIcon, current: false },
             { id: 3, name: 'Sponsors', href: '#', icon: FolderIcon, current: false },
-            { id: 4, name: 'Documents', href: '#', icon: InboxIcon, current: false },
+            { id: 4, name: 'Locations', href: '#', icon: LocationMarkerIcon, current: false },
             { id: 5, name: 'Reports', href: '#', icon: ChartBarIcon, current: false },
         ];
         this.currentTab = this.navigation[0];

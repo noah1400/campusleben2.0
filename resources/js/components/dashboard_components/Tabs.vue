@@ -3,6 +3,7 @@ import UsersTab from './UsersTab.vue'
 import EventsTab from './EventsTab.vue';
 import SponsorsTab from './SponsorsTab.vue';
 import DashboardTab from '../DasboardTab/DashboardTab.vue';
+import LocationsTab from './LocationsTab.vue';
 
 export default {
     props: {
@@ -18,7 +19,7 @@ export default {
         };
     },
     methods: {},
-    components: { UsersTab, EventsTab, SponsorsTab, DashboardTab }
+    components: { UsersTab, EventsTab, SponsorsTab, DashboardTab, LocationsTab }
 }
 </script>
 <template>
@@ -28,6 +29,7 @@ export default {
             <EventsTab v-if="tab.name === 'Events'" />
             <SponsorsTab v-if="tab.name === 'Sponsors'" />
             <DashboardTab v-if="tab.name === 'Dashboard'" />
+            <LocationsTab v-if="tab.name === 'Locations'" />
         </div>
     </div>
 </template>

@@ -22,7 +22,7 @@ Route::get('/', function () {
 })->name("welcome");
 
 Route::get('/l/{slug}', [App\Http\Controllers\LocationController::class, 'show'])->name('location.show');
-Route::post('/l/{slug}', [App\Http\Controllers\LocationController::class, 'store'])->name('location.store')
+Route::post('/l/create', [App\Http\Controllers\LocationController::class, 'store'])->name('location.store')
     ->middleware(['auth', 'isAdmin']);
 Route::post('/l/{slug}/update', [App\Http\Controllers\LocationController::class, 'update'])->name('location.update')
     ->middleware(['auth', 'isAdmin']);
@@ -173,6 +173,12 @@ Route::post('/admin/events/open/{id}', [App\Http\Controllers\AdminController::cl
     ->middleware(['auth', 'isAdmin']);
 Route::get('/admin/api/timeline', [App\Http\Controllers\AdminController::class, 'getTimeline'])
     ->name('admin.timeline')
+    ->middleware(['auth', 'isAdmin']);
+Route::get('/admin/api/locations', [App\Http\Controllers\AdminController::class, 'getLocations'])
+    ->name('admin.locations')
+    ->middleware(['auth', 'isAdmin']);
+Route::get('/admin/api/locations/{slug}', [App\Http\Controllers\AdminController::class, 'getLocation'])
+    ->name('admin.locations.show')
     ->middleware(['auth', 'isAdmin']);
 
 

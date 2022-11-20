@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Http\Response;
 
 class LocationController extends Controller
@@ -39,19 +40,46 @@ class LocationController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'page_content' => 'required',
+            'image' => 'nullable|image',
         ]);
         $slug = Str::slug($request->name, '-');
 
         $loc = Location::where('slug', $slug)->first();
         if ($loc) {
-            return redirect()->back()->with('error', 'Location already exists');
+            return response()->json([
+                'message' => 'Location already exists',
+                'status' => 'error',
+            ], 400);
         }
+
+        if  ($request->page_content) {
+            $page_content = $request->page_content;
+        }else{
+            $page_content = "-";
+        }
+
+        if(request()->hasFile('image')){
+            $image = $request->file('image')->store('public/locations');
+            $imageURL = substr($image, 7);
+
+            Image::configure(array('driver' => 'gd'));
+            Image::make(storage_path('app/public/' . $imageURL))
+                    ->heighten(1024)
+                    ->save(storage_path('app/public/' . $imageURL));
+
+        } else {
+            $imageURL = null;
+        }
+
+
+        $clickable = $request->clickable ? true : false;
 
         $location = Location::create([
             'name' => $request->name,
             'slug' => $slug,
-            'page_content' => $request->page_content,
+            'page_content' => $page_content,
+            'clickable' => $clickable,
+            'image' => $imageURL,
         ]);
 
         return response()->json($location);
@@ -67,7 +95,11 @@ class LocationController extends Controller
     public function show($slug)
     {
         $location = Location::where('slug', $slug)->firstOrFail();
-        return view('location.show', compact('location'));
+        if($location->clickable){
+            return view('location.show', compact('location'));
+        }else{
+            abort(404);
+        }
     }
 
     /**
@@ -92,11 +124,33 @@ class LocationController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'page_content' => 'required',
+            'image' => 'nullable|image',
         ]);
         $location = Location::where('slug', $slug)->firstOrFail();
         $location->name = $request->name;
-        $location->page_content = $request->page_content;
+        if  ($request->page_content) {
+            $location->page_content = $request->page_content;
+        }else{
+            $location->page_content = "-";
+        }
+
+        if(request()->hasFile('image')){
+            $image = $request->file('image')->store('public/locations');
+            $imageURL = substr($image, 7);
+
+            Image::configure(array('driver' => 'gd'));
+            Image::make(storage_path('app/public/' . $imageURL))
+                    ->heighten(1024)
+                    ->save(storage_path('app/public/' . $imageURL));
+
+        } else {
+            $imageURL = null;
+        }
+
+        $location->image = $imageURL;
+
+        $location->clickable = $request->clickable ? true : false;
+
         $location->slug = Str::slug($request->name, '-');
         $location->save();
         return response()->json($location);
