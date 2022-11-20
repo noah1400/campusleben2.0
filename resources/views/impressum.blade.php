@@ -13,8 +13,13 @@
                     </p>
                     <p> <strong>Vertreten durch: </strong><br>
                         Raluca Vedislav (1. Vorsitzende)<br>
-                        Tristan Eberhardt (2. Vorsitzende)<br>
+                        Tristan Eberhardt (2. Vorsitzender)<br>
                         Benjamin Schmelz (Kassenwart)<br>
+                    </p>
+                    <p>
+                        <strong>Satzung: </strong><br>
+                        <a class="text-blue-500" href="{{ asset('storage/imp_files/satzung_cl_ev.pdf') }}" target="_blank">Satzung CampusLeben
+                            e.V.</a>
                     </p>
                     <p><strong>Kontakt:</strong> <br>
                         Telefon: 0711 397-3498<br>
