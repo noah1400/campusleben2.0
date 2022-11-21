@@ -29,13 +29,6 @@ Route::post('/l/{slug}/update', [App\Http\Controllers\LocationController::class,
 Route::delete('/l/{slug}', [App\Http\Controllers\LocationController::class, 'destroy'])->name('location.destroy')
     ->middleware(['auth', 'isAdmin']);
 
-Route::get('/cafe/einstein', function () {
-    $title = "Café Einstein";
-    $metaDescription = "Das Café Einstein ist der Ort, an dem sich Studierende aller Fakultäten des Standortes Esslingen Campus Stadtmitte treffen. Die Studierenden erhalten im Café nicht nur Kaffee, Kaltgetränke und Snacks, sondern können gemeinsam die Pausenzeiten mit Hilfe eines Tischkickers und einem Billardtisch aktiv gestalten.";
-    $metaImage = asset('storage/images/csm_logo_cafeeinstein.png');
-    return view('cafe.einstein.index', compact('title', 'metaDescription', 'metaImage'));
-})->name("cafe.einstein");
-
 
 Auth::routes([
     'reset' => false,
