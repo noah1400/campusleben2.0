@@ -96,7 +96,10 @@ class LocationController extends Controller
     {
         $location = Location::where('slug', $slug)->firstOrFail();
         if($location->clickable){
-            return view('location.show', compact('location'));
+            $title = $location->name;
+            $metaDescription = $location->page_content;
+            $metaImage = asset('storage/' . $location->image);
+            return view('location.show', compact('location', 'title', 'metaDescription', 'metaImage'));
         }else{
             abort(404);
         }
