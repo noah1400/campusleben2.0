@@ -18,7 +18,7 @@
         <div
             class="gap-4 my-5 grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 mx-auto max-w-md md:max-w-4xl sm:max-w-2xl lg:max-w-5xl">
             <div class="col-span-1">
-                <a href="{{ route('cafe.einstein') }}">
+                <a href="{{ route('location.show', 'cafe-einstein') }}">
                     <div class="h-48">
                         <img class="mx-auto max-h-48" src="{{ asset('storage/images/csm_logo_cafeeinstein.png') }}"
                             alt="Einstein">
