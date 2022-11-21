@@ -9,17 +9,17 @@
 
 .page_content ul {
     list-style-type: disc;
-    margin: -0.5em 0 -0.5em 1.5em !important;
+    margin: 1em 0 -0.5em 1.25em !important;
 }
 
 .page_content li:has( input[type=checkbox]) {
     list-style-type: none;
-    margin-left: -1.5em !important;
+    margin-left: -1em !important;
 }
 
 .page_content ol {
     list-style-type: decimal;
-    margin: -0.5em 0 -0.5em 1.5em !important;
+    margin: 1em 0 -0.5em 1.25em !important;
 }
 
 .page_content li {
@@ -27,7 +27,10 @@
 }
 
 .page_content p {
-    margin: 1em 0 1em 0 !important;
+    --tw-text-opacity: 1; color: rgb(107 114 128 / var(--tw-text-opacity));
+    margin: 0.5em 0 0 0 !important;
+    line-height: 2rem !important;
+    font-size: 1.25rem !important;
 }
 
 .page_content hr {
@@ -51,44 +54,47 @@
 .page_content h4,
 .page_content h5,
 .page_content h6 {
-    margin: 0.5rem 0 0.5rem 0;
-    font-weight: bold;
+    margin: 0 0 0.5rem 0 !important;
+    line-height: 1.2;
+    font-weight: 800;
     text-align: center;
+    color: rgb(17 24 39 / var(--tw-text-opacity));
+    display: block;
 }
 
 .page_content h1 {
-    font-size: 2.2rem;
-    line-height: 1.2;
-    letter-spacing: -.1rem;
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    letter-spacing: -0.025rem;
 }
 
 .page_content h2 {
-    font-size: 1.9rem;
-    line-height: 1.25;
-    letter-spacing: -.1rem;
+    font-size: 2.05rem;
+    line-height: 2.55rem;
+    letter-spacing: -0.025rem;
 }
 
 .page_content h3 {
     font-size: 1.7rem;
-    line-height: 1.3;
-    letter-spacing: -.1rem;
+    line-height: 2.6rem;
+    letter-spacing: -0.025rem;
 }
 
 .page_content h4 {
     font-size: 1.5rem;
-    line-height: 1.35;
-    letter-spacing: -.08rem;
+    line-height: 2.65rem;
+    letter-spacing: -0.023rem;
 }
 
 .page_content h5 {
     font-size: 1.4rem;
-    line-height: 1.5;
-    letter-spacing: -.05rem;
+    line-height: 2.8rem;
+    letter-spacing: -0.020rem;
 }
 
 .page_content h6 {
     font-size: 1.4rem;
-    line-height: 1.6;
+    line-height: 2.9rem;
     letter-spacing: 0;
 }
 
@@ -143,8 +149,7 @@
             </div>
         </div>
         <div class="relative px-4 sm:px-6 lg:px-8">
-            <div class="mt-6 prose prose-indigo prose-lg text-gray-500 mx-auto">
-
+            <div class="mt-6 mb-2 prose prose-indigo prose-lg text-gray-500 mx-auto">
                 <figure>
                     <img class="w-fit mx-auto h-72" src="{{ asset('storage/'.$location->image) }}"
                         alt="">
