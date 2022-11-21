@@ -27,7 +27,7 @@
 }
 
 .page_content p {
-    margin: -0.5em 0 -0.5em 0 !important;
+    margin: 1em 0 1em 0 !important;
 }
 
 .page_content hr {
@@ -146,11 +146,12 @@
             <div class="mt-6 prose prose-indigo prose-lg text-gray-500 mx-auto">
 
                 <figure>
-                    <img class="w-fit mx-auto rounded-lg h-32" src="{{ asset('storage/images/csm_logo_cafeeinstein.png') }}"
+                    <img class="w-fit mx-auto h-72" src="{{ asset('storage/'.$location->image) }}"
                         alt="">
                 </figure>
             </div>
             <div class="page_content text-lg max-w-prose mx-auto">
+                <h1>{{ $location->name }}</h1>
                 @markdown($location->page_content)
             </div>
         </div>
