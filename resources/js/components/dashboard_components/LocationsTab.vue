@@ -50,7 +50,7 @@
                                         </td>
                                         <td
                                             class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                            <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                            <a @click="openEdit(location.slug)" class="cursor-pointer text-indigo-600 hover:text-indigo-900">Edit</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -70,7 +70,12 @@
         <NewLocationForm @close_create="closeCreate"></NewLocationForm>
     </div>
     <div v-if="editLocation" :key="editLocation">
-        Test
+        <button type="button"
+            class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto"
+            @click="newLocation = false;editLocation=false;showLocations=true">
+            Zurück
+        </button>
+        <EditLocationForm :location="location_to_edit" @close_edit="closeEdit"></EditLocationForm>
     </div>
 </template>
 
@@ -84,6 +89,7 @@ export default {
             editLocation: false,
             newLocation: false,
             locations: [],
+            location_to_edit: null,
         };
     },
     components: { NewLocation },
@@ -97,6 +103,12 @@ export default {
             this.editLocation = false;
             this.getLocations();
         },
+        closeEdit() {
+            this.newLocation = false;
+            this.showLocations = true;
+            this.editLocation = false;
+            this.getLocations();
+        },
         getLocations() {
             axios.get('/admin/api/locations').then((response) => {
                 this.locations = response.data;
@@ -104,7 +116,13 @@ export default {
             .catch((error) => {
                 console.log(error);
             });
-        }
+        },
+        openEdit(slug) {
+            this.location_to_edit = this.locations.find((location) => location.slug == slug);
+            this.showLocations = false;
+            this.newLocation = false;
+            this.editLocation = true;
+        },
     },
 }
 </script>

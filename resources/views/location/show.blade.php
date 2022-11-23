@@ -149,12 +149,14 @@
             </div>
         </div>
         <div class="relative px-4 sm:px-6 lg:px-8">
+            @if ($location->image)
             <div class="mt-6 mb-2 prose prose-indigo prose-lg text-gray-500 mx-auto">
                 <figure>
                     <img class="w-fit mx-auto h-72" src="{{ asset('storage/'.$location->image) }}"
                         alt="">
                 </figure>
             </div>
+            @endif
             <div class="page_content text-lg max-w-prose mx-auto">
                 <h1>{{ $location->name }}</h1>
                 @markdown($location->page_content)

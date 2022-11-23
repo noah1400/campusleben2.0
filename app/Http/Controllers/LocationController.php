@@ -125,6 +125,7 @@ class LocationController extends Controller
      */
     public function update(Request $request, $slug)
     {
+
         $request->validate([
             'name' => 'required',
             'image' => 'nullable|image',
@@ -146,8 +147,14 @@ class LocationController extends Controller
                     ->heighten(1024)
                     ->save(storage_path('app/public/' . $imageURL));
 
+            if ($location->image) {
+                if (file_exists(storage_path('app/public/' . $location->image))) {
+                    unlink(storage_path('app/public/' . $location->image));
+                }
+            }
+
         } else {
-            $imageURL = null;
+            $imageURL = $location->image;
         }
 
         $location->image = $imageURL;
