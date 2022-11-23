@@ -98,7 +98,11 @@ class LocationController extends Controller
         if($location->clickable){
             $title = $location->name;
             $metaDescription = $location->page_content;
-            $metaImage = asset('storage/' . $location->image);
+            if ($location->image) {
+                $metaImage = asset('storage/' . $location->image);
+            }else{
+                $metaImage = null;
+            }
             return view('location.show', compact('location', 'title', 'metaDescription', 'metaImage'));
         }else{
             abort(404);
