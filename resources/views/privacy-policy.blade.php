@@ -7,9 +7,11 @@
                 <h1 class="h1">Datenschutzerklärung</h1>
                 <p class="mt-0 mb-4">Verantwortlicher im Sinne der Datenschutzgesetze, insbesondere der EU-Datenschutzgrundverordnung (DSGVO),
                     ist:</p>
-                <p class="mt-0 mb-4">Raluca Vedislav (reste Vorsitzende)</p>
-                <p class="mt-0 mb-4">Tristan Eberhardt (zweiter Vorsitzender)</p>
-                <p class="mt-0 mb-4">Benjamin Schmelz (Kassenwart)</p>
+                <p class="mt-0 mb-4"> 
+                        Raluca Vedislav (1. Vorsitzende)<br>
+                        Tristan Eberhardt (2. Vorsitzender)<br>
+                        Benjamin Schmelz (Kassenwart)<br>
+                </p>
                 <h2 class="h2">Ihre Betroffenenrechte</h2>
                 <p class="mt-0 mb-4">Unter den angegebenen Kontaktdaten unseres Datenschutzbeauftragten können Sie jederzeit folgende Rechte
                     ausüben:</p>
