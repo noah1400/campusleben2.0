@@ -13,7 +13,9 @@
                     73728 Esslingen am Neckar <br></p>
                 <p class="text-xl text-gray-500 leading-8">
                     <strong>Vertreten durch: </strong><br>
-                    Tristan Eberhardt (zweiter Vorsitzender)<br>
+                    Raluca Vedislav (1. Vorsitzende)<br>
+                    Tristan Eberhardt (2. Vorsitzender)<br>
+                    Benjamin Schmelz (Kassenwart)<br>
                 </p>
                 <p class="text-xl text-gray-500 leading-8">
                     <strong>Kontakt:</strong> <br>
@@ -23,12 +25,17 @@
             </div>
             <div class="mt-6 prose prose-indigo prose-lg text-gray-500 mx-auto">
                 <p><span data-feather="instagram"></span>
-                    <a class="h4 text-decoration-none" href="https://www.instagram.com/campus_leben/" target="_blank">@campus_leben</a>
+                    <a class="h4 text-decoration-none" href="https://www.instagram.com/campus_leben/"
+                        target="_blank">@campus_leben</a>
                 </p>
                 <p><span data-feather="instagram"></span>
-                    <a class="h4 text-decoration-none" href="https://www.instagram.com/cafeeinsteinhs/" target="_blank">@cafeeinsteinhs</a></p>
+                    <a class="h4 text-decoration-none" href="https://www.instagram.com/cafeeinsteinhs/"
+                        target="_blank">@cafeeinsteinhs</a>
+                </p>
                 <h2>Discord</h2>
-                <iframe src="https://discord.com/widget?id=953312705513680967&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+                <iframe src="https://discord.com/widget?id=953312705513680967&theme=dark" width="350" height="500"
+                    allowtransparency="true" frameborder="0"
+                    sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
             </div>
             <div class="mt-6 prose prose-indigo prose-lg text-gray-500 mx-auto">
 
@@ -37,7 +44,7 @@
                     Du hast einen Fehler oder eine Sicherheitslücke auf unserer Website entdeckt?<br>
                     Dann melde dich bitte bei uns entweder per E-Mail, Instagram, Discord oder melde den Fehler direkt bei
                     <a href="https://github.com/noah1400/campusleben2.0"> GitHub</a>.
-            </p>
+                </p>
             </div>
         </div>
     </div>
