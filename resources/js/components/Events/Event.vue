@@ -253,12 +253,12 @@ export default {
                     </div>
 
                     <TabPanels class="aspect-w-1 aspect-h-1 w-full">
-                        <TabPanel v-for="image in posts" :key="image.id">
-                            <img :src="image.src" :alt="image.alt"
+                        <div>
+                            <img :src="selected_post.src" :alt="selected_post.alt"
                             class="mx-auto h-full object-cover object-center sm:rounded-lg"
                             style="max-height: 512px"
                             />
-                        </TabPanel>
+                        </div>
                     </TabPanels>
                 </TabGroup>
 
