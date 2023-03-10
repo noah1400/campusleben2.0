@@ -182,7 +182,7 @@ class EventController extends Controller
         $sponsors = $event->sponsors;
 
         // Meta Tags
-        $metaDescription = $event->description;
+        $metaDescription = Str::limit($event->description, 160, '...');
         $metaImage = asset('storage/'.$event->preview_image);
 
         // Convert markdown to html
