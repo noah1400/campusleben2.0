@@ -7,7 +7,7 @@
                 <div class='impressum'>
                     <h1 class="h1">Impressum</h1>
                     <p>Angaben gemäß § 5 TMG</p>
-                    <p>CampusLeben ev. <br>
+                    <p>CampusLeben e.V. <br>
                         Kanalstraße 33<br>
                         73728 Esslingen am Neckar <br>
                     </p>
