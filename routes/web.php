@@ -89,6 +89,10 @@ Route::delete('/admin/api/posts/delete/{post}', [App\Http\Controllers\PostContro
     ->name('admin.posts.delete')
     ->middleware(['auth', 'isAdmin']);
 
+Route::get('/admin/api/registrations/verify/{token}', [App\Http\Controllers\RegistrationController::class, 'verify'])
+    ->name('admin.registrations.verify')
+    ->middleware(['auth', 'isAdmin']);
+
 
 
 
@@ -112,6 +116,7 @@ Route::post('/api/user/attend/{event}', [App\Http\Controllers\UserController::cl
 Route::get('/api/event/user/attending/{event}', [App\Http\Controllers\UserController::class, 'isAttending'])
     ->name('admin.event.user.attending')
     ->middleware('auth');
+
 
 Route::get('/api/sponsors/event/{event}', [App\Http\Controllers\SponsorController::class, 'getSponsors'])
     ->name('api.sponsor.get');

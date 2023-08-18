@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Registration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -92,14 +93,27 @@ class UserController extends Controller
         if($event->closed == true) {
             return response()->json(['error' => 'Event is closed'], 422);
         }
-
+        $token = null;
 
         if($attending){
             $user->events()->detach($id);
+
+            $registration = Registration::where('user_id', $user->id)->where('event_id', $id)->first();
+            if ($registration != null){
+                $registration->delete();
+            }
         } else {
             $user->events()->attach($id);
+
+            $registration = new Registration();
+            $registration->user_id = $user->id;
+            $registration->event_id = $id;
+            $token = bin2hex(random_bytes(16));
+            $registration->token = $token;
+            $registration->save();
         }
         return response()->json(['attending' => !$attending,
-                                    'count' => $count + ($attending ? -1 : 1)]);
+                                    'count' => $count + ($attending ? -1 : 1),
+                                    'token' => $token]);
     }
 }
