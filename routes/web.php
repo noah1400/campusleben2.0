@@ -89,9 +89,8 @@ Route::delete('/admin/api/posts/delete/{post}', [App\Http\Controllers\PostContro
     ->name('admin.posts.delete')
     ->middleware(['auth', 'isAdmin']);
 
-Route::get('/admin/api/registrations/verify/{token}', [App\Http\Controllers\RegistrationController::class, 'verify'])
-    ->name('admin.registrations.verify')
-    ->middleware(['auth', 'isAdmin']);
+Route::get('/api/registrations/verify/{token}', [App\Http\Controllers\RegistrationController::class, 'verify'])
+    ->name('admin.registrations.verify');
 
 
 
