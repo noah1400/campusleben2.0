@@ -7,6 +7,7 @@ TabPanel,
 TabPanels,
 } from '@headlessui/vue';
 import LogoClouds from '../Sponsors/LogoClouds.vue';
+import QrCodeButton from './QrCodeButton.vue';
 
 
 
@@ -17,7 +18,8 @@ export default {
     TabList,
     TabPanel,
     TabPanels,
-    LogoClouds
+    LogoClouds,
+        QrCodeButton
 },
     props: {
         event: {
@@ -34,6 +36,7 @@ export default {
             attending: false,
             closed: false,
             full: false,
+            qrcode_token: '',
         };
     },
     methods: {
@@ -98,6 +101,8 @@ export default {
             let vm = this;
             axios.post(url).then(response => {
                 let res = response.data;
+                console.log(res);
+                vm.qrcode_token = res.token;
                 vm.attending = res.attending;
                 vm.pre_registration_count = res.count;
                 vm.full = (vm.pre_registration_count >= vm.event.limit&&vm.event.limit!=0)?true:false;
@@ -297,6 +302,7 @@ export default {
                             <button v-show="attending" :disabled="(closed)" @click="attend" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-50">
                                 Abmelden
                             </button>
+                            <qr-code-button v-if="attending" :link="'https://www.campusleben-es.de/api/registrations/verify/'+qrcode_token" />
                         </div>
                         <div v-if="!auth" class="mt-4">
                             Um sich für dieses Event anzumelden, müssen Sie sich zuerst einloggen.
