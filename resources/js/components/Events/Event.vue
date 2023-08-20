@@ -302,7 +302,7 @@ export default {
                             <button v-show="attending" :disabled="(closed)" @click="attend" type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-black bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-50">
                                 Abmelden
                             </button>
-                            <qr-code-button v-if="attending" :event="event" :link="'https://www.campusleben-es.de/api/registrations/verify/'+qrcode_token" />
+                            <qr-code-button v-if="attending" :event="event" :link="'https://www.campusleben-es.de/api/registrations/verify/'+qrcode_token" class="mt-2"/>
                         </div>
                         <div v-if="!auth" class="mt-4">
                             Um sich für dieses Event anzumelden, müssen Sie sich zuerst einloggen.
