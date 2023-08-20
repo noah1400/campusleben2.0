@@ -14,7 +14,8 @@ class RegistrationController extends Controller
     {
         $registration = Registration::where('token', $token)->first();
         if ($registration) {
-            return response()->json(['verified' => true]);
+            $user = $registration->user;
+            return response()->json(['verified' => true, 'user' => $user]);
         } else {
             return response()->json(['verified' => false]);
         }
