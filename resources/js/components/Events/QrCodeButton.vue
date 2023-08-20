@@ -40,71 +40,79 @@ export default {
 
             const pdfContent = `
             <!DOCTYPE html>
-<html>
-<head>
-<style>
-    .document-container {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin: auto;
-        width: 70%;
-        padding: 20px;
-        border: 2px solid #333;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
+            <html>
+            <head>
+            <style>
+                .document-container {
+                    font-family: Arial, sans-serif;
+                    text-align: center;
+                    margin: auto;
+                    width: 70%;
+                    padding: 20px;
+                    border: 2px solid #333;
+                    border-radius: 10px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                }
 
-    .title {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 20px;
-    }
+                .title {
+                    font-size: 24px;
+                    font-weight: bold;
+                    margin-bottom: 20px;
+                }
 
-    .info {
-        font-size: 18px;
-        margin-bottom: 20px;
-    }
+                .info {
+                    font-size: 18px;
+                    margin-bottom: 20px;
+                }
 
-    .qr-code {
-        margin-top: 20px;
-        text-align: center;
-    }
+                .qr-code {
+                    margin-top: 20px;
+                    text-align: center;
+                }
 
-    .logo {
-        margin-top: 20px;
-        text-align: center;
-    }
+                .logo {
+                    margin-top: 20px;
+                    text-align: center;
+                }
 
-    img {
-        width: 200px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-</style>
-</head>
-<body>
-    <div class="document-container">
-        <div class="logo">
-            <img src="${logo}" alt="Firmenlogo" />
-        </div>
-        <div class="title">
-            ${this.event.name}
-        </div>
-        <div class="info">
-            ${this.event.location}
-        </div>
-        <div class="info">
-            ${this.event.start_date}
-        </div>
-        <div class="info">
-            <p>Wir bitten Sie höflich, dieses Dokument beim Eintritt zur Veranstaltung mitzuführen und während des gesamten Verlaufs der Veranstaltung griffbereit zu halten.</p>
-        </div>
-        <div class="qr-code">
-            <img src="${this.qrCodeImage}" alt="QR Code" />
-        </div>
-    </div>
-</body>
-</html>
+                .disclaimer {
+                    font-size: 12px;
+                    margin-top: 10px;
+                }
+
+                img {
+                    width: 200px;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            </style>
+            </head>
+            <body>
+                <div class="document-container">
+                    <div class="logo">
+                        <img src="${logo}" alt="Firmenlogo" />
+                    </div>
+                    <div class="title">
+                        ${this.event.name}
+                    </div>
+                    <div class="info">
+                        ${this.event.location}
+                    </div>
+                    <div class="info">
+                        ${this.event.start_date}
+                    </div>
+                    <div class="info">
+                        <p>Wir bitten Sie höflich, dieses Dokument beim Eintritt zur Veranstaltung mitzuführen und während des gesamten Verlaufs der Veranstaltung griffbereit zu halten.</p>
+                    </div>
+                    <div class="qr-code">
+                        <img src="${this.qrCodeImage}" alt="QR Code" />
+                    </div>
+                    <div class="disclaimer">
+                        <p>Bitte beachten: Eine Voranmeldung garantiert keinen Einlass. Der QR-Code ist nur in den für diese Veranstaltung festgelegten Zeiten gültig. Bei Fragen lesen Sie die Veranstaltungsinformationen oder kontaktieren Sie das Veranstaltungsteam über Instagram @campus_leben.</p>
+                    </div>
+                </div>
+            </body>
+            </html>
             `;
 
             const pdfOptions = {
