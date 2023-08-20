@@ -62,7 +62,9 @@ class UserController extends Controller
         }
         $user = auth()->user();
         $attending = $user->events()->where('event_id', $event)->exists();
-        return response()->json(['attending' => $attending]);
+        $registration = Registration::where('user_id', $user->id)->where('event_id', $event)->first();
+        $token = $registration != null ? $registration->token : null;
+        return response()->json(['attending' => $attending, 'token' => $token]);
     }
 
     public function attendEvent($id) {

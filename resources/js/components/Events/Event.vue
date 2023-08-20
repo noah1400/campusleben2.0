@@ -93,6 +93,7 @@ export default {
                 axios.get(url).then(response => {
                     let res = response.data;
                     vm.attending = res.attending;
+                    vm.qrcode_token = res.token;
                 });
             }
         },
