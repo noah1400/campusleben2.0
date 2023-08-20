@@ -67,14 +67,18 @@ export default {
 
     .qr-code {
         margin-top: 20px;
+        text-align: center;
     }
 
     .logo {
         margin-top: 20px;
+        text-align: center;
     }
 
     img {
         width: 200px;
+        margin-left: auto;
+        margin-right: auto;
     }
 </style>
 </head>
