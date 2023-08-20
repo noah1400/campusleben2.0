@@ -102,13 +102,13 @@ export default {
                         ${this.event.start_date}
                     </div>
                     <div class="info">
-                        <p>Wir bitten Sie höflich, dieses Dokument beim Eintritt zur Veranstaltung mitzuführen und während des gesamten Verlaufs der Veranstaltung griffbereit zu halten.</p>
+                        <p>Wir bitten euch, dieses Dokument beim Eintritt zur Veranstaltung dabei zu haben und während des gesamten Verlaufs der Veranstaltung griffbereit zu halten. Wir freuen uns auf euch!</p>
                     </div>
                     <div class="qr-code">
                         <img src="${this.qrCodeImage}" alt="QR Code" />
                     </div>
                     <div class="disclaimer">
-                        <p>Bitte beachten: Eine Voranmeldung garantiert keinen Einlass. Der QR-Code ist nur in den für diese Veranstaltung festgelegten Zeiten gültig. Bei Fragen lesen Sie die Veranstaltungsinformationen oder kontaktieren Sie das Veranstaltungsteam über Instagram @campus_leben.</p>
+                        <p>Wichtig: Deine Voranmeldung garantiert dir keinen Einlass. Der QR-Code ist nur in den für diese Veranstaltung festgelegten Zeiten gültig. Bei Fragen wirf einen Blick auf die Eventinfos oder kontaktiere uns über Instagram @campus_leben.</p>
                     </div>
                 </div>
             </body>
