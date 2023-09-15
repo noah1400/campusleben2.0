@@ -8,9 +8,9 @@
                     <span
                         class="mt-2 block text-3xl text-center leading-8 font-bold tracking-tight text-gray-900 sm:text-4xl">Kontakt</span>
                 </h1>
-                <p class="mt-8 text-xl text-gray-500 leading-8">CampusLeben e.V. <br>
-                    Kanalstraße 33<br>
-                    73728 Esslingen am Neckar <br></p>
+                <p class="mt-8 text-xl text-gray-500 leading-8">Tristan Eberhardt<br>
+                    Dietrich-Bonhoeffer-Str. 15<br>
+                    73732 Esslingen am Neckar <br></p>
                 <p class="text-xl text-gray-500 leading-8">
                     <strong>Vertreten durch: </strong><br>
                     Raluca Vedislav (1. Vorsitzende)<br>
