@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
 use App\Models\Sponsor;
 
 /*
@@ -29,12 +31,11 @@ Route::post('/l/{slug}/update', [App\Http\Controllers\LocationController::class,
 Route::delete('/l/{slug}', [App\Http\Controllers\LocationController::class, 'destroy'])->name('location.destroy')
     ->middleware(['auth', 'isAdmin']);
 
-
-Auth::routes([
-    'reset' => false,
-    'confirm' => false,
-    'verify' => false,
-]);
+Auth::routes(
+    [
+        'verify' => true,
+    ]
+);
 
 Route::get('/home', function () {
     return redirect()->route("welcome");
