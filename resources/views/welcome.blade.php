@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="col-span-1">
-                <a href="{{ route('location.show', 'cafe-hze') }}">
+                <a href="{{ route('location.show', 'hze-cafe') }}">
                     <div class="h-48">
                         <img class="mx-auto max-h-48" src="{{ asset('storage/images/csm_logo_hzecafe.jpg') }}"
                             alt="Hze">
