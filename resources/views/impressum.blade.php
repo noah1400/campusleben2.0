@@ -13,7 +13,7 @@
                     <p> <strong>Vertreten durch: </strong><br>
                         Raluca Vedislav (1. Vorsitzende)<br>
                         Tristan Eberhardt (2. Vorsitzender)<br>
-                        Benjamin Schmelz (Kassenwart)<br>
+                        Maximilian Frenken (Kassenwart)<br>
                     </p>
                     <p>
                         <strong>Satzung: </strong><br>

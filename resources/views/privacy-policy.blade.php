@@ -10,7 +10,7 @@
                 <p class="mt-0 mb-4"> 
                         Raluca Vedislav (1. Vorsitzende)<br>
                         Tristan Eberhardt (2. Vorsitzender)<br>
-                        Benjamin Schmelz (Kassenwart)<br>
+                        Maximilian Frenken (Kassenwart)<br>
                 </p>
                 <h2 class="h2">Ihre Betroffenenrechte</h2>
                 <p class="mt-0 mb-4">Unter den angegebenen Kontaktdaten unseres Datenschutzbeauftragten können Sie jederzeit folgende Rechte
