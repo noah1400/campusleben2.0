@@ -36,11 +36,6 @@
                 <iframe src="https://discord.com/widget?id=953312705513680967&theme=dark" width="350" height="500"
                     allowtransparency="true" frameborder="0"
                     sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-                <h2>WhatsApp</h2>
-                <p><span data-feather="message-circle"></span>
-                    <a class="h4 text-decoration-none" href="https://www.whatsapp.com/channel/0029VaDo9zx8V0tqiDGmR82b"
-                        target="_blank">Campusleben</a>
-                </p>
             </div>
             <div class="mt-6 prose prose-indigo prose-lg text-gray-500 mx-auto">
 
