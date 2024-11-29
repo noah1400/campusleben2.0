@@ -9,7 +9,7 @@
                     <p>Angaben gemäß § 5 TMG</p>
                     <p> <strong>Vertreten durch: </strong><br>
                         Raluca Vedislav (1. Vorsitzende)<br>
-                        Luna Baumgärtner (2. Vorsitzender)<br>
+                        Luna Baumgärtner (2. Vorsitzende)<br>
                         Maximilian Frenken (Kassenwart)<br>
                     </p>
                     <p>

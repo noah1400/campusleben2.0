@@ -9,7 +9,7 @@
                     ist:</p>
                 <p class="mt-0 mb-4"> 
                         Raluca Vedislav (1. Vorsitzende)<br>
-                        Luna Baumgärtner (2. Vorsitzender)<br>
+                        Luna Baumgärtner (2. Vorsitzende)<br>
                         Maximilian Frenken (Kassenwart)<br>
                 </p>
                 <h2 class="h2">Ihre Betroffenenrechte</h2>

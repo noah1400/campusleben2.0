@@ -11,7 +11,7 @@
                 <p class="text-xl text-gray-500 leading-8">
                     <strong>Vertreten durch: </strong><br>
                     Raluca Vedislav (1. Vorsitzende)<br>
-                    Luna Baumgärtner (2. Vorsitzender)<br>
+                    Luna Baumgärtner (2. Vorsitzende)<br>
                     Maximilian Frenken (Kassenwart)<br>
                 </p>
                 <p class="text-xl text-gray-500 leading-8">
