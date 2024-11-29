@@ -7,12 +7,9 @@
                 <div class='impressum'>
                     <h1 class="h1">Impressum</h1>
                     <p>Angaben gemäß § 5 TMG</p>
-                    <p>Tristan Eberhardt<br>
-                    Dietrich-Bonhoeffer-Str. 15<br>
-                    73732 Esslingen am Neckar <br></p>
                     <p> <strong>Vertreten durch: </strong><br>
                         Raluca Vedislav (1. Vorsitzende)<br>
-                        Tristan Eberhardt (2. Vorsitzender)<br>
+                        Luna Baumgärtner (2. Vorsitzender)<br>
                         Maximilian Frenken (Kassenwart)<br>
                     </p>
                     <p>

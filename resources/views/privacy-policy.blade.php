@@ -9,7 +9,7 @@
                     ist:</p>
                 <p class="mt-0 mb-4"> 
                         Raluca Vedislav (1. Vorsitzende)<br>
-                        Tristan Eberhardt (2. Vorsitzender)<br>
+                        Luna Baumgärtner (2. Vorsitzender)<br>
                         Maximilian Frenken (Kassenwart)<br>
                 </p>
                 <h2 class="h2">Ihre Betroffenenrechte</h2>
@@ -126,7 +126,7 @@
                     und Freiheiten überwiegen, oder die Verarbeitung dient der Geltendmachung, Ausübung oder Verteidigung
                     von Rechtsansprüchen.</p>
                 <h3 class="h3">Empfänger eines Widerspruchs</h3>
-                <p class="mt-0 mb-4">Tristan Eberhardt, campusleben@hs-esslingen.de</p>
+                <p class="mt-0 mb-4">Raluca Vedislav, campusleben@hs-esslingen.de</p>
                 <hr class="my-3 border-gray-400">
                 <h2 class="h2">Änderung unserer Datenschutzbestimmungen</h2>
                 <p class="mt-0 mb-4">Wir behalten uns vor, diese Datenschutzerklärung anzupassen, damit sie stets den aktuellen rechtlichen
