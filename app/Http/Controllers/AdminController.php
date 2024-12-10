@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 use AkkiIo\LaravelGoogleAnalytics\Facades\LaravelGoogleAnalytics;
 use AkkiIo\LaravelGoogleAnalytics\Period;
 use App\Models\Event;
@@ -25,7 +28,7 @@ class AdminController extends Controller
     /**
      * Loads the admin dashboard
      */
-    public function dashboard()
+    public function dashboard(): View
     {
         return view('admin.dashboard');
     }
@@ -34,7 +37,7 @@ class AdminController extends Controller
      * Api call to get all users
      * returns all users in paginated json format
      */
-    public function showUsers()
+    public function showUsers(): JsonResponse
     {
         $users = User::orderBy('isAdmin', 'desc')->orderBy('id')->paginate(50);
 
@@ -47,7 +50,7 @@ class AdminController extends Controller
      *
      * @param  int  $id
      */
-    public function showUser($id)
+    public function showUser(int $id): JsonResponse
     {
         $user = User::findOrFail($id);
 
@@ -58,7 +61,7 @@ class AdminController extends Controller
      * Api call to get all events
      * returns all events in paginated json format
      */
-    public function showEvents()
+    public function showEvents(): JsonResponse
     {
         $events = Event::orderBy('id')->paginate(50);
         // convert start_date and end_date to "d.m.Y H:i"
@@ -81,7 +84,7 @@ class AdminController extends Controller
      *
      * @param  int  $id
      */
-    public function getEvent($id)
+    public function getEvent(int $id): JsonResponse
     {
         $event = Event::findOrFail($id);
         $sponsors = $event->sponsors;
@@ -93,7 +96,7 @@ class AdminController extends Controller
      * Api call to get all posts of one single event
      * returns all posts of one single event in json format
      */
-    public function getPosts($id)
+    public function getPosts($id): JsonResponse
     {
         $posts = Event::findOrFail($id)->posts()->get()->toArray();
 
@@ -106,7 +109,7 @@ class AdminController extends Controller
      *
      * @param  int  $id
      */
-    public function showUserEvents($id)
+    public function showUserEvents(int $id): JsonResponse
     {
         $user = User::findOrFail($id);
         $events = $user->events()->get()->toArray();
@@ -272,7 +275,7 @@ class AdminController extends Controller
      * Api call to delete an event
      * returns the deleted event in json format
      */
-    public function deleteEvent($id)
+    public function deleteEvent($id): JsonResponse
     {
         $event = Event::findOrFail($id);
         $n = $event->name;
@@ -289,7 +292,7 @@ class AdminController extends Controller
      *
      * @param  int  $id
      */
-    public function closeEvent($id)
+    public function closeEvent(int $id): RedirectResponse
     {
         $event = Event::findOrFail($id);
         $event->closed = true;
@@ -306,7 +309,7 @@ class AdminController extends Controller
      *
      * @param  int  $id
      */
-    public function openEvent($id)
+    public function openEvent(int $id): RedirectResponse
     {
         $event = Event::findOrFail($id);
         $event->closed = false;
@@ -364,7 +367,7 @@ class AdminController extends Controller
      * Api call to get most views per page
      * Over ga4 api
      */
-    public function ga4_mostViewsByPage()
+    public function ga4_mostViewsByPage(): JsonResponse
     {
         $from = (request('days', null) != null
         && is_int(request('days', null))
@@ -383,7 +386,7 @@ class AdminController extends Controller
      * between the date ranges 14 days ago and 7 days ago
      * and 7 days ago and today
      */
-    public function ga4_lastWeekThisWeek()
+    public function ga4_lastWeekThisWeek(): JsonResponse
     {
         $lastWeekPeriod = Period::create(Carbon::today()->subDays(14), Carbon::today()->subDays(7));
         $thisWeekPeriod = Period::create(Carbon::today()->subDays(7), Carbon::today());
@@ -406,7 +409,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response list of sponsors
      */
-    public function getAllSponsors()
+    public function getAllSponsors(): JsonResponse
     {
         $sponsors = Sponsor::all();
 
@@ -526,7 +529,7 @@ class AdminController extends Controller
      *
      * @return \Illuminate\Http\Response the deleted sponsor
      */
-    public function deleteSponsor(int $sponsor)
+    public function deleteSponsor(int $sponsor): JsonResponse
     {
         $sponsor = Sponsor::findOrFail($sponsor);
         $sponsor->delete();
@@ -537,7 +540,7 @@ class AdminController extends Controller
     /**
      * Returns all locations
      */
-    public function getLocations()
+    public function getLocations(): JsonResponse
     {
         $locations = Location::all();
 
@@ -547,7 +550,7 @@ class AdminController extends Controller
     /**
      * Get location with given slug
      */
-    public function getLocation(string $slug)
+    public function getLocation(string $slug): JsonResponse
     {
         $location = Location::where('slug', $slug)->first();
 

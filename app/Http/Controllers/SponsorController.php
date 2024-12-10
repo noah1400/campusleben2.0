@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use App\Models\Event;
 use App\Models\Sponsor;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +38,7 @@ class SponsorController extends Controller
      *
      * @return \Illuminate\Http\Response list of sponsors
      */
-    public function getActiveSponsors()
+    public function getActiveSponsors(): JsonResponse
     {
         $sponsors = Sponsor::where('active', true);
 
@@ -49,7 +50,7 @@ class SponsorController extends Controller
      *
      * @return \Illuminate\Http\Response sponsor
      */
-    public function getSponsor(Sponsor $sponsor)
+    public function getSponsor(Sponsor $sponsor): JsonResponse
     {
         return response()->json($sponsor);
     }

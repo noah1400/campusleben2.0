@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 use App\Models\Event;
 use Carbon\Carbon;
 use GrahamCampbell\Markdown\Facades\Markdown;
@@ -21,7 +24,7 @@ class EventController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(): View
     {
         //get all events that are not expired
         $events = Event::where('end_date', '>=', Carbon::now())
@@ -85,7 +88,7 @@ class EventController extends Controller
         return view('events.index', compact('events', 'title'));
     }
 
-    public function archive()
+    public function archive(): View
     {
         //get all events that are expired
         //get all events that are not expired
@@ -132,14 +135,14 @@ class EventController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function myevents()
+    public function myevents(): View
     {
         $events = auth()->user()->events;
 
         return view('events.myevents', compact('events'));
     }
 
-    public function attend(Request $request, $id)
+    public function attend(Request $request, $id): RedirectResponse
     {
         $user = auth()->user();
         if ($user->events->contains($id)) {
@@ -157,7 +160,7 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show(int $id)
     {
         $event = Event::findOrFail($id);
         if ($event->public == false) {
@@ -192,7 +195,7 @@ class EventController extends Controller
         return view('events.show', compact('event', 'title', 'metaDescription', 'metaImage'));
     }
 
-    public function countUsers($id)
+    public function countUsers($id): JsonResponse
     {
 
         $event = Event::findOrFail($id);

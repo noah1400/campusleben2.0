@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use App\Models\Event;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -10,7 +11,7 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class PostController extends Controller
 {
-    public function newPost(Request $request)
+    public function newPost(Request $request): JsonResponse
     {
         $this->validate($request, [
             'subtitle' => 'nullable|string|max:255',
@@ -40,7 +41,7 @@ class PostController extends Controller
         ])->status(201);
     }
 
-    public function updatePost(Request $request)
+    public function updatePost(Request $request): JsonResponse
     {
         $this->validate($request, [
             'id' => 'required|integer',
@@ -77,7 +78,7 @@ class PostController extends Controller
         return response()->json(['success' => 'Post updated successfully'])->status(200);
     }
 
-    public function getPosts(Request $request, $event)
+    public function getPosts(Request $request, $event): JsonResponse
     {
         $ev = Event::findOrFail($event);
         if ($ev->public == false) {
@@ -94,7 +95,7 @@ class PostController extends Controller
         return response()->json($posts);
     }
 
-    public function deletePost($id)
+    public function deletePost($id): JsonResponse
     {
 
         $post = Post::findOrFail($id);

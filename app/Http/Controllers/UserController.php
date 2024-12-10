@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 use App\Models\Event;
 use App\Models\Registration;
 use Illuminate\Http\Request;
@@ -14,7 +17,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showdata()
+    public function showdata(): View
     {
         $user = auth()->user();
 
@@ -26,7 +29,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function deletedataShow()
+    public function deletedataShow(): View
     {
         return view('userdata.deletedata');
     }
@@ -36,7 +39,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function deletedata(Request $request)
+    public function deletedata(Request $request): RedirectResponse
     {
         $user = auth()->user();
         $user->events()->detach();
@@ -48,12 +51,12 @@ class UserController extends Controller
         return redirect()->route('events.index');
     }
 
-    public function isAuthenticated()
+    public function isAuthenticated(): JsonResponse
     {
         return response()->json(['auth' => auth()->check()]);
     }
 
-    public function isAttending($event)
+    public function isAttending($event): JsonResponse
     {
         $ev = Event::findOrFail($event);
         if ($ev->public == false) {

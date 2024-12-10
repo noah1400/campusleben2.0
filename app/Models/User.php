@@ -59,7 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return bool
      */
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         return auth()->user()->isAdmin;
     }

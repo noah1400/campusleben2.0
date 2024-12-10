@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
+use Illuminate\Http\JsonResponse;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -34,7 +36,7 @@ class LocationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $request->validate([
             'name' => 'required',
@@ -89,7 +91,7 @@ class LocationController extends Controller
      * @param  Str  $slug
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show(Str $slug): View
     {
         $location = Location::where('slug', $slug)->firstOrFail();
         if ($location->clickable) {
@@ -123,7 +125,7 @@ class LocationController extends Controller
      * @param  Str  $slug
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $slug)
+    public function update(Request $request, Str $slug): JsonResponse
     {
 
         $request->validate([
@@ -173,7 +175,7 @@ class LocationController extends Controller
      * @param  Str  $slug
      * @return \Illuminate\Http\Response
      */
-    public function destroy($slug)
+    public function destroy(Str $slug): JsonResponse
     {
         $location = Location::where('slug', $slug)->firstOrFail();
         $location->delete();
