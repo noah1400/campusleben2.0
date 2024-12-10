@@ -4,15 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\LOG;
-use Spatie\Sitemap\Contracts\Sitemapable;
 use Spatie\Sitemap\Tags\Url;
 
 class Event extends Model
 {
     use HasFactory;
 
-    public function sponsors() {
+    public function sponsors()
+    {
         return $this->belongsToMany(Sponsor::class);
     }
 
@@ -26,52 +25,54 @@ class Event extends Model
     {
         parent::boot();
 
-        static::deleting(function($event) {
+        static::deleting(function ($event) {
             // detach attending users.
             $event->users()->detach();
             // detach sponsoring
             $event->sponsors()->detach();
             // delete associated posts
             $posts = $event->posts;
-            foreach ($posts as $post){
+            foreach ($posts as $post) {
                 $post->delete();
             }
             // delete previous associated image.
             $picture = $event->preview_image;
             if ($picture) {
-                $picturePath = storage_path('app/public/' . $picture);
+                $picturePath = storage_path('app/public/'.$picture);
                 if (file_exists($picturePath)) {
                     unlink($picturePath);
                 }
             }
         });
 
-        static::deleted(function($event) {
-            $log = new LOG();
+        static::deleted(function ($event) {
+            $log = new LOG;
             $log->user_email = auth()->user()->email;
-            $log->action = 'Event deleted: '. $event->name;
+            $log->action = 'Event deleted: '.$event->name;
             $log->type = 'delete';
             $log->save();
         });
 
-        static::updated(function($event) {
-            $log = new LOG();
+        static::updated(function ($event) {
+            $log = new LOG;
             $log->user_email = auth()->user()->email;
-            $log->action = 'Event updated: '. $event->name;
+            $log->action = 'Event updated: '.$event->name;
             $log->type = 'update';
             $log->save();
         });
 
-        static::created(function($event) {
-            $log = new LOG();
+        static::created(function ($event) {
+            $log = new LOG;
             $log->user_email = auth()->user()->email;
-            $log->action = 'Event created: '. $event->name;
+            $log->action = 'Event created: '.$event->name;
             $log->type = 'create';
             $log->save();
         });
     }
+
     /**
      * Gets all the posts that are related to this event.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
     public function posts()
@@ -79,9 +80,8 @@ class Event extends Model
         return $this->hasMany(Post::class);
     }
 
-    public function toSitemapTag(): Url | string | array
+    public function toSitemapTag(): Url|string|array
     {
         return route('events.show', $this->id);
     }
-
 }

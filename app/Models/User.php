@@ -3,9 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -48,15 +48,18 @@ class User extends Authenticatable implements MustVerifyEmail
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function events() {
+    public function events()
+    {
         return $this->belongsToMany(Event::class);
     }
+
     /**
      * Checks if authenticated user is admin
      *
      * @return bool
      */
-    public function isAdmin() {
+    public function isAdmin()
+    {
         return auth()->user()->isAdmin;
     }
 }
