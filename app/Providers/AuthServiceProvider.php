@@ -24,7 +24,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         // Verify email notification
         VerifyEmail::toMailUsing(function ($notifiable, $url) {

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sitemap\Tags\Url;
@@ -10,12 +12,12 @@ class Event extends Model
 {
     use HasFactory;
 
-    public function sponsors()
+    public function sponsors(): BelongsToMany
     {
         return $this->belongsToMany(Sponsor::class);
     }
 
-    public function users()
+    public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class);
     }
@@ -75,7 +77,7 @@ class Event extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
-    public function posts()
+    public function posts(): HasMany
     {
         return $this->hasMany(Post::class);
     }
