@@ -46,8 +46,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Gets the events that this user is attending.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function events(): BelongsToMany
     {
@@ -56,8 +54,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     /**
      * Checks if authenticated user is admin
-     *
-     * @return bool
      */
     public function isAdmin(): bool
     {

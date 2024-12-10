@@ -47,8 +47,6 @@ class AdminController extends Controller
     /**
      * Api call to get one single user
      * returns the user in json format
-     *
-     * @param  int  $id
      */
     public function showUser(int $id): JsonResponse
     {
@@ -81,8 +79,6 @@ class AdminController extends Controller
     /**
      * Api call to get one single event
      * returns the event in json format
-     *
-     * @param  int  $id
      */
     public function getEvent(int $id): JsonResponse
     {
@@ -106,8 +102,6 @@ class AdminController extends Controller
     /**
      * Api call to get all Events that a single user is attending
      * returns all events in json format
-     *
-     * @param  int  $id
      */
     public function showUserEvents(int $id): JsonResponse
     {
@@ -289,8 +283,6 @@ class AdminController extends Controller
      *
      * Api call to close an Event
      * returns the closed event in json format
-     *
-     * @param  int  $id
      */
     public function closeEvent(int $id): RedirectResponse
     {
@@ -306,8 +298,6 @@ class AdminController extends Controller
      *
      * Api call to open an Event
      * returns the opened event in json format
-     *
-     * @param  int  $id
      */
     public function openEvent(int $id): RedirectResponse
     {

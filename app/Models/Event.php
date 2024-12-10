@@ -75,7 +75,6 @@ class Event extends Model
     /**
      * Gets all the posts that are related to this event.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      **/
     public function posts(): HasMany
     {

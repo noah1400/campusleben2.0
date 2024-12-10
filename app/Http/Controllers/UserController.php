@@ -36,8 +36,6 @@ class UserController extends Controller
 
     /**
      * Delete saved data of authenticated user.
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function deletedata(Request $request): RedirectResponse
     {
