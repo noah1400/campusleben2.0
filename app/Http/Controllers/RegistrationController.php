@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\JsonResponse;
 use App\Models\Registration;
+use Illuminate\Http\JsonResponse;
 
 class RegistrationController extends Controller
 {
