@@ -24,7 +24,7 @@
     @yield('css')
 
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
+    @vite(['resources/js/app.js', 'resources/css/app.css'])
 
     <style>
         [x-cloak] {

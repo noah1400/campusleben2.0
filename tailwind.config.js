@@ -1,5 +1,7 @@
-/** @type {import('tailwindcss').Config} */
-module.exports = {
+import forms from '@tailwindcss/forms';
+import typography from '@tailwindcss/typography';
+
+export default {
     content: [
         './storage/framework/views/*.php',
         './resources/**/*.blade.php',
@@ -7,12 +9,10 @@ module.exports = {
         './resources/**/*.vue',
         './resources/**/*.css',
     ],
+
     theme: {
         extend: {},
     },
-    plugins: [
-        require('@tailwindcss/forms'),
-        require('@tailwindcss/typography'),
-        require('@tailwindcss/aspect-ratio'),
-    ],
-}
+
+    plugins: [forms, typography, require('@tailwindcss/aspect-ratio')],
+};
