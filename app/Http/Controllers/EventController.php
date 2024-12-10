@@ -41,7 +41,7 @@ class EventController extends Controller
             // shorten description
             $event->description = Str::limit($event->description, 80, '...');
             // remove line breaks
-            $event->description = str_replace(array("\r", "\n"), ' ', $event->description);
+            $event->description = str_replace(["\r", "\n"], ' ', $event->description);
         }
         $title = "Events";
 
@@ -105,7 +105,7 @@ class EventController extends Controller
             // shorten description
             $event->description = Str::limit($event->description, 80, '...');
             // remove line breaks
-            $event->description = str_replace(array("\r", "\n"), ' ', $event->description);
+            $event->description = str_replace(["\r", "\n"], ' ', $event->description);
         }
         $title="Archiv";
 

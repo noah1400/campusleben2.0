@@ -25,7 +25,7 @@ class PostController extends Controller
         $imageUrl = request()->file('picture')->store('public/posts');
         $imageUrl = substr($imageUrl, 7);
 
-        Image::configure(array('driver' => 'gd'));
+        Image::configure(['driver' => 'gd']);
 
         Image::make(storage_path('app/public/' . $imageUrl))
             ->heighten(512)
@@ -57,7 +57,7 @@ class PostController extends Controller
             $imageUrl = request()->file('picture')->store('public/posts');
             $imageUrl = substr($imageUrl, 7);
 
-            Image::configure(array('driver' => 'gd'));
+            Image::configure(['driver' => 'gd']);
 
             Image::make(storage_path('app/public/' . $imageUrl))
                 ->heighten(512)

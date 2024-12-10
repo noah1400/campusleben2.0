@@ -166,7 +166,7 @@ class AdminController extends Controller
 
                 $parameters['image_url'] = substr($imageURL, 7);
 
-                Image::configure(array('driver' => 'gd'));
+                Image::configure(['driver' => 'gd']);
 
                 Image::make(storage_path('app/public/' . $parameters['image_url']))
                     ->heighten(1024)
@@ -178,7 +178,7 @@ class AdminController extends Controller
 
                 $parameters['image_url'] = substr($imageURL, 7);
 
-                Image::configure(array('driver' => 'gd'));
+                Image::configure(['driver' => 'gd']);
 
                 Image::make(storage_path('app/public/' . $parameters['image_url']))
                     ->heighten(1536)
@@ -445,7 +445,7 @@ public function deleteEvent($id)
         if ($spons == null) {
             $imageUrl = request()->file('image')->store('public/sponsors');
             $URL = substr($imageUrl, 7);
-            Image::configure(array('driver' => 'gd'));
+            Image::configure(['driver' => 'gd']);
             Image::make(storage_path('app/public/') . $URL)
             ->widen(900)
             ->save(storage_path('app/public/' . $URL));
@@ -455,7 +455,7 @@ public function deleteEvent($id)
             if (request()->has('image') && $sponsor->image != $request->image) {
                 $imageUrl = request()->file('image')->store('public/sponsors');
                 $URL = substr($imageUrl, 7);
-                Image::configure(array('driver' => 'gd'));
+                Image::configure(['driver' => 'gd']);
                 Image::make(storage_path('app/public/') . $URL)
                 ->widen(600)
                 ->save(storage_path('app/public/' . $URL));

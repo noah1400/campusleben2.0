@@ -62,7 +62,7 @@ class LocationController extends Controller
             $image = $request->file('image')->store('public/locations');
             $imageURL = substr($image, 7);
 
-            Image::configure(array('driver' => 'gd'));
+            Image::configure(['driver' => 'gd']);
             Image::make(storage_path('app/public/' . $imageURL))
                     ->heighten(1024)
                     ->save(storage_path('app/public/' . $imageURL));
@@ -146,7 +146,7 @@ class LocationController extends Controller
             $image = $request->file('image')->store('public/locations');
             $imageURL = substr($image, 7);
 
-            Image::configure(array('driver' => 'gd'));
+            Image::configure(['driver' => 'gd']);
             Image::make(storage_path('app/public/' . $imageURL))
                     ->heighten(1024)
                     ->save(storage_path('app/public/' . $imageURL));
