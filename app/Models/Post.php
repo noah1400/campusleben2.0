@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Post extends Model
 {
     use HasFactory;
 
-    public function event()
+    public function event(): BelongsTo
     {
         return $this->belongsTo(Event::class);
     }
@@ -24,12 +24,11 @@ class Post extends Model
             $picture = $post->picture;
             // delete previous associated image.
             if ($picture != null) {
-                $picturePath = storage_path('app/public/' . $picture);
+                $picturePath = storage_path('app/public/'.$picture);
                 if (file_exists($picturePath)) {
                     unlink($picturePath);
                 }
             }
         });
     }
-
 }

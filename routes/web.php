@@ -1,10 +1,8 @@
 <?php
 
+use App\Models\Sponsor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
-use App\Models\Sponsor;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +18,9 @@ use App\Models\Sponsor;
 Route::get('/', function () {
     // get all active Sponsors
     $sponsors = Sponsor::where('active', true)->get();
+
     return view('welcome', compact('sponsors'));
-})->name("welcome");
+})->name('welcome');
 
 Route::get('/l/{slug}', [App\Http\Controllers\LocationController::class, 'show'])->name('location.show');
 Route::post('/l/create', [App\Http\Controllers\LocationController::class, 'store'])->name('location.store')
@@ -38,21 +37,21 @@ Auth::routes(
 );
 
 Route::get('/home', function () {
-    return redirect()->route("welcome");
-})->name("home");
+    return redirect()->route('welcome');
+})->name('home');
 Route::get('/contact', function () {
     return view('contact', ['title' => 'Kontakt']);
-})->name("contact");
+})->name('contact');
 Route::get('/impressum', function () {
     return view('impressum', ['title' => 'Impressum']);
-})->name("impressum");
+})->name('impressum');
 Route::get('/about', function () {
     return view('about', ['title' => 'Über uns']);
-})->name("about");
+})->name('about');
 Route::get('/datenschutz', function () {
     return view('privacy-policy', ['title' => 'Datenschutz']);
-})->name("datenschutz");
-Route::get('/sitemap.xml', [App\Http\Controllers\SitemapXmlController::class, 'index'])->name("sitemap");
+})->name('datenschutz');
+Route::get('/sitemap.xml', [App\Http\Controllers\SitemapXmlController::class, 'index'])->name('sitemap');
 
 Route::get('/events', [App\Http\Controllers\EventController::class, 'index'])
     ->name('events.index');
@@ -66,7 +65,6 @@ Route::get('/events/{id}', [App\Http\Controllers\EventController::class, 'show']
     ->name('events.show');
 Route::get('/api/event/user/count/{event}', [App\Http\Controllers\EventController::class, 'countUsers'])
     ->name('event.user.count');
-
 
 Route::post('/posts/newpost', [App\Http\Controllers\PostController::class, 'newPost'])
     ->name('posts.newpost')
@@ -93,9 +91,6 @@ Route::delete('/admin/api/posts/delete/{post}', [App\Http\Controllers\PostContro
 Route::get('/api/registrations/verify/{token}', [App\Http\Controllers\RegistrationController::class, 'verify'])
     ->name('admin.registrations.verify');
 
-
-
-
 Route::get('/user/data/show', [App\Http\Controllers\UserController::class, 'showdata'])
     ->name('userdata.showdata')
     ->middleware('auth');
@@ -105,7 +100,6 @@ Route::get('/user/data/show', [App\Http\Controllers\UserController::class, 'show
 // Route::post('/user/data/delete', [App\Http\Controllers\UserController::class, 'deletedata'])
 //             ->name('userdata.delete')
 //             ->middleware('auth');
-
 
 Route::get('/api/user/isauthenticated', [App\Http\Controllers\UserController::class, 'isAuthenticated'])
     ->name('api.user.isauthenticated');
@@ -117,15 +111,12 @@ Route::get('/api/event/user/attending/{event}', [App\Http\Controllers\UserContro
     ->name('admin.event.user.attending')
     ->middleware('auth');
 
-
 Route::get('/api/sponsors/event/{event}', [App\Http\Controllers\SponsorController::class, 'getSponsors'])
     ->name('api.sponsor.get');
 Route::get('/api/sponsors', [App\Http\Controllers\SponsorController::class, 'getActiveSponsors'])
     ->name('api.sponsor.getActive');
 Route::get('/api/sponsor/{sponsor}', [App\Http\Controllers\SponsorController::class, 'getSponsor'])
     ->name('api.sponsor.getOne');
-
-
 
 Route::get('/admin', function () {
     return redirect()->route('admin.dashboard');
@@ -178,11 +169,6 @@ Route::get('/admin/api/locations', [App\Http\Controllers\AdminController::class,
 Route::get('/admin/api/locations/{slug}', [App\Http\Controllers\AdminController::class, 'getLocation'])
     ->name('admin.locations.show')
     ->middleware(['auth', 'isAdmin']);
-
-
-
-
-
 
 // Analytics
 // mvbp ( most views by page)

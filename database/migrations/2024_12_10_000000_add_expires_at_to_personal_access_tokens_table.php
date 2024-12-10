@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('event_user', function (Blueprint $table) {
-            $table->foreignId('event_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-            $table->primary(['event_id', 'user_id']);
+        Schema::table('personal_access_tokens', function (Blueprint $table) {
+            $table->timestamp('expires_at')->nullable()->after('last_used_at');
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('event_user');
+        Schema::table('personal_access_tokens', function (Blueprint $table) {
+            $table->dropColumn('expires_at');
+        });
     }
 };

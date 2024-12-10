@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Location;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 use Intervention\Image\ImageManagerStatic as Image;
-use Illuminate\Http\Response;
 
 class LocationController extends Controller
 {
@@ -32,11 +33,8 @@ class LocationController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $request->validate([
             'name' => 'required',
@@ -52,25 +50,24 @@ class LocationController extends Controller
             ], 400);
         }
 
-        if  ($request->page_content) {
+        if ($request->page_content) {
             $page_content = $request->page_content;
-        }else{
-            $page_content = "-";
+        } else {
+            $page_content = '-';
         }
 
-        if(request()->hasFile('image')){
+        if (request()->hasFile('image')) {
             $image = $request->file('image')->store('public/locations');
             $imageURL = substr($image, 7);
 
-            Image::configure(array('driver' => 'gd'));
-            Image::make(storage_path('app/public/' . $imageURL))
-                    ->heighten(1024)
-                    ->save(storage_path('app/public/' . $imageURL));
+            Image::configure(['driver' => 'gd']);
+            Image::make(storage_path('app/public/'.$imageURL))
+                ->heighten(1024)
+                ->save(storage_path('app/public/'.$imageURL));
 
         } else {
             $imageURL = null;
         }
-
 
         $clickable = $request->clickable ? true : false;
 
@@ -88,23 +85,21 @@ class LocationController extends Controller
 
     /**
      * Display the specified resource.
-     *
-     * @param  Str  $slug
-     * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show(Str $slug): View
     {
         $location = Location::where('slug', $slug)->firstOrFail();
-        if($location->clickable){
+        if ($location->clickable) {
             $title = $location->name;
             $metaDescription = $location->page_content;
             if ($location->image) {
-                $metaImage = asset('storage/' . $location->image);
-            }else{
+                $metaImage = asset('storage/'.$location->image);
+            } else {
                 $metaImage = null;
             }
+
             return view('location.show', compact('location', 'title', 'metaDescription', 'metaImage'));
-        }else{
+        } else {
             abort(404);
         }
     }
@@ -112,7 +107,6 @@ class LocationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Location  $location
      * @return \Illuminate\Http\Response
      */
     public function edit(Location $location)
@@ -122,12 +116,8 @@ class LocationController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Str  $slug
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $slug)
+    public function update(Request $request, Str $slug): JsonResponse
     {
 
         $request->validate([
@@ -136,24 +126,24 @@ class LocationController extends Controller
         ]);
         $location = Location::where('slug', $slug)->firstOrFail();
         $location->name = $request->name;
-        if  ($request->page_content) {
+        if ($request->page_content) {
             $location->page_content = $request->page_content;
-        }else{
-            $location->page_content = "-";
+        } else {
+            $location->page_content = '-';
         }
 
-        if(request()->hasFile('image')){
+        if (request()->hasFile('image')) {
             $image = $request->file('image')->store('public/locations');
             $imageURL = substr($image, 7);
 
-            Image::configure(array('driver' => 'gd'));
-            Image::make(storage_path('app/public/' . $imageURL))
-                    ->heighten(1024)
-                    ->save(storage_path('app/public/' . $imageURL));
+            Image::configure(['driver' => 'gd']);
+            Image::make(storage_path('app/public/'.$imageURL))
+                ->heighten(1024)
+                ->save(storage_path('app/public/'.$imageURL));
 
             if ($location->image) {
-                if (file_exists(storage_path('app/public/' . $location->image))) {
-                    unlink(storage_path('app/public/' . $location->image));
+                if (file_exists(storage_path('app/public/'.$location->image))) {
+                    unlink(storage_path('app/public/'.$location->image));
                 }
             }
 
@@ -167,19 +157,18 @@ class LocationController extends Controller
 
         $location->slug = Str::slug($request->name, '-');
         $location->save();
+
         return response()->json($location);
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  Str  $slug
-     * @return \Illuminate\Http\Response
      */
-    public function destroy($slug)
+    public function destroy(Str $slug): JsonResponse
     {
         $location = Location::where('slug', $slug)->firstOrFail();
         $location->delete();
+
         return response()->json($location);
     }
 }

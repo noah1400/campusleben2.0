@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\Registration;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Illuminate\View\View;
 
 class UserController extends Controller
 {
@@ -15,8 +17,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function showdata(){
+    public function showdata(): View
+    {
         $user = auth()->user();
+
         return view('userdata.showdata', compact('user'));
     }
 
@@ -25,37 +29,39 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function deletedataShow(){
+    public function deletedataShow(): View
+    {
         return view('userdata.deletedata');
     }
 
     /**
      * Delete saved data of authenticated user.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function deletedata(Request $request){
+    public function deletedata(Request $request): RedirectResponse
+    {
         $user = auth()->user();
         $user->events()->detach();
-        if($request->has('delete_account')){
+        if ($request->has('delete_account')) {
             auth()->logout();
             $user->delete();
         }
+
         return redirect()->route('events.index');
     }
 
-    public function isAuthenticated(){
+    public function isAuthenticated(): JsonResponse
+    {
         return response()->json(['auth' => auth()->check()]);
     }
 
-    public function isAttending($event) {
+    public function isAttending($event): JsonResponse
+    {
         $ev = Event::findOrFail($event);
-        if($ev->public == false){
-            if(Auth::check() == false){
+        if ($ev->public == false) {
+            if (Auth::check() == false) {
                 abort(404);
-            }else{
-                if(Auth::user()->isAdmin == false){
+            } else {
+                if (Auth::user()->isAdmin == false) {
                     abort(404);
                 }
             }
@@ -64,16 +70,18 @@ class UserController extends Controller
         $attending = $user->events()->where('event_id', $event)->exists();
         $registration = Registration::where('user_id', $user->id)->where('event_id', $event)->first();
         $token = $registration != null ? $registration->token : null;
+
         return response()->json(['attending' => $attending, 'token' => $token]);
     }
 
-    public function attendEvent($id) {
+    public function attendEvent($id)
+    {
         $event = Event::findOrFail($id);
-        if($event->public == false){
-            if(Auth::check() == false){
+        if ($event->public == false) {
+            if (Auth::check() == false) {
                 abort(404);
-            }else{
-                if(Auth::user()->isAdmin == false){
+            } else {
+                if (Auth::user()->isAdmin == false) {
                     abort(404);
                 }
             }
@@ -84,38 +92,39 @@ class UserController extends Controller
 
         // If the event is full, return error message.
         // If the limit is 0, there is no limit.
-        if($count >= $event->limit && $event->limit != 0 && $attending == false){
+        if ($count >= $event->limit && $event->limit != 0 && $attending == false) {
             return response()->json(['error' => 'Event is full'], 422);
         }
         // If pre registration is disabled, return error message.
-        if($event->pre_registration_enabled != true) {
+        if ($event->pre_registration_enabled != true) {
             return response()->json(['error' => 'Pre-registration is not enabled'], 422);
         }
         // If event is closed, return error message.
-        if($event->closed == true) {
+        if ($event->closed == true) {
             return response()->json(['error' => 'Event is closed'], 422);
         }
         $token = null;
 
-        if($attending){
+        if ($attending) {
             $user->events()->detach($id);
 
             $registration = Registration::where('user_id', $user->id)->where('event_id', $id)->first();
-            if ($registration != null){
+            if ($registration != null) {
                 $registration->delete();
             }
         } else {
             $user->events()->attach($id);
 
-            $registration = new Registration();
+            $registration = new Registration;
             $registration->user_id = $user->id;
             $registration->event_id = $id;
             $token = bin2hex(random_bytes(16));
             $registration->token = $token;
             $registration->save();
         }
-        return response()->json(['attending' => !$attending,
-                                    'count' => $count + ($attending ? -1 : 1),
-                                    'token' => $token]);
+
+        return response()->json(['attending' => ! $attending,
+            'count' => $count + ($attending ? -1 : 1),
+            'token' => $token]);
     }
 }

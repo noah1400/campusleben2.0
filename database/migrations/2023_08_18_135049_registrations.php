@@ -8,14 +8,12 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
-    public function up()
+    public function up(): void
     {
-        Schema::create("registrations", function (Blueprint $table) {
+        Schema::create('registrations', function (Blueprint $table) {
             $table->id('id');
-            $table->string("token");
+            $table->string('token');
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('event_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
@@ -24,11 +22,6 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
-    public function down()
-    {
-
-    }
+    public function down(): void {}
 };

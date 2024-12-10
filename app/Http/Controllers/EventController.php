@@ -3,47 +3,49 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use Carbon\Carbon;
+use GrahamCampbell\Markdown\Facades\Markdown;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use \Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use GrahamCampbell\Markdown\Facades\Markdown;
+use Illuminate\View\View;
 
 class EventController extends Controller
 {
-
     /**
      * EventController
      * Controlls everything related to events
      */
-
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(){
+    public function index(): View
+    {
         //get all events that are not expired
         $events = Event::where('end_date', '>=', Carbon::now())
-        ->where('public', true)
-        ->orderBy('start_date', 'asc')
-        ->get();
+            ->where('public', true)
+            ->orderBy('start_date', 'asc')
+            ->get();
 
-        foreach($events as $event){
+        foreach ($events as $event) {
             // format date of each event
             $event->start_date = Carbon::parse($event->start_date)
-            ->locale('de')
-            ->isoFormat('dd. DD.MM.YYYY H:mm');
+                ->locale('de')
+                ->isoFormat('dd. DD.MM.YYYY H:mm');
             $event->end_date = Carbon::parse($event->end_date)
-            ->locale('de')
-            ->isoFormat('dd. DD.MM.YYYY H:mm');
+                ->locale('de')
+                ->isoFormat('dd. DD.MM.YYYY H:mm');
             // shorten description
             $event->description = Str::limit($event->description, 80, '...');
             // remove line breaks
-            $event->description = str_replace(array("\r", "\n"), ' ', $event->description);
+            $event->description = str_replace(["\r", "\n"], ' ', $event->description);
         }
-        $title = "Events";
+        $title = 'Events';
 
         // $quotes = [
         //     'Die Zukunft gehört den Machern – nicht den Zauderern.',
@@ -83,31 +85,32 @@ class EventController extends Controller
 
         // $quote = $quotes[array_rand($quotes)];
 
-        return view('events.index', compact('events','title'));
+        return view('events.index', compact('events', 'title'));
     }
 
-    public function archive(){
+    public function archive(): View
+    {
         //get all events that are expired
         //get all events that are not expired
         $events = Event::where('end_date', '<', Carbon::now())
-        ->where('public', true)
-        ->orderBy('start_date', 'desc')
-        ->get();
+            ->where('public', true)
+            ->orderBy('start_date', 'desc')
+            ->get();
 
-        foreach($events as $event){
+        foreach ($events as $event) {
             // format date of each event
             $event->start_date = Carbon::parse($event->start_date)
-            ->locale('de')
-            ->isoFormat('dd. DD.MM.YYYY H:mm');
+                ->locale('de')
+                ->isoFormat('dd. DD.MM.YYYY H:mm');
             $event->end_date = Carbon::parse($event->end_date)
-            ->locale('de')
-            ->isoFormat('dd. DD.MM.YYYY H:mm');
+                ->locale('de')
+                ->isoFormat('dd. DD.MM.YYYY H:mm');
             // shorten description
             $event->description = Str::limit($event->description, 80, '...');
             // remove line breaks
-            $event->description = str_replace(array("\r", "\n"), ' ', $event->description);
+            $event->description = str_replace(["\r", "\n"], ' ', $event->description);
         }
-        $title="Archiv";
+        $title = 'Archiv';
 
         // $quotes = [
         //     'Auch wenn du zurückschaust, schaust du nach vorne.',
@@ -132,51 +135,50 @@ class EventController extends Controller
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function myevents(){
+    public function myevents(): View
+    {
         $events = auth()->user()->events;
+
         return view('events.myevents', compact('events'));
     }
 
-
-
-
-
-    public function attend(Request $request, $id)
+    public function attend(Request $request, $id): RedirectResponse
     {
         $user = auth()->user();
-        if ($user->events->contains($id)){
+        if ($user->events->contains($id)) {
             return redirect()->route('events.myevents');
         }
         $event = Event::findOrFail($id);
         $user->events()->attach($event);
+
         return redirect()->route('events.myevents');
     }
 
     /**
      * Shows the event with the given id.
      *
-     * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id){
+    public function show(int $id)
+    {
         $event = Event::findOrFail($id);
-        if ($event->public == false){
+        if ($event->public == false) {
             // return 404
-            if ( Auth::check() == false){
+            if (Auth::check() == false) {
                 abort(404);
-            }else{
-                if (Auth::user()->isAdmin == false){
+            } else {
+                if (Auth::user()->isAdmin == false) {
                     abort(404);
                 }
             }
         }
         //Convert date to format d.m.Y H:i
         $event->start_date = Carbon::parse($event->start_date)
-        ->locale('de')
-        ->isoFormat('dd. DD.MM.YYYY H:mm');
+            ->locale('de')
+            ->isoFormat('dd. DD.MM.YYYY H:mm');
         $event->end_date = Carbon::parse($event->end_date)
-        ->locale('de')
-        ->isoFormat('dd. DD.MM.YYYY H:mm');
+            ->locale('de')
+            ->isoFormat('dd. DD.MM.YYYY H:mm');
 
         // add sponsors to event
         $sponsors = $event->sponsors;
@@ -189,26 +191,24 @@ class EventController extends Controller
         $event->description = Markdown::convert($event->description)->getContent();
         $title = $event->name;
 
-
-
         return view('events.show', compact('event', 'title', 'metaDescription', 'metaImage'));
     }
 
-
-
-    public function countUsers($id){
+    public function countUsers($id): JsonResponse
+    {
 
         $event = Event::findOrFail($id);
-        if($event->public == false){
-            if(Auth::check() == false){
+        if ($event->public == false) {
+            if (Auth::check() == false) {
                 abort(404);
-            }else{
-                if(Auth::user()->isAdmin == false){
+            } else {
+                if (Auth::user()->isAdmin == false) {
                     abort(404);
                 }
             }
         }
         $users = $event->users;
+
         return response()->json(['count' => $users->count()]);
     }
 }
