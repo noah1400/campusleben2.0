@@ -15,7 +15,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
-use Intervention\Image\ImageManagerStatic as Image;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Gd\Driver;
 use PDF;
 
 class AdminController extends Controller
@@ -163,11 +164,9 @@ class AdminController extends Controller
                 $imageURL = request()->file('preview_image')->store('public/events');
 
                 $parameters['image_url'] = substr($imageURL, 7);
-
-                Image::configure(['driver' => 'gd']);
-
-                Image::make(storage_path('app/public/'.$parameters['image_url']))
-                    ->heighten(1024)
+                $manager = new ImageManager(new Driver());
+                $manager->read(storage_path('app/public/'.$parameters['image_url']))
+                    ->scale(height: 1024)
                     ->save(storage_path('app/public/'.$parameters['image_url']));
 
                 $event->preview_image = $parameters['image_url'];
@@ -175,11 +174,9 @@ class AdminController extends Controller
                 $imageURL = request()->file('preview_image')->store('public/events');
 
                 $parameters['image_url'] = substr($imageURL, 7);
-
-                Image::configure(['driver' => 'gd']);
-
-                Image::make(storage_path('app/public/'.$parameters['image_url']))
-                    ->heighten(1536)
+                $manager = new ImageManager(new Driver());
+                $manager->read(storage_path('app/public/'.$parameters['image_url']))
+                    ->scale(height: 1536)
                     ->save(storage_path('app/public/'.$parameters['image_url']));
 
                 $previousImage = $event->preview_image;
@@ -449,9 +446,10 @@ class AdminController extends Controller
         if ($spons == null) {
             $imageUrl = request()->file('image')->store('public/sponsors');
             $URL = substr($imageUrl, 7);
-            Image::configure(['driver' => 'gd']);
-            Image::make(storage_path('app/public/').$URL)
-                ->widen(900)
+            
+            $manager = new ImageManager(new Driver());
+            $manager->read(storage_path('app/public/'.$URL))
+                ->scale(width: 900)
                 ->save(storage_path('app/public/'.$URL));
 
             $sponsor->image = $URL;
@@ -459,9 +457,10 @@ class AdminController extends Controller
             if (request()->has('image') && $sponsor->image != $request->image) {
                 $imageUrl = request()->file('image')->store('public/sponsors');
                 $URL = substr($imageUrl, 7);
-                Image::configure(['driver' => 'gd']);
-                Image::make(storage_path('app/public/').$URL)
-                    ->widen(600)
+                
+                $manager = new ImageManager(new Driver());
+                $manager->read(storage_path('app/public/'.$URL))
+                    ->scale(width: 600)
                     ->save(storage_path('app/public/'.$URL));
 
                 if (file_exists(storage_path('app/public/').$sponsor->image)) {

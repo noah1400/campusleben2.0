@@ -9,9 +9,11 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "ext-bcmath": "*",
         "akki-io/laravel-google-analytics": "^1.5",
         "doctrine/dbal": "^3.5",
         "graham-campbell/markdown": "^15.2",
+        "intervention/image": "^3.9",
         "laravel/framework": "^11.34",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
@@ -19,8 +21,7 @@
         "league/commonmark": "^2.3",
         "n0sz/commonmark-marker-extension": "^1.0",
         "spatie/laravel-sitemap": "^7.2",
-        "statikbe/laravel-cookie-consent": "^1.7",
-        "ext-bcmath": "*"
+        "statikbe/laravel-cookie-consent": "^1.7"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
