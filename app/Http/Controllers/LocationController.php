@@ -7,8 +7,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
-use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class LocationController extends Controller
 {
@@ -61,7 +61,7 @@ class LocationController extends Controller
             $image = $request->file('image')->store('public/locations');
             $imageURL = substr($image, 7);
 
-            $manager = new ImageManager(new Driver());
+            $manager = new ImageManager(new Driver);
             $manager->read(storage_path('app/public/'.$imageURL))
                 ->scale(height: 1024)
                 ->save(storage_path('app/public/'.$imageURL));
@@ -136,7 +136,7 @@ class LocationController extends Controller
         if (request()->hasFile('image')) {
             $image = $request->file('image')->store('public/locations');
             $imageURL = substr($image, 7);
-            $manager = new ImageManager(new Driver());
+            $manager = new ImageManager(new Driver);
             $manager->read(storage_path('app/public/'.$imageURL))
                 ->scale(height: 1024)
                 ->save(storage_path('app/public/'.$imageURL));

@@ -7,8 +7,8 @@ use App\Models\Post;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 
 class PostController extends Controller
 {
@@ -26,7 +26,7 @@ class PostController extends Controller
         $imageUrl = request()->file('picture')->store('public/posts');
         $imageUrl = substr($imageUrl, 7);
 
-        $manager = new ImageManager(new Driver());
+        $manager = new ImageManager(new Driver);
         $manager->read(storage_path('app/public/'.$imageUrl))
             ->scale(height: 512)
             ->save(storage_path('app/public/'.$imageUrl));
@@ -57,7 +57,7 @@ class PostController extends Controller
             $imageUrl = request()->file('picture')->store('public/posts');
             $imageUrl = substr($imageUrl, 7);
 
-            $manager = new ImageManager(new Driver());
+            $manager = new ImageManager(new Driver);
             $manager->read(storage_path('app/public/'.$imageUrl))
                 ->scale(height: 512)
                 ->save(storage_path('app/public/'.$imageUrl));

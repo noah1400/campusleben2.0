@@ -15,8 +15,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
-use Intervention\Image\ImageManager;
 use Intervention\Image\Drivers\Gd\Driver;
+use Intervention\Image\ImageManager;
 use PDF;
 
 class AdminController extends Controller
@@ -164,7 +164,7 @@ class AdminController extends Controller
                 $imageURL = request()->file('preview_image')->store('public/events');
 
                 $parameters['image_url'] = substr($imageURL, 7);
-                $manager = new ImageManager(new Driver());
+                $manager = new ImageManager(new Driver);
                 $manager->read(storage_path('app/public/'.$parameters['image_url']))
                     ->scale(height: 1024)
                     ->save(storage_path('app/public/'.$parameters['image_url']));
@@ -174,7 +174,7 @@ class AdminController extends Controller
                 $imageURL = request()->file('preview_image')->store('public/events');
 
                 $parameters['image_url'] = substr($imageURL, 7);
-                $manager = new ImageManager(new Driver());
+                $manager = new ImageManager(new Driver);
                 $manager->read(storage_path('app/public/'.$parameters['image_url']))
                     ->scale(height: 1536)
                     ->save(storage_path('app/public/'.$parameters['image_url']));
@@ -446,8 +446,8 @@ class AdminController extends Controller
         if ($spons == null) {
             $imageUrl = request()->file('image')->store('public/sponsors');
             $URL = substr($imageUrl, 7);
-            
-            $manager = new ImageManager(new Driver());
+
+            $manager = new ImageManager(new Driver);
             $manager->read(storage_path('app/public/'.$URL))
                 ->scale(width: 900)
                 ->save(storage_path('app/public/'.$URL));
@@ -457,8 +457,8 @@ class AdminController extends Controller
             if (request()->has('image') && $sponsor->image != $request->image) {
                 $imageUrl = request()->file('image')->store('public/sponsors');
                 $URL = substr($imageUrl, 7);
-                
-                $manager = new ImageManager(new Driver());
+
+                $manager = new ImageManager(new Driver);
                 $manager->read(storage_path('app/public/'.$URL))
                     ->scale(width: 600)
                     ->save(storage_path('app/public/'.$URL));
