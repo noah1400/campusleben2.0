@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\AnalyticsController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\Admin\LocationController as AdminLocationController;
+use App\Http\Controllers\Admin\SponsorController as AdminSponsorController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Models\Sponsor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -118,77 +124,62 @@ Route::get('/api/sponsors', [App\Http\Controllers\SponsorController::class, 'get
 Route::get('/api/sponsor/{sponsor}', [App\Http\Controllers\SponsorController::class, 'getSponsor'])
     ->name('api.sponsor.getOne');
 
-Route::get('/admin', function () {
-    return redirect()->route('admin.dashboard');
-})->middleware(['auth', 'isAdmin']);
-Route::get('/admin/dashboard', [App\Http\Controllers\AdminController::class, 'dashboard'])
-    ->name('admin.dashboard')
-    ->middleware(['auth', 'isAdmin']);
-Route::get('/admin/api/users', [App\Http\Controllers\AdminController::class, 'showUsers'])
-    ->name('admin.users')
-    ->middleware(['auth', 'isAdmin']);
-Route::get('/admin/users/{user}', [App\Http\Controllers\AdminController::class, 'showUser'])
-    ->name('admin.users.show')
-    ->middleware(['auth', 'isAdmin']);
-Route::get('/admin/users/toPdf', [App\Http\Controllers\AdminController::class, 'createPdf'])
-    ->name('admin.users.toPdf')
-    ->middleware(['auth', 'isAdmin']);
-Route::get('/admin/api/events', [App\Http\Controllers\AdminController::class, 'showEvents'])
-    ->name('admin.events')
-    ->middleware(['auth', 'isAdmin']);
-Route::get('/admin/api/events/{user}', [App\Http\Controllers\AdminController::class, 'showUserEvents'])
-    ->name('admin.user.events.show')
-    ->middleware(['auth', 'isAdmin']);
-Route::get('/admin/api/event/{event}', [App\Http\Controllers\AdminController::class, 'getEvent'])
-    ->name('admin.events.show')
-    ->middleware(['auth', 'isAdmin']);
-Route::get('/admin/events/create', [App\Http\Controllers\AdminController::class, 'createEvent'])
-    ->name('admin.events.create')
-    ->middleware(['auth', 'isAdmin']);
-Route::post('/admin/api/events/create', [App\Http\Controllers\AdminController::class, 'storeEvent'])
-    ->name('admin.events.store')
-    ->middleware(['auth', 'isAdmin']);
-Route::post('/admin/events/update/{id}', [App\Http\Controllers\AdminController::class, 'updateEvent'])
-    ->name('admin.events.update')
-    ->middleware(['auth', 'isAdmin']);
-Route::delete('/admin/events/delete/{id}', [App\Http\Controllers\AdminController::class, 'deleteEvent'])
-    ->name('admin.events.delete')
-    ->middleware(['auth', 'isAdmin']);
-Route::post('/admin/events/close/{id}', [App\Http\Controllers\AdminController::class, 'closeEvent'])
-    ->name('admin.events.close')
-    ->middleware(['auth', 'isAdmin']);
-Route::post('/admin/events/open/{id}', [App\Http\Controllers\AdminController::class, 'openEvent'])
-    ->name('admin.events.open')
-    ->middleware(['auth', 'isAdmin']);
-Route::get('/admin/api/timeline', [App\Http\Controllers\AdminController::class, 'getTimeline'])
-    ->name('admin.timeline')
-    ->middleware(['auth', 'isAdmin']);
-Route::get('/admin/api/locations', [App\Http\Controllers\AdminController::class, 'getLocations'])
-    ->name('admin.locations')
-    ->middleware(['auth', 'isAdmin']);
-Route::get('/admin/api/locations/{slug}', [App\Http\Controllers\AdminController::class, 'getLocation'])
-    ->name('admin.locations.show')
-    ->middleware(['auth', 'isAdmin']);
+Route::middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('/admin', function () {
+        return redirect()->route('admin.dashboard');
+    });
 
-// Analytics
-// mvbp ( most views by page)
-Route::get('/admin/api/analytics/mvbp', [App\Http\Controllers\AdminController::class, 'ga4_mostViewsByPage'])
-    ->name('admin.analytics.mvbp')
-    ->middleware(['auth', 'isAdmin']);
-// lwtw (last week this week)
-Route::get('/admin/api/analytics/lwtw', [App\Http\Controllers\AdminController::class, 'ga4_lastWeekThisWeek'])
-    ->name('admin.analytics.lwtw')
-    ->middleware(['auth', 'isAdmin']);
+    // Dashboard routes
+    Route::get('/admin/dashboard', [DashboardController::class, 'dashboard'])
+        ->name('admin.dashboard');
 
-Route::get('/admin/api/sponsors', [App\Http\Controllers\AdminController::class, 'getAllSponsors'])
-    ->name('admin.sponsors')
-    ->middleware(['auth', 'isAdmin']);
-Route::post('/admin/api/sponsors/create', [App\Http\Controllers\AdminController::class, 'createSponsor'])
-    ->name('admin.sponsors.create')
-    ->middleware(['auth', 'isAdmin']);
-Route::post('/admin/api/sponsors/update/{id}', [App\Http\Controllers\AdminController::class, 'editSponsor'])
-    ->name('admin.sponsors.update')
-    ->middleware(['auth', 'isAdmin']);
-Route::delete('/admin/api/sponsors/delete/{id}', [App\Http\Controllers\AdminController::class, 'deleteSponsor'])
-    ->name('admin.sponsors.delete')
-    ->middleware(['auth', 'isAdmin']);
+    // User routes
+    Route::get('/admin/api/users', [AdminUserController::class, 'showUsers'])
+        ->name('admin.users');
+    Route::get('/admin/users/{user}', [AdminUserController::class, 'showUser'])
+        ->name('admin.users.show');
+    Route::get('/admin/users/toPdf', [AdminUserController::class, 'createPdf'])
+        ->name('admin.users.toPdf');
+    Route::get('/admin/api/events/{user}', [AdminUserController::class, 'showUserEvents'])
+        ->name('admin.user.events.show');
+
+    // Event routes
+    Route::get('/admin/api/events', [AdminEventController::class, 'showEvents'])
+        ->name('admin.events');
+    Route::get('/admin/api/event/{event}', [AdminEventController::class, 'getEvent'])
+        ->name('admin.events.show');
+    Route::post('/admin/api/events/create', [AdminEventController::class, 'storeEvent'])
+        ->name('admin.events.store');
+    Route::post('/admin/events/update/{id}', [AdminEventController::class, 'updateEvent'])
+        ->name('admin.events.update');
+    Route::delete('/admin/events/delete/{id}', [AdminEventController::class, 'deleteEvent'])
+        ->name('admin.events.delete');
+    Route::post('/admin/events/close/{id}', [AdminEventController::class, 'closeEvent'])
+        ->name('admin.events.close');
+    Route::post('/admin/events/open/{id}', [AdminEventController::class, 'openEvent'])
+        ->name('admin.events.open');
+
+    // Sponsor routes
+    Route::get('/admin/api/sponsors', [AdminSponsorController::class, 'getAllSponsors'])
+        ->name('admin.sponsors');
+    Route::post('/admin/api/sponsors/create', [AdminSponsorController::class, 'createSponsor'])
+        ->name('admin.sponsors.create');
+    Route::post('/admin/api/sponsors/update/{id}', [AdminSponsorController::class, 'editSponsor'])
+        ->name('admin.sponsors.update');
+    Route::delete('/admin/api/sponsors/delete/{id}', [AdminSponsorController::class, 'deleteSponsor'])
+        ->name('admin.sponsors.delete');
+
+    // Location routes
+    Route::get('/admin/api/locations', [AdminLocationController::class, 'getLocations'])
+        ->name('admin.locations');
+    Route::get('/admin/api/locations/{slug}', [AdminLocationController::class, 'getLocation'])
+        ->name('admin.locations.show');
+
+    // Analytics routes
+    Route::get('/admin/api/timeline', [AnalyticsController::class, 'getTimeline'])
+        ->name('admin.timeline');
+    Route::get('/admin/api/analytics/mvbp', [AnalyticsController::class, 'ga4_mostViewsByPage'])
+        ->name('admin.analytics.mvbp');
+    Route::get('/admin/api/analytics/lwtw', [AnalyticsController::class, 'ga4_lastWeekThisWeek'])
+        ->name('admin.analytics.lwtw');
+});
