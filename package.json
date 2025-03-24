@@ -31,7 +31,7 @@
         "@vuepic/vue-datepicker": "^3.4.7",
         "alpinejs": "^3.10.3",
         "heroicons": "^1.0.6",
-        "html2pdf.js": "^0.10.1",
+        "html2pdf.js": "^0.10.3",
         "jquery": "^3.6.0",
         "laravel-vue-pagination": "^3.0.0",
         "qrcode": "^1.5.3"
