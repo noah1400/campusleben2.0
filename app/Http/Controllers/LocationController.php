@@ -87,7 +87,7 @@ class LocationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Str $slug): View
+    public function show(string $slug): View
     {
         $location = Location::where('slug', $slug)->firstOrFail();
         if ($location->clickable) {
