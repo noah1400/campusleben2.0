@@ -7,10 +7,11 @@
                 <h1 class="h1">Datenschutzerklärung</h1>
                 <p class="mt-0 mb-4">Verantwortlicher im Sinne der Datenschutzgesetze, insbesondere der EU-Datenschutzgrundverordnung (DSGVO),
                     ist:</p>
-                <p class="mt-0 mb-4"> 
-                        Raluca Vedislav (1. Vorsitzende)<br>
-                        Luna Baumgärtner (2. Vorsitzende)<br>
-                        Maximilian Frenken (Kassenwart)<br>
+                <p class="mt-0 mb-4">
+                        1. Vorsitzender: Jan Michael Ehrler<br>
+                        2. Vorsitzender: Sven Wurster<br>
+                        3. Vorsitzende: Luna Baumgärtner<br>
+                        Kassenwart: Maximilian Frenken<br>
                 </p>
                 <h2 class="h2">Ihre Betroffenenrechte</h2>
                 <p class="mt-0 mb-4">Unter den angegebenen Kontaktdaten unseres Datenschutzbeauftragten können Sie jederzeit folgende Rechte

@@ -8,9 +8,10 @@
                     <h1 class="h1">Impressum</h1>
                     <p>Angaben gemäß § 5 TMG</p>
                     <p> <strong>Vertreten durch: </strong><br>
-                        Raluca Vedislav (1. Vorsitzende)<br>
-                        Luna Baumgärtner (2. Vorsitzende)<br>
-                        Maximilian Frenken (Kassenwart)<br>
+                        1. Vorsitzender: Jan Michael Ehrler<br>
+                        2. Vorsitzender: Sven Wurster<br>
+                        3. Vorsitzende: Luna Baumgärtner<br>
+                        Kassenwart: Maximilian Frenken<br>
                     </p>
                     <p>
                         <strong>Satzung: </strong><br>

@@ -10,9 +10,10 @@
                 </h1>
                 <p class="text-xl text-gray-500 leading-8">
                     <strong>Vertreten durch: </strong><br>
-                    Raluca Vedislav (1. Vorsitzende)<br>
-                    Luna Baumgärtner (2. Vorsitzende)<br>
-                    Maximilian Frenken (Kassenwart)<br>
+                    1. Vorsitzender: Jan Michael Ehrler<br>
+                    2. Vorsitzender: Sven Wurster<br>
+                    3. Vorsitzende: Luna Baumgärtner<br>
+                    Kassenwart: Maximilian Frenken<br>
                 </p>
                 <p class="text-xl text-gray-500 leading-8">
                     <strong>Kontakt:</strong> <br>
